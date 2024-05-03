@@ -4,6 +4,9 @@ import User from '../models/userModel';
 
 const userController = {
   async getUsers(req: Request, res: Response) {
+    /* 
+      #swagger.tags = ['Users']
+    */
     const users = await User.find();
     handleSuccess(res, users);
   }

@@ -7,6 +7,6 @@ router.get('/', function (req, res) {
   res.send('home page');
 });
 
-router.get('/users', userController.getUsers);
+router.get('/api/users', userController.getUsers);
 
 export default router;

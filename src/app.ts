@@ -2,6 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import indexRouter from './routes/index';
 import './connections';
+import swaggerUi from 'swagger-ui-express';
+import swaggerFile from '../swagger_output.json'; // 剛剛輸出的 JSON
 
 const app = express();
 
@@ -18,11 +20,6 @@ process.on('uncaughtException', (err) => {
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
-app.use(function (req, res, next) {
-  next(new Error('測試錯誤'));
-});
-
 app.use('/', indexRouter);
 
 // express 錯誤處理
@@ -75,5 +72,7 @@ process.on('unhandledRejection', (err, promise) => {
   console.error('未捕捉到的 rejection：', promise, '原因：', err);
   // 記錄於 log 上
 });
+
+app.use('/api-doc', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 export default app;
