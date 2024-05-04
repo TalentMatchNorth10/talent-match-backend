@@ -1,45 +1,37 @@
 import mongoose, { Schema } from 'mongoose';
+import { User } from './types/user.interface';
 
-const userSchema = new Schema({
-  google_id: { type: String },
-  name: { type: String, required: [true, '姓名是必填項目'] },
+const cartItemSchema = new Schema({
+  course_id: Schema.Types.ObjectId,
+  purchase_item_id: Schema.Types.ObjectId
+});
+
+const coursePurchaseSchema = new Schema({
+  course_id: Schema.Types.ObjectId,
+  quantity_total: { type: Number, default: 0 }
+});
+
+const userSchema = new Schema<User>({
+  google_id: { type: String, default: '' },
+  name: { type: String, default: '' },
   nick_name: { type: String, required: [true, '暱稱是必填項目'] },
-  password: { type: String, required: [true, '密碼是必填項目'] },
-  birthday: { type: String, required: [false, '生日是非必填項目'] },
-  contact_phone: { type: String, required: [false, '聯絡電話是非必填項目'] },
+  password: { type: String, select: false },
+  birthday: { type: Date, default: null },
+  contact_phone: { type: String, default: '' },
   email: { type: String, required: [true, '電子郵件是必填項目'] },
-  avator_image: { type: String, required: [false, '頭像圖片是非必填項目'] },
+  avator_image: { type: String, default: '' },
   avator_google_url: {
     type: String,
-    required: [false, 'Google頭像網址是非必填項目']
+    default: ''
   },
-  is_teacher: { type: Boolean, required: [false, '是否為教師是必填項目'] },
+  is_teacher: { type: Boolean, default: false },
   teacher_id: {
     type: Schema.Types.ObjectId,
     default: null
   },
-  carts: [
-    {
-      course_id: {
-        type: Schema.Types.ObjectId,
-        required: [true, '課程ID是必填項目']
-      },
-      purchase_item_id: {
-        type: Schema.Types.ObjectId,
-        required: [true, '購買項目ID是必填項目']
-      }
-    }
-  ],
-  course_purchases: [
-    {
-      course_id: {
-        type: Schema.Types.ObjectId,
-        required: [true, '課程ID是必填項目']
-      },
-      quantity_total: { type: Number, required: [true, '總數量是必填項目'] }
-    }
-  ],
-  preference: [{ type: Number }]
+  carts: { type: [cartItemSchema], default: [] },
+  course_purchases: { type: [coursePurchaseSchema], default: [] },
+  preference: { type: [Number], default: [] }
 });
 
 const User = mongoose.model('User', userSchema);

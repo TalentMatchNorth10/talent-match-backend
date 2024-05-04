@@ -1,15 +1,19 @@
 import handleSuccess from '../services/handleSuccess';
-import { Request, Response } from 'express';
-import User from '../models/userModel';
+import { NextFunction, Request, Response } from 'express';
+import handleErrorAsync from '../services/handleErrorAsync';
 
 const userController = {
-  async getUsers(req: Request, res: Response) {
-    /* 
-      #swagger.tags = ['Users']
-    */
-    const users = await User.find();
-    handleSuccess(res, users);
-  }
+  userInfo: handleErrorAsync(
+    async (req: Request, res: Response, next: NextFunction) => {
+      const user = (req as any).user;
+      if (user) {
+        handleSuccess(res, {
+          nick_name: user.nick_name,
+          avator_image: user.avator_image
+        });
+      }
+    }
+  )
 };
 
 export default userController;

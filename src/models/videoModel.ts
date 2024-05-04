@@ -2,7 +2,7 @@ import mongoose, { Schema } from 'mongoose';
 
 const videoSchema = new Schema(
   {
-    _id: { type: String, required: true }, // 上傳使用者ID
+    _id: { type: Schema.Types.ObjectId, required: true }, // 上傳使用者ID
     name: { type: String, required: true }, // 影片標題
     category: { type: String, required: true }, // 影片類型
     intro: { type: String, required: true }, // 文字說明

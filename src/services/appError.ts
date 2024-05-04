@@ -3,7 +3,7 @@ import { AppError } from './types/error.interface';
 
 const appError = (
   httpStatus: number,
-  errMessage: 'string',
+  errMessage: string,
   next: NextFunction
 ) => {
   const error = new Error(errMessage) as AppError;
