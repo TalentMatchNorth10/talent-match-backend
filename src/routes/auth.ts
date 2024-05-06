@@ -7,22 +7,23 @@ router.post(
   /**
      * #swagger.tags = ['Auth']
      * #swagger.summary = '使用者登入'
-     * #swagger.parameters['body'] = {
-        in: 'body',
-        required: true,
-        schema: {
-            email: "string",
-            password: "string"
+     * #swagger.requestBody = {
+            required: true,
+            content: {
+                "application/json": {
+                    example: {
+                        email: "string",
+                        password: "string"
+                    }
+                }
+            }
         }
-      }
       * #swagger.responses[200] = { 
           schema: {
               status: true,
               data: {
                   "access_token": "string",
                   "refresh_token": "string",
-                  "nick_name": "string",
-                  "role": "string"
               }
           }
       }
@@ -50,16 +51,19 @@ router.post(
   /**
      * #swagger.tags = ['Auth']
      * #swagger.summary = '使用者註冊'
-     * #swagger.parameters['body'] = {
-        in: 'body',
-        required: true,
-        schema: {
-            nick_name: "string",
-            email: "string",
-            password: "string",
-            confirm_password: "string"
+     * #swagger.requestBody = {
+            required: true,
+            content: {
+                "application/json": {
+                    example: {
+                        nick_name: "string",
+                        email: "string",
+                        password: "string",
+                        confirm_password: "string"
+                    } 
+                }
+            }
         }
-      }
       * #swagger.responses[200] = { 
           schema: {
               status: true,
@@ -92,13 +96,16 @@ router.post(
   /**
      * #swagger.tags = ['Auth']
      * #swagger.summary = '取得新的 Access Token'
-     * #swagger.parameters['body'] = {
-        in: 'body',
-        required: true,
-        schema: {
-            refresh_token: "string"
+     * #swagger.requestBody = {
+            required: true,
+            content: {
+                "application/json": {
+                    example: {
+                        refresh_token: "string"
+                    } 
+                }
+            }
         }
-      }
       * #swagger.responses[200] = { 
           schema: {
               status: true,

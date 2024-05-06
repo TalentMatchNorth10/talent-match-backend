@@ -7,17 +7,17 @@ router.get(
   /**
    * #swagger.tags = ['User']
    * #swagger.summary = '取得使用者資訊'
-   * #swagger.security = [{BearerAuth: []}]
+   * #swagger.security = [{"bearerAuth": []}]
    * #swagger.responses[200] = { 
        schema: {
            status: true,
            data: {
                "nick_name":"string",
                "avator_image":"string",
-              "cart":[{
+               "cart":[{
                   "course_id":"string",
                   "purchase_item_id":"string"
-              }]
+               }]
            }
        }
    }

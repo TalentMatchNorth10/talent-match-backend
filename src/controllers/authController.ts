@@ -12,7 +12,7 @@ const authController = {
     async (req: Request, res: Response, next: NextFunction) => {
       const { email, password } = req.body;
 
-      if (validator.isEmpty(email) || validator.isEmpty(password)) {
+      if (!password || !email) {
         appError(400, '請填寫所有欄位', next);
       }
 

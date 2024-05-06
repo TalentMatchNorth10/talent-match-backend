@@ -4,8 +4,10 @@ import { NextFunction, Request, Response } from 'express';
 import appError from './appError';
 import UserModel from '../models/userModel';
 
+const auth = 'authorization';
+
 async function isAuth(req: Request, res: Response, next: NextFunction) {
-  const authHeader = req.headers['authorization'];
+  const authHeader = req.headers[auth];
   // 取得token
   const accessToken = authHeader && authHeader.split(' ')[1];
 
