@@ -1,13 +1,13 @@
-import mongoose, { Schema, Document, Types } from 'mongoose';
-import { IOrder } from './types/order.interfaces';
+import mongoose, { Schema } from 'mongoose';
+import { Order } from './types/order.interface';
 
 const purchaseItemSchema = new Schema({
-  _id: mongoose.Types.ObjectId,
+  _id: Schema.Types.ObjectId,
   quantity: { type: Number, required: [true, '購買堂数量為必填項'] },
   price: { type: Number, required: [true, '價格為必填項'] }
 });
 
-const orderSchema = new Schema<IOrder>(
+const orderSchema = new Schema<Order>(
   {
     create_date: { type: Date, required: [true, '訂單創建日期為必填項'] },
     purchase_items: {
@@ -77,6 +77,6 @@ const orderSchema = new Schema<IOrder>(
   }
 );
 
-const Order = mongoose.model<IOrder>('Order', orderSchema);
+const Order = mongoose.model<Order>('Order', orderSchema);
 
 export default Order;

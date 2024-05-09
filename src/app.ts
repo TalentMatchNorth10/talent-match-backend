@@ -1,9 +1,12 @@
-import express from 'express';
+import express, { Response } from 'express';
 import cors from 'cors';
-import indexRouter from './routes/index';
 import './connections';
 import swaggerUi from 'swagger-ui-express';
 import swaggerFile from '../swagger_output.json'; // 剛剛輸出的 JSON
+import { AppError } from './services/types/error.interface';
+// 路由配置引入
+import userRouter from './routes/user';
+import authRouter from './routes/auth';
 
 const app = express();
 
@@ -20,22 +23,38 @@ process.on('uncaughtException', (err) => {
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use('/', indexRouter);
+
+app.get('/api-doc/swagger.json', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  res.send(swaggerFile);
+});
+app.use('/api-doc', swaggerUi.serve, swaggerUi.setup(swaggerFile));
+
+app.use('/api/user', userRouter);
+app.use('/api/auth', authRouter);
 
 // express 錯誤處理
-// 自己設定的 err 錯誤
-const resErrorProd = (err: any, res: any) => {
+// 生產環境錯誤
+const resErrorProd = (err: AppError, res: Response) => {
+  err.statusCode = err.statusCode || 500;
+  err.message = err.message || '發生未知錯誤，請稍後再試！';
+
   if (err.isOperational) {
     res.status(err.statusCode).json({
-      message: err.message
+      status: false,
+      data: {
+        message: err.message
+      }
     });
   } else {
-    // log 紀錄
+    // 進行錯誤日誌記錄
     console.error('出現重大錯誤', err);
-    // 送出罐頭預設訊息
-    res.status(500).json({
-      status: 'error',
-      message: '系統錯誤，請恰系統管理員'
+    // 送出一致格式的錯誤訊息
+    res.status(err.statusCode).json({
+      status: false,
+      data: {
+        message: err.message
+      }
     });
   }
 };
@@ -50,20 +69,22 @@ const resErrorDev = (err: any, res: any) => {
 
 // 錯誤處理
 app.use(function (err: any, req: any, res: any, next: any) {
-  // dev
+  // 先設定錯誤的狀態碼
   err.statusCode = err.statusCode || 500;
+
+  // 打印錯誤詳情於開發環境
   if (process.env.NODE_ENV === 'dev') {
-    console.log('###錯誤：', err);
+    console.error('### 錯誤詳情：', err);
     return resErrorDev(err, res);
   }
-  // production
-  if (process.env.NODE_ENV === 'prod') {
+
+  // 處理特定錯誤於生產環境
+  if (process.env.NODE_ENV === 'production') {
     if (err.name === 'ValidationError') {
       err.message = '資料欄位未填寫正確，請重新輸入！';
       err.isOperational = true;
-      return resErrorProd(err, res);
     }
-    resErrorProd(err, res);
+    return resErrorProd(err, res);
   }
 });
 
@@ -72,7 +93,5 @@ process.on('unhandledRejection', (err, promise) => {
   console.error('未捕捉到的 rejection：', promise, '原因：', err);
   // 記錄於 log 上
 });
-
-app.use('/api-doc', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 export default app;

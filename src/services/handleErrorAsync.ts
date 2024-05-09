@@ -1,15 +1,10 @@
-import { NextFunction } from 'express';
+import { Request, Response, NextFunction } from 'express';
+import { AsyncFunction } from './types/handleErrorAsync.interface';
 
-const handleErrorAsync = function handleErrorAsync(func: any) {
-  // func 先將 async fun 帶入參數儲存
-  // middleware 先接住 router 資料
+const handleErrorAsync = (func: AsyncFunction) => {
   return function (req: Request, res: Response, next: NextFunction) {
-    //再執行函式，並增加 catch 條件去捕捉
-    // async 本身就是 promise，所以可用 catch 去捕捉
-    func(req, res, next).catch(function (error: any) {
-      return next(error);
-    });
+    func(req, res, next).catch((error: any) => next(error));
   };
 };
 
-module.exports = handleErrorAsync;
+export default handleErrorAsync;
