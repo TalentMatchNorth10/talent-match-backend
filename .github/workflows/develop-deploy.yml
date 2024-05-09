@@ -1,0 +1,29 @@
+name: Develop Branch Deploy
+
+on:
+  push:
+    branches: 
+      - develop
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - run: npm install
+      - run: npm run eslint
+  deploy:
+    needs:
+      - lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy
+        run: |
+          curl -X POST -H "Authorization: Bearer ${{ secrets.RENDER_TOKEN }}" \
+          -H "Content-Type: application/json" \
+          -d '{}' \
+          ${{ secrets.RENDER_DEPLOY_HOOK }}
+    

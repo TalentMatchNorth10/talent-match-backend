@@ -6,7 +6,7 @@
   "scripts": {
     "start:dev": "cross-env NODE_ENV=dev nodemon --exec ts-node src/bin/server.ts",
     "start:production": "cross-env NODE_ENV=production nodemon --exec ts-node src/bin/server.ts",
-    "start": "tsc && cross-env NODE_ENV=production node ./dist/bin/server.js",
+    "start": "cross-env NODE_ENV=production node ./dist/bin/server.js",
     "ts-build": "tsc",
     "build": "npm run ts-build",
     "eslint": "npx eslint .",
