@@ -23,6 +23,11 @@ process.on('uncaughtException', (err) => {
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+app.get('/api-doc/swagger.json', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  res.send(swaggerFile);
+});
 app.use('/api-doc', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 app.use('/api/user', userRouter);

@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.0",
   "info": {
+    "title": "Talent Match Backend API",
     "version": "1.0.0",
-    "title": "REST API",
     "description": ""
   },
   "servers": [
@@ -11,6 +11,16 @@
     }
   ],
   "paths": {
+    "/api-doc/swagger.json": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/user/user_info": {
       "get": {
         "tags": [
