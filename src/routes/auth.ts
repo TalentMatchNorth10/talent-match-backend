@@ -1,6 +1,7 @@
 import express from 'express';
 import AuthController from '../controllers/authController';
-import isAuthRefresh from '../services/auth';
+import { isAuthRefresh, isAuthResetPassword } from '../services/auth';
+import passport from 'passport';
 const router = express.Router();
 
 router.post(
@@ -11,37 +12,18 @@ router.post(
             required: true,
             content: {
                 "application/json": {
-                    example: {
-                        email: "string",
-                        password: "string"
-                    }
+                    schema: { $ref: "#/components/schemas/LoginRequestModel" }
                 }
             }
         }
       * #swagger.responses[200] = { 
-          schema: {
-              status: true,
-              data: {
-                  "access_token": "string",
-                  "refresh_token": "string",
-              }
-          }
+          schema: { $ref: "#/components/schemas/LoginResponseModel" }
       }
       * #swagger.responses[400] = { 
-          schema: {
-              status: false,
-              data: {
-                  message: "登入失敗"
-              }
-          }
+          schema: { $ref: "#/components/schemas/Error400ResponseModel" }
       }
       * #swagger.responses[500] = { 
-          schema: {
-              status: false,
-              data: {
-                  message: "伺服器錯誤"
-              }
-          }
+          schema: { $ref: "#/components/schemas/Error500ResponseModel" }
       }
   */
   '/login',
@@ -55,37 +37,21 @@ router.post(
             required: true,
             content: {
                 "application/json": {
-                    example: {
-                        nick_name: "string",
-                        email: "string",
-                        password: "string",
-                        confirm_password: "string"
-                    } 
+                    schema: { $ref: "#/components/schemas/RegisterRequestModel" }
                 }
             }
         }
       * #swagger.responses[200] = { 
-          schema: {
-              status: true,
-              data: {
-                  message: "註冊成功"
-              }
-          }
+          schema: { $ref: "#/components/schemas/RegisterResponseModel" }
       }
       * #swagger.responses[400] = { 
           schema: {
-              status: false,
-              data: {
-                  message: "註冊失敗"
-              }
+            $ref: "#/components/schemas/Error400ResponseModel"
           }
       }
       * #swagger.responses[500] = { 
           schema: {
-              status: false,
-              data: {
-                  message: "伺服器錯誤"
-              }
+              $ref: "#/components/schemas/Error500ResponseModel"
           }
       }
   */
@@ -100,40 +66,128 @@ router.post(
             required: true,
             content: {
                 "application/json": {
-                    example: {
-                        refresh_token: "string"
-                    } 
+                    schema: { $ref: "#/components/schemas/RefreshRequestModel" } 
                 }
             }
         }
       * #swagger.responses[200] = { 
-          schema: {
-              status: true,
-              data: {
-                  "access_token": "string",
-                  "refresh_token": "string"
-              }
-          }
+          schema: { $ref: "#/components/schemas/RefreshResponseModel"}
       }
       * #swagger.responses[400] = { 
           schema: {
-              status: false,
-              data: {
-                  message: "取得新的 Access Token 失敗"
-              }
+            $ref: "#/components/schemas/Error400ResponseModel"
           }
       }
       * #swagger.responses[500] = { 
           schema: {
-              status: false,
-              data: {
-                  message: "伺服器錯誤"
-              }
+              $ref: "#/components/schemas/Error500ResponseModel"
           }
       }
   */
   '/refresh',
   isAuthRefresh,
   AuthController.refresh
+);
+router.get(
+  /**
+      * #swagger.tags = ['Auth']
+      * #swagger.summary = 'Google登入'
+      * #swagger.responses[200] = { 
+          schema: { $ref: "#/components/schemas/GoogleResponseModel"}
+      }
+      * #swagger.responses[400] = { 
+          schema: {
+            $ref: "#/components/schemas/Error400ResponseModel"
+          }
+      }
+      * #swagger.responses[500] = { 
+          schema: {
+              $ref: "#/components/schemas/Error500ResponseModel"
+          }
+      }
+    */
+  '/google',
+  AuthController.google
+);
+router.get(
+  /**
+        * #swagger.tags = ['Auth']
+        * #swagger.summary = 'Google登入Callback'
+        * #swagger.responses[200] = { 
+            schema: { $ref: "#/components/schemas/GoogleCallbackResponseModel"}
+        }
+        * #swagger.responses[400] = { 
+          schema: {
+            $ref: "#/components/schemas/Error400ResponseModel"
+          }
+        }
+        * #swagger.responses[500] = { 
+            schema: {
+                $ref: "#/components/schemas/Error500ResponseModel"
+            }
+        }
+    */
+  '/google/callback',
+  passport.authenticate('google', { session: false }),
+  AuthController.googleCallback
+);
+router.post(
+  /**
+        * #swagger.tags = ['Auth']
+        * #swagger.summary = '重設密碼'
+        * #swagger.requestBody = {
+            required: true,
+            content: {
+                "application/json": {
+                    schema: { $ref: "#/components/schemas/ResetPasswordSendEmailRequestModel" }
+                }
+            }
+        }
+        * #swagger.responses[200] = { 
+            schema: { $ref: "#/components/schemas/ResetPasswordSendEmailResponseModel"}
+        }
+        * #swagger.responses[400] = { 
+          schema: {
+            $ref: "#/components/schemas/Error400ResponseModel"
+          }
+        }
+        * #swagger.responses[500] = { 
+            schema: {
+                $ref: "#/components/schemas/Error500ResponseModel"
+            }
+        }
+    */
+  '/reset_password/send_email',
+  AuthController.sendEmail
+);
+router.post(
+  /**
+    * #swagger.tags = ['Auth']
+    * #swagger.summary = '更新密碼'
+    * #swagger.requestBody = {
+        required: true,
+        content: {
+            "application/json": {
+                schema: { $ref: "#/components/schemas/ResetPasswordUpdateRequestModel"}
+            }
+        }
+    }
+    * #swagger.responses[200] = { 
+        schema: { $ref: "#/components/schemas/ResetPasswordUpdateResponseModel"}
+    }
+    * #swagger.responses[400] = { 
+        schema: {
+        $ref: "#/components/schemas/Error400ResponseModel"
+        }
+    }
+    * #swagger.responses[500] = { 
+        schema: {
+            $ref: "#/components/schemas/Error500ResponseModel"
+        }
+    }
+*/
+  '/reset_password/update',
+  isAuthResetPassword,
+  AuthController.updatePassword
 );
 export default router;

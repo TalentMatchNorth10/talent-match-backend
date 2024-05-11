@@ -6,6 +6,16 @@ import appError from '../services/appError';
 import handleErrorAsync from '../services/handleErrorAsync';
 import { generateSendJWT } from '../services/auth';
 import UserModel from '../models/userModel';
+import passport from 'passport';
+import nodemailer from 'nodemailer';
+import { google } from 'googleapis';
+import jwt from 'jsonwebtoken';
+import { CustomRequest } from '../types/express.interface';
+
+const googleOAuth2Client = new google.auth.OAuth2(
+  process.env.GOOGLE_CLIENT_ID,
+  process.env.GOOGLE_CLIENT_SECRET
+);
 
 const authController = {
   login: handleErrorAsync(
@@ -58,12 +68,12 @@ const authController = {
       }
 
       // 密碼長度不足
-      if (validator.isLength(password, { min: 8 })) {
+      if (!validator.isLength(password, { min: 8 })) {
         return appError(400, '密碼長度不足', next);
       }
 
       // 是不是 email
-      if (validator.isEmail(email) === false) {
+      if (!validator.isEmail(email)) {
         return appError(400, 'email 格式不正確', next);
       }
 
@@ -82,8 +92,154 @@ const authController = {
     }
   ),
   refresh: handleErrorAsync(
+    async (req: CustomRequest, res: Response, next: NextFunction) => {
+      generateSendJWT(req.user, 200, res);
+    }
+  ),
+  google: passport.authenticate('google', { scope: ['profile', 'email'] }),
+  googleCallback: handleErrorAsync(
     async (req: Request, res: Response, next: NextFunction) => {
+      const userProfile: any = req.user;
+      if (userProfile === undefined) {
+        return appError(400, 'Google 登入失敗', next);
+      }
+
+      const user = await UserModel.findOne({
+        email: userProfile.emails[0].value
+      });
+
+      if (!user) {
+        await UserModel.create({
+          nick_name: userProfile.displayName,
+          email: userProfile.emails[0].value,
+          name: userProfile.name.givenName + userProfile.name.familyName,
+          google_id: userProfile.id,
+          avator_google_url: userProfile.photos[0].value ?? ''
+        });
+      } else {
+        await user.updateOne({ google_id: userProfile.id });
+      }
       generateSendJWT((req as any).user, 200, res);
+    }
+  ),
+  sendEmail: handleErrorAsync(
+    async (req: Request, res: Response, next: NextFunction) => {
+      const userEmail = req.body.email;
+
+      const user = await UserModel.findOne({ email: userEmail });
+      if (!user) {
+        return appError(404, '找不到該使用者', next);
+      }
+
+      const token = jwt.sign(
+        { id: user._id },
+        process.env.JWT_RESETPASSWORD_SECRET as string,
+        {
+          expiresIn: process.env.JWT_RESETPASSWORD_TOKEN_EXPIRES_IN
+        }
+      );
+
+      googleOAuth2Client.setCredentials({
+        refresh_token: process.env.GOOGLE_CLIENT_GMAIL_REFRESH_TOKEN
+      });
+
+      const accessTokenInfo = await googleOAuth2Client.getAccessToken();
+      const accessToken = accessTokenInfo?.token;
+
+      const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          type: 'OAuth2',
+          user: process.env.EMAIL,
+          clientId: process.env.GOOGLE_CLIENT_ID,
+          clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+          refreshToken: process.env.GOOGLE_CLIENT_GMAIL_REFRESH_TOKEN,
+          accessToken: accessToken as string
+        }
+      });
+
+      const resetLink = `${process.env.FRONT_RESETPASSWORD_PATH}?token=${token}`;
+      const mailOptions = {
+        from: process.env.EMAIL,
+        to: userEmail,
+        subject: 'Password Reset Request',
+        html: `
+        <div style="font-family: Arial, sans-serif; color: #333;">
+            <h2 style="color: #4A90E2;">Password Reset Request</h2>
+            <p>You requested a password reset for your account. Please click the button below to set a new password:</p>
+            <a href="${resetLink}" style="background-color: #4A90E2; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;">Reset Password</a>
+            <p>If you did not request a password reset, please ignore this email or contact support if you have any questions.</p>
+            <hr style="border: 0; border-top: 1px solid #ccc;"/>
+            <p style="font-size: small;">If you're having trouble clicking the "Reset Password" button, copy and paste the URL below into your web browser:</p>
+            <a href="${resetLink}" style="font-size: small; color: #4A90E2;">${resetLink}</a>
+        </div>
+      `
+      };
+
+      await transporter.sendMail(mailOptions);
+      handleSuccess(res, {
+        data: {
+          message: '已發送密碼更新信件至您的信箱'
+        }
+      });
+    }
+  ),
+  updatePassword: handleErrorAsync(
+    async (req: CustomRequest, res: Response, next: NextFunction) => {
+      let user;
+
+      if (req.isAuth) {
+        user = req.user;
+      } else {
+        const { token } = req.body;
+        if (!token) {
+          return appError(400, '缺少重設密碼 token', next);
+        }
+
+        const decoded = await new Promise<any>((resolve, reject) => {
+          jwt.verify(
+            token as string,
+            process.env.JWT_RESETPASSWORD_SECRET as string,
+            (err, payload) => {
+              if (err) {
+                reject(err);
+              } else {
+                resolve(payload);
+              }
+            }
+          );
+        }).catch(() => {
+          return appError(400, '無效的 token', next);
+        });
+
+        user = await UserModel.findById(decoded.id);
+        if (!user) {
+          return appError(400, '未找到用戶', next);
+        }
+      }
+
+      const { password, confirm_password } = req.body;
+
+      if (!password || !confirm_password) {
+        return appError(400, '請填寫所有欄位', next);
+      }
+
+      if (password !== confirm_password) {
+        return appError(400, '密碼輸入不一致', next);
+      }
+
+      if (!validator.isLength(password, { min: 8 })) {
+        return appError(400, '密碼長度至少需8個字符', next);
+      }
+
+      const hashedPassword = await bcrypt.hash(password, 12);
+      user.password = hashedPassword;
+      await user.save();
+
+      handleSuccess(res, {
+        status: true,
+        data: { message: '密碼已成功更新' }
+      });
     }
   )
 };

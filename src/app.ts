@@ -4,6 +4,9 @@ import './connections';
 import swaggerUi from 'swagger-ui-express';
 import swaggerFile from '../swagger_output.json'; // 剛剛輸出的 JSON
 import { AppError } from './services/types/error.interface';
+import passport from 'passport';
+import GoogleStrategy from 'passport-google-oauth20';
+
 // 路由配置引入
 import userRouter from './routes/user';
 import authRouter from './routes/auth';
@@ -24,7 +27,21 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+app.use(passport.initialize());
+passport.use(
+  new GoogleStrategy.Strategy(
+    {
+      clientID: process.env.GOOGLE_CLIENT_ID || '',
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
+      callbackURL: '/api/auth/google/callback'
+    },
+    function (accessToken, refreshToken, profile, cb) {
+      cb(null, profile);
+    }
+  )
+);
 app.get('/api-doc/swagger.json', (req, res) => {
+  /** #swagger.ignore = true */
   res.setHeader('Content-Type', 'application/json');
   res.send(swaggerFile);
 });

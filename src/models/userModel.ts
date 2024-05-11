@@ -15,7 +15,7 @@ const userSchema = new Schema<User>({
   google_id: { type: String, default: '' },
   name: { type: String, default: '' },
   nick_name: { type: String, required: [true, '暱稱是必填項目'] },
-  password: { type: String, select: false },
+  password: { type: String, select: false, default: '' },
   birthday: { type: Date, default: null },
   contact_phone: { type: String, default: '' },
   email: { type: String, required: [true, '電子郵件是必填項目'] },
