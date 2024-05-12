@@ -1,12 +1,13 @@
 import jwt from 'jsonwebtoken';
 import { User } from '../models/types/user.interface';
+import { CustomRequest } from '../types/express.interface';
 import { NextFunction, Request, Response } from 'express';
 import appError from './appError';
 import UserModel from '../models/userModel';
 
 const auth = 'authorization';
 
-async function isAuth(req: Request, res: Response, next: NextFunction) {
+async function isAuth(req: CustomRequest, res: Response, next: NextFunction) {
   const authHeader = req.headers[auth];
   // 取得token
   const accessToken = authHeader && authHeader.split(' ')[1];
@@ -16,7 +17,7 @@ async function isAuth(req: Request, res: Response, next: NextFunction) {
   }
 
   // 驗證token是否有效
-  const decoded = await new Promise((resolve, reject) => {
+  const decoded = await new Promise<any>((resolve, reject) => {
     jwt.verify(
       accessToken,
       process.env.JWT_SECRET as string,
@@ -32,8 +33,8 @@ async function isAuth(req: Request, res: Response, next: NextFunction) {
     return appError(401, '使用者未登入', next);
   });
 
-  const currentUser = await UserModel.findById((decoded as any).id);
-  (req as any).user = currentUser;
+  const currentUser = await UserModel.findById(decoded.id);
+  req.user = currentUser;
   if (!currentUser) {
     return appError(401, '使用者不存在', next);
   }
@@ -51,7 +52,7 @@ async function isAuthRefresh(req: Request, res: Response, next: NextFunction) {
     return appError(401, 'Refresh Token 格式錯誤', next);
   }
 
-  const decoded = await new Promise((resolve, reject) => {
+  const decoded = await new Promise<any>((resolve, reject) => {
     jwt.verify(
       refreshToken,
       process.env.JWT_REFRESH_SECRET as string,
@@ -76,7 +77,46 @@ async function isAuthRefresh(req: Request, res: Response, next: NextFunction) {
   next();
 }
 
-export default isAuthRefresh;
+async function isAuthResetPassword(
+  req: CustomRequest,
+  res: Response,
+  next: NextFunction
+) {
+  const authHeader = req.headers['authorization'];
+  const accessToken = authHeader?.split(' ')[1];
+
+  if (!accessToken) {
+    req.isAuth = false;
+    return next();
+  }
+
+  const decoded = await new Promise<any>((resolve, reject) => {
+    jwt.verify(
+      accessToken,
+      process.env.JWT_SECRET as string,
+      (err, payload) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(payload);
+        }
+      }
+    );
+  }).catch(() => {
+    req.isAuth = false;
+    return next();
+  });
+
+  const currentUser = await UserModel.findById(decoded.id);
+  if (!currentUser) {
+    req.isAuth = false;
+    return next();
+  }
+
+  req.isAuth = true;
+  req.user = currentUser;
+  return next();
+}
 
 function generateSendJWT(user: User, statusCode: number, res: Response) {
   const accessToken = jwt.sign(
@@ -104,4 +144,4 @@ function generateSendJWT(user: User, statusCode: number, res: Response) {
   });
 }
 
-export { isAuth, isAuthRefresh, generateSendJWT };
+export { isAuth, isAuthRefresh, isAuthResetPassword, generateSendJWT };

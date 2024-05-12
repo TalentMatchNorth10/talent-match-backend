@@ -11,16 +11,6 @@
     }
   ],
   "paths": {
-    "/api-doc/swagger.json": {
-      "get": {
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/api/user/user_info": {
       "get": {
         "tags": [
@@ -34,88 +24,12 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "boolean",
-                      "example": true
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "nick_name": {
-                          "type": "string",
-                          "example": "string"
-                        },
-                        "avator_image": {
-                          "type": "string",
-                          "example": "string"
-                        },
-                        "cart": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "course_id": {
-                                "type": "string",
-                                "example": "string"
-                              },
-                              "purchase_item_id": {
-                                "type": "string",
-                                "example": "string"
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
+                  "$ref": "#/components/schemas/UserInfoResponseModel"
                 }
               },
               "application/xml": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "boolean",
-                      "example": true
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "nick_name": {
-                          "type": "string",
-                          "example": "string"
-                        },
-                        "avator_image": {
-                          "type": "string",
-                          "example": "string"
-                        },
-                        "cart": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "course_id": {
-                                "type": "string",
-                                "example": "string"
-                              },
-                              "purchase_item_id": {
-                                "type": "string",
-                                "example": "string"
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
+                  "$ref": "#/components/schemas/UserInfoResponseModel"
                 }
               }
             }
@@ -125,48 +39,12 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "boolean",
-                      "example": false
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "message": {
-                          "type": "string",
-                          "example": "取得使用者資訊失敗"
-                        }
-                      }
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
+                  "$ref": "#/components/schemas/Error400ResponseModel"
                 }
               },
               "application/xml": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "boolean",
-                      "example": false
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "message": {
-                          "type": "string",
-                          "example": "取得使用者資訊失敗"
-                        }
-                      }
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
+                  "$ref": "#/components/schemas/Error400ResponseModel"
                 }
               }
             }
@@ -176,48 +54,12 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "boolean",
-                      "example": false
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "message": {
-                          "type": "string",
-                          "example": "伺服器錯誤"
-                        }
-                      }
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
+                  "$ref": "#/components/schemas/Error500ResponseModel"
                 }
               },
               "application/xml": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "boolean",
-                      "example": false
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "message": {
-                          "type": "string",
-                          "example": "伺服器錯誤"
-                        }
-                      }
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
+                  "$ref": "#/components/schemas/Error500ResponseModel"
                 }
               }
             }
@@ -243,56 +85,12 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "boolean",
-                      "example": true
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "access_token": {
-                          "type": "string",
-                          "example": "string"
-                        },
-                        "refresh_token": {
-                          "type": "string",
-                          "example": "string"
-                        }
-                      }
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
+                  "$ref": "#/components/schemas/LoginResponseModel"
                 }
               },
               "application/xml": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "boolean",
-                      "example": true
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "access_token": {
-                          "type": "string",
-                          "example": "string"
-                        },
-                        "refresh_token": {
-                          "type": "string",
-                          "example": "string"
-                        }
-                      }
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
+                  "$ref": "#/components/schemas/LoginResponseModel"
                 }
               }
             }
@@ -302,48 +100,12 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "boolean",
-                      "example": false
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "message": {
-                          "type": "string",
-                          "example": "登入失敗"
-                        }
-                      }
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
+                  "$ref": "#/components/schemas/Error400ResponseModel"
                 }
               },
               "application/xml": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "boolean",
-                      "example": false
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "message": {
-                          "type": "string",
-                          "example": "登入失敗"
-                        }
-                      }
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
+                  "$ref": "#/components/schemas/Error400ResponseModel"
                 }
               }
             }
@@ -353,48 +115,12 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "boolean",
-                      "example": false
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "message": {
-                          "type": "string",
-                          "example": "伺服器錯誤"
-                        }
-                      }
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
+                  "$ref": "#/components/schemas/Error500ResponseModel"
                 }
               },
               "application/xml": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "boolean",
-                      "example": false
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "message": {
-                          "type": "string",
-                          "example": "伺服器錯誤"
-                        }
-                      }
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
+                  "$ref": "#/components/schemas/Error500ResponseModel"
                 }
               }
             }
@@ -404,9 +130,8 @@
           "required": true,
           "content": {
             "application/json": {
-              "example": {
-                "email": "string",
-                "password": "string"
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequestModel"
               }
             }
           }
@@ -426,48 +151,12 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "boolean",
-                      "example": true
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "message": {
-                          "type": "string",
-                          "example": "註冊成功"
-                        }
-                      }
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
+                  "$ref": "#/components/schemas/RegisterResponseModel"
                 }
               },
               "application/xml": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "boolean",
-                      "example": true
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "message": {
-                          "type": "string",
-                          "example": "註冊成功"
-                        }
-                      }
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
+                  "$ref": "#/components/schemas/RegisterResponseModel"
                 }
               }
             }
@@ -477,48 +166,12 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "boolean",
-                      "example": false
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "message": {
-                          "type": "string",
-                          "example": "註冊失敗"
-                        }
-                      }
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
+                  "$ref": "#/components/schemas/Error400ResponseModel"
                 }
               },
               "application/xml": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "boolean",
-                      "example": false
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "message": {
-                          "type": "string",
-                          "example": "註冊失敗"
-                        }
-                      }
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
+                  "$ref": "#/components/schemas/Error400ResponseModel"
                 }
               }
             }
@@ -528,48 +181,12 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "boolean",
-                      "example": false
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "message": {
-                          "type": "string",
-                          "example": "伺服器錯誤"
-                        }
-                      }
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
+                  "$ref": "#/components/schemas/Error500ResponseModel"
                 }
               },
               "application/xml": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "boolean",
-                      "example": false
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "message": {
-                          "type": "string",
-                          "example": "伺服器錯誤"
-                        }
-                      }
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
+                  "$ref": "#/components/schemas/Error500ResponseModel"
                 }
               }
             }
@@ -579,11 +196,8 @@
           "required": true,
           "content": {
             "application/json": {
-              "example": {
-                "nick_name": "string",
-                "email": "string",
-                "password": "string",
-                "confirm_password": "string"
+              "schema": {
+                "$ref": "#/components/schemas/RegisterRequestModel"
               }
             }
           }
@@ -603,56 +217,12 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "boolean",
-                      "example": true
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "access_token": {
-                          "type": "string",
-                          "example": "string"
-                        },
-                        "refresh_token": {
-                          "type": "string",
-                          "example": "string"
-                        }
-                      }
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
+                  "$ref": "#/components/schemas/RefreshResponseModel"
                 }
               },
               "application/xml": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "boolean",
-                      "example": true
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "access_token": {
-                          "type": "string",
-                          "example": "string"
-                        },
-                        "refresh_token": {
-                          "type": "string",
-                          "example": "string"
-                        }
-                      }
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
+                  "$ref": "#/components/schemas/RefreshResponseModel"
                 }
               }
             }
@@ -662,48 +232,12 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "boolean",
-                      "example": false
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "message": {
-                          "type": "string",
-                          "example": "取得新的 Access Token 失敗"
-                        }
-                      }
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
+                  "$ref": "#/components/schemas/Error400ResponseModel"
                 }
               },
               "application/xml": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "boolean",
-                      "example": false
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "message": {
-                          "type": "string",
-                          "example": "取得新的 Access Token 失敗"
-                        }
-                      }
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
+                  "$ref": "#/components/schemas/Error400ResponseModel"
                 }
               }
             }
@@ -713,48 +247,12 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "boolean",
-                      "example": false
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "message": {
-                          "type": "string",
-                          "example": "伺服器錯誤"
-                        }
-                      }
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
+                  "$ref": "#/components/schemas/Error500ResponseModel"
                 }
               },
               "application/xml": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "boolean",
-                      "example": false
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "message": {
-                          "type": "string",
-                          "example": "伺服器錯誤"
-                        }
-                      }
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
+                  "$ref": "#/components/schemas/Error500ResponseModel"
                 }
               }
             }
@@ -764,8 +262,261 @@
           "required": true,
           "content": {
             "application/json": {
-              "example": {
-                "refresh_token": "string"
+              "schema": {
+                "$ref": "#/components/schemas/RefreshRequestModel"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/google": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Google登入",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GoogleResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/GoogleResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/google/callback": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Google登入Callback",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GoogleCallbackResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/GoogleCallbackResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/reset_password/send_email": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "重設密碼",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResetPasswordSendEmailResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResetPasswordSendEmailResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetPasswordSendEmailRequestModel"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/reset_password/update": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "更新密碼",
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResetPasswordUpdateResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResetPasswordUpdateResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetPasswordUpdateRequestModel"
               }
             }
           }
@@ -778,6 +529,441 @@
       "bearerAuth": {
         "type": "http",
         "scheme": "bearer"
+      }
+    },
+    "schemas": {
+      "Error400ResponseModel": {
+        "type": "object",
+        "required": [
+          "status",
+          "message"
+        ],
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "status": "false",
+          "message": "錯誤訊息"
+        }
+      },
+      "Error500ResponseModel": {
+        "type": "object",
+        "required": [
+          "status",
+          "message"
+        ],
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "status": "false",
+          "message": "伺服器錯誤"
+        }
+      },
+      "LoginRequestModel": {
+        "type": "object",
+        "required": [
+          "email",
+          "password"
+        ],
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "用戶的電子郵件地址"
+          },
+          "password": {
+            "type": "string",
+            "description": "用戶的密碼"
+          }
+        },
+        "example": {
+          "email": "user@example.com",
+          "password": "yourpassword"
+        }
+      },
+      "LoginResponseModel": {
+        "type": "object",
+        "required": [
+          "status",
+          "data"
+        ],
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "required": [
+              "access_token",
+              "refresh_token"
+            ],
+            "properties": {
+              "access_token": {
+                "type": "string",
+                "description": "登入驗證token"
+              },
+              "refresh_token": {
+                "type": "string",
+                "description": "刷新驗證token"
+              }
+            }
+          }
+        },
+        "example": {
+          "status": true,
+          "data": {
+            "access_token": "string",
+            "refresh_token": "string"
+          }
+        }
+      },
+      "RegisterRequestModel": {
+        "type": "object",
+        "required": [
+          "nick_name",
+          "email",
+          "password",
+          "confirm_password"
+        ],
+        "properties": {
+          "nick_name": {
+            "type": "string",
+            "description": "用戶的暱稱"
+          },
+          "email": {
+            "type": "string",
+            "description": "用戶的電子郵件地址"
+          },
+          "password": {
+            "type": "string",
+            "description": "用戶的密碼"
+          },
+          "confirm_password": {
+            "type": "string",
+            "description": "確認用戶的密碼"
+          }
+        },
+        "example": {
+          "nick_name": "string",
+          "email": "string",
+          "password": "string",
+          "confirm_password": "string"
+        }
+      },
+      "RegisterResponseModel": {
+        "type": "object",
+        "required": [
+          "status",
+          "data"
+        ],
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "required": [
+              "message"
+            ],
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "example": {
+          "status": true,
+          "data": {
+            "message": "註冊成功"
+          }
+        }
+      },
+      "RefreshRequestModel": {
+        "type": "object",
+        "required": [
+          "refresh_token"
+        ],
+        "properties": {
+          "refresh_token": {
+            "type": "string",
+            "description": "刷新驗證token"
+          }
+        },
+        "example": {
+          "refresh_token": "string"
+        }
+      },
+      "RefreshResponseModel": {
+        "type": "object",
+        "required": [
+          "status",
+          "data"
+        ],
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "required": [
+              "access_token",
+              "refresh_token"
+            ],
+            "properties": {
+              "access_token": {
+                "type": "string",
+                "description": "登入驗證token"
+              },
+              "refresh_token": {
+                "type": "string",
+                "description": "刷新驗證token"
+              }
+            }
+          }
+        },
+        "example": {
+          "status": true,
+          "data": {
+            "access_token": "string",
+            "refresh_token": "string"
+          }
+        }
+      },
+      "GoogleResponseModel": {
+        "type": "object",
+        "required": [
+          "status",
+          "data"
+        ],
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "required": [
+              "message"
+            ],
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "example": {
+          "status": true,
+          "data": {
+            "message": "已啟動OAuth登入流程"
+          }
+        }
+      },
+      "GoogleCallbackResponseModel": {
+        "type": "object",
+        "required": [
+          "status",
+          "data"
+        ],
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "required": [
+              "access_token",
+              "refresh_token"
+            ],
+            "properties": {
+              "access_token": {
+                "type": "string",
+                "description": "登入驗證token"
+              },
+              "refresh_token": {
+                "type": "string",
+                "description": "刷新驗證token"
+              }
+            }
+          }
+        },
+        "example": {
+          "status": true,
+          "data": {
+            "access_token": "string",
+            "refresh_token": "string"
+          }
+        }
+      },
+      "ResetPasswordSendEmailRequestModel": {
+        "type": "object",
+        "required": [
+          "email"
+        ],
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "用戶的電子郵件地址"
+          }
+        },
+        "example": {
+          "email": ""
+        }
+      },
+      "ResetPasswordSendEmailResponseModel": {
+        "type": "object",
+        "required": [
+          "status",
+          "data"
+        ],
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "required": [
+              "message"
+            ],
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "example": {
+          "status": true,
+          "data": {
+            "message": "已寄送重設密碼信"
+          }
+        }
+      },
+      "ResetPasswordUpdateRequestModel": {
+        "type": "object",
+        "required": [
+          "password",
+          "confirm_password"
+        ],
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "重設密碼token"
+          },
+          "password": {
+            "type": "string",
+            "description": "用戶的密碼"
+          },
+          "confirm_password": {
+            "type": "string",
+            "description": "確認用戶的密碼"
+          }
+        },
+        "example": {
+          "token": "string",
+          "password": "string",
+          "confirm_password": "string"
+        }
+      },
+      "ResetPasswordUpdateResponseModel": {
+        "type": "object",
+        "required": [
+          "status",
+          "data"
+        ],
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "required": [
+              "message"
+            ],
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "example": {
+          "status": true,
+          "data": {
+            "message": "密碼已成功更新"
+          }
+        }
+      },
+      "UserInfoResponseModel": {
+        "type": "object",
+        "required": [
+          "status",
+          "data"
+        ],
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "required": [
+              "nick_name",
+              "avator_image",
+              "cart"
+            ],
+            "properties": {
+              "nick_name": {
+                "type": "string",
+                "description": "使用者暱稱"
+              },
+              "avator_image": {
+                "type": "string",
+                "description": "使用者頭像"
+              },
+              "cart": {
+                "type": "array",
+                "description": "購物車項目集合",
+                "items": {
+                  "type": "object",
+                  "description": "購物車項目",
+                  "properties": {
+                    "course_id": {
+                      "type": "string",
+                      "description": "課程ID"
+                    },
+                    "purchase_item_id": {
+                      "type": "string",
+                      "description": "購買項目ID"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "example": {
+          "status": true,
+          "data": {
+            "nick_name": "string",
+            "avator_image": "string",
+            "cart": [
+              {
+                "course_id": "string",
+                "purchase_item_id": "string"
+              }
+            ]
+          }
+        }
       }
     }
   }
