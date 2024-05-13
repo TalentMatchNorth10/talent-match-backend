@@ -715,42 +715,54 @@
           "Upload"
         ],
         "summary": "上傳檔案",
-        "description": "",
+        "description": "上傳檔案",
         "parameters": [
           {
-            "name": "obj",
-            "in": "body",
-            "description": "上傳檔案",
+            "name": "path",
+            "in": "formData",
+            "description": "上傳檔案的路徑",
+            "required": true,
+            "enum": [
+              "user",
+              "course"
+            ],
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "file",
+            "in": "formData",
+            "description": "檔案",
             "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "path": {
-                  "type": "string",
-                  "example": "string"
-                }
-              }
+              "type": "file"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "上傳成功",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "status": {
-                      "type": "boolean",
-                      "example": true
-                    },
-                    "data": {
+                    "properties": {
                       "type": "object",
                       "properties": {
                         "fileUrl": {
-                          "type": "string",
-                          "example": "string"
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string",
+                              "example": "string"
+                            },
+                            "description": {
+                              "type": "string",
+                              "example": "檔案的網址"
+                            }
+                          }
                         }
                       }
                     }
@@ -764,16 +776,21 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "status": {
-                      "type": "boolean",
-                      "example": true
-                    },
-                    "data": {
+                    "properties": {
                       "type": "object",
                       "properties": {
                         "fileUrl": {
-                          "type": "string",
-                          "example": "string"
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string",
+                              "example": "string"
+                            },
+                            "description": {
+                              "type": "string",
+                              "example": "檔案的網址"
+                            }
+                          }
                         }
                       }
                     }
@@ -786,127 +803,10 @@
             }
           },
           "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "boolean",
-                      "example": false
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "message": {
-                          "type": "string",
-                          "example": "請選擇圖片上傳路徑"
-                        }
-                      }
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "boolean",
-                      "example": false
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "message": {
-                          "type": "string",
-                          "example": "請選擇圖片上傳路徑"
-                        }
-                      }
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              }
-            },
-            "schema": {
-              "type": "object",
-              "properties": {
-                "status": {
-                  "type": "boolean",
-                  "example": false
-                },
-                "data": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string",
-                      "example": "尚未上傳檔案"
-                    }
-                  }
-                }
-              },
-              "xml": {
-                "name": "main"
-              }
-            }
+            "description": "尚未上傳檔案"
           },
           "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "boolean",
-                      "example": false
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "message": {
-                          "type": "string",
-                          "example": "上傳失敗"
-                        }
-                      }
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "boolean",
-                      "example": false
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "message": {
-                          "type": "string",
-                          "example": "上傳失敗"
-                        }
-                      }
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              }
-            }
+            "description": "上傳失敗"
           }
         },
         "security": [
@@ -915,13 +815,22 @@
           }
         ],
         "requestBody": {
+          "required": true,
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
                 "type": "object",
                 "properties": {
                   "path": {
-                    "example": "any"
+                    "type": "string",
+                    "enum": [
+                      "user",
+                      "course"
+                    ]
+                  },
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
                   }
                 }
               }

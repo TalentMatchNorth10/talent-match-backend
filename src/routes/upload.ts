@@ -12,51 +12,67 @@ import { GetSignedUrlConfig } from '@google-cloud/storage';
 const bucket = firebase.storage().bucket();
 
 router.post(
-  /**
-     * #swagger.tags = ['Upload']
-     * #swagger.summary = '上傳檔案'
-     * #swagger.security = [{"bearerAuth": []}]
-     * #swagger.parameters['obj'] = {
-          in: 'body',
-          description: '上傳檔案',
+  /** 
+   * #swagger.tags = ['Upload']
+   * #swagger.summary = '上傳檔案'
+   * #swagger.description = '上傳檔案'
+   * #swagger.parameters['path'] = {
+          in: 'formData',
+          description: '上傳檔案的路徑',
           required: true,
-          schema: {
-              "path": "string",
-          }
+          type: 'string',
+          enum: ['user', 'course']
      }
-      * #swagger.responses[200] = { 
+    * #swagger.parameters['file'] = {
+          in: 'formData',
+          description: '檔案',
+          required: true,
+          type: 'file'
+      }
+    * #swagger.security = [{
+          "bearerAuth": []
+      }]
+    * #swagger.responses[200] = {
+          description: '上傳成功',
           schema: {
-              status: true,
-              data: {
-                  "fileUrl":"string"
+              properties: {
+                  fileUrl: {
+                      type: "string",
+                      description: "檔案的網址"
+                  }
               }
           }
       }
-      * #swagger.responses[400] = { 
-          schema: {
-              status: false,
-              data: {
-                  message: "請選擇圖片上傳路徑"
-              }
-          }
+    * #swagger.responses[400] = {
+          description: '請選擇圖片上傳路徑'
       }
-      * #swagger.responses[400] = { 
-          schema: {
-              status: false,
-              data: {
-                  message: "尚未上傳檔案"
-              }
-          }
+    * #swagger.responses[400] = {
+          description: '尚未上傳檔案'
       }
-      * #swagger.responses[500] = { 
-          schema: {
-              status: false,
-              data: {
-                  message: "上傳失敗"
-              }
-          }
-      }
-     */
+    * #swagger.responses[500] = {
+          description: '上傳失敗'
+      }    
+    * #swagger.requestBody = {
+            required: true,
+            content: {
+                "multipart/form-data": {
+                    schema: {
+                        type: "object",
+                        properties: {
+                            path: {
+                                type: "string",
+                                enum: ["user", "course"]
+                            },
+                            file: {
+                                type: "string",
+                                format: "binary"
+                            }
+                        }
+                    }
+                }
+            }
+        } 
+    */
   '/file',
   isAuth,
   upload,
@@ -72,6 +88,7 @@ router.post(
 
       const files = (req.files as Express.Multer.File[])[0];
 
+      console.log(req.body);
       const blob = createBlob(req, files);
 
       const blobStream = blob.createWriteStream();
@@ -104,7 +121,7 @@ router.post(
 
 function createBlob(req: Request, firstfile: Express.Multer.File) {
   const { body, user } = req;
-  switch (body.type) {
+  switch (body.path) {
     case 'user':
       // 檢查使用者是否有存在上傳的圖片，有的話就刪除
       bucket.getFiles({ prefix: `images/users/${user._id}` }, (err, files) => {
