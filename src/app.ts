@@ -10,6 +10,8 @@ import GoogleStrategy from 'passport-google-oauth20';
 // 路由配置引入
 import userRouter from './routes/user';
 import authRouter from './routes/auth';
+import studentInfoRouter from './routes/studentInfo';
+import uploadRouter from './routes/upload';
 
 const app = express();
 
@@ -49,6 +51,10 @@ app.use('/api-doc', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 app.use('/api/user', userRouter);
 app.use('/api/auth', authRouter);
+
+app.use('/api/student_info', studentInfoRouter);
+
+app.use('/api/upload', uploadRouter);
 
 // express 錯誤處理
 // 生產環境錯誤
