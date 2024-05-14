@@ -326,25 +326,39 @@
         }
       }
     },
-    "/api/auth/google/callback": {
+    "/api/auth/google/client": {
       "get": {
         "tags": [
           "Auth"
         ],
         "summary": "Google登入Callback",
         "description": "",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Code"
+          },
+          {
+            "$ref": "#/components/parameters/Scope"
+          },
+          {
+            "$ref": "#/components/parameters/AuthUser"
+          },
+          {
+            "$ref": "#/components/parameters/Prompt"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/GoogleCallbackResponseModel"
+                  "$ref": "#/components/schemas/GoogleClientResponseModel"
                 }
               },
               "application/xml": {
                 "schema": {
-                  "$ref": "#/components/schemas/GoogleCallbackResponseModel"
+                  "$ref": "#/components/schemas/GoogleClientResponseModel"
                 }
               }
             }
@@ -847,7 +861,53 @@
         "scheme": "bearer"
       }
     },
+    "parameters": {
+      "Code": {
+        "in": "query",
+        "name": "code",
+        "required": true,
+        "schema": {
+          "type": "string"
+        },
+        "allowReserved": true,
+        "explode": false
+      },
+      "Scope": {
+        "in": "query",
+        "name": "scope",
+        "required": true,
+        "schema": {
+          "type": "string"
+        },
+        "allowReserved": true,
+        "explode": false
+      },
+      "AuthUser": {
+        "in": "query",
+        "name": "authuser",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        },
+        "allowReserved": true,
+        "explode": false
+      },
+      "Prompt": {
+        "in": "query",
+        "name": "prompt",
+        "required": true,
+        "schema": {
+          "type": "string"
+        },
+        "allowReserved": true,
+        "explode": false
+      }
+    },
     "schemas": {
+      "StringValueModel": {
+        "type": "string",
+        "example": "string"
+      },
       "Error400ResponseModel": {
         "type": "object",
         "required": [
@@ -1085,7 +1145,22 @@
           }
         }
       },
-      "GoogleCallbackResponseModel": {
+      "GoogleClientRequestModel": {
+        "type": "object",
+        "required": [
+          "grant"
+        ],
+        "properties": {
+          "grant": {
+            "type": "string",
+            "description": "OAuth授權碼"
+          }
+        },
+        "example": {
+          "grant": "string"
+        }
+      },
+      "GoogleClientResponseModel": {
         "type": "object",
         "required": [
           "status",

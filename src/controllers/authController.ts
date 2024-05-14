@@ -97,7 +97,7 @@ const authController = {
     }
   ),
   google: passport.authenticate('google', { scope: ['profile', 'email'] }),
-  googleCallback: handleErrorAsync(
+  googleClient: handleErrorAsync(
     async (req: Request, res: Response, next: NextFunction) => {
       const userProfile: any = req.user;
       if (userProfile === undefined) {

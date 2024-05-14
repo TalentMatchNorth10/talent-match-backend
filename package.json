@@ -12,7 +12,7 @@
     "eslint": "npx eslint .",
     "eslint:fix": "npx eslint --fix .",
     "prepare": "husky",
-    "schema:clean": "rimraf ./swagger/schema",
+    "schema:clean": "rimraf ./swagger",
     "schema:build": "tsc -p tsconfig.swagger.json",
     "swagger-autogen": "npm run schema:clean && npm run schema:build && node ./swagger.js"
   },

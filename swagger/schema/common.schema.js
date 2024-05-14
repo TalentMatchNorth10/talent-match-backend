@@ -2,6 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CommonSchema = void 0;
 const CommonSchema = {
+    StringValueModel: {
+        type: 'string',
+        example: 'string'
+    },
     Error400ResponseModel: {
         type: 'object',
         required: ['status', 'message'],
