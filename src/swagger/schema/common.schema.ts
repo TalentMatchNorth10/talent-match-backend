@@ -1,4 +1,8 @@
 const CommonSchema = {
+  StringValueModel: {
+    type: 'string',
+    example: 'string'
+  },
   Error400ResponseModel: {
     type: 'object',
     required: ['status', 'message'],

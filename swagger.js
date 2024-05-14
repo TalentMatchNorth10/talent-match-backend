@@ -8,6 +8,9 @@ const { CommonSchema } = require('./swagger/schema/common.schema');
 const { AuthSchema } = require('./swagger/schema/auth.schema');
 const { UserSchema } = require('./swagger/schema/user.schema');
 
+// 這裡是引入所有的 parameter
+const { AuthParameter } = require('./swagger/parameter/auth.parameter');
+
 const doc = {
   info: {
     title: 'Talent Match Backend API'
@@ -24,6 +27,9 @@ const doc = {
       ...CommonSchema,
       ...AuthSchema,
       ...UserSchema
+    },
+    'parameters': {
+      ...AuthParameter
     }
   }
 };

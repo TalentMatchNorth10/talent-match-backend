@@ -154,7 +154,20 @@ const AuthSchema = {
       }
     }
   },
-  GoogleCallbackResponseModel: {
+  GoogleClientRequestModel: {
+    type: 'object',
+    required: ['grant'],
+    properties: {
+      grant: {
+        type: 'string',
+        description: 'OAuth授權碼'
+      }
+    },
+    example: {
+      grant: 'string'
+    }
+  },
+  GoogleClientResponseModel: {
     type: 'object',
     required: ['status', 'data'],
     properties: {
