@@ -9,7 +9,7 @@ const studentController = {
   getBasicInfo: handleErrorAsync(
     async (req: Request, res: Response, next: NextFunction) => {
       const { name, nick_name, birthday, contact_phone, email, avator_image } =
-        req.user;
+        req.user!;
       // 取得 token
       handleSuccess(res, {
         avator_image,
@@ -23,7 +23,7 @@ const studentController = {
   ),
   updateBasicInfo: handleErrorAsync(
     async (req: Request, res: Response, next: NextFunction) => {
-      const id = req.user._id;
+      const id = req.user!._id;
 
       const { name, nick_name, birthday, contact_phone, email, avator_image } =
         req.body;

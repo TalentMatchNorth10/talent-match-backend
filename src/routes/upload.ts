@@ -124,13 +124,13 @@ function createBlob(req: Request, firstfile: Express.Multer.File) {
   switch (body.path) {
     case 'user':
       // 檢查使用者是否有存在上傳的圖片，有的話就刪除
-      bucket.getFiles({ prefix: `images/users/${user._id}` }, (err, files) => {
+      bucket.getFiles({ prefix: `images/users/${user!._id}` }, (err, files) => {
         if (files && files.length > 0) {
           files[0]!.delete();
         }
       });
       return bucket.file(
-        `images/users/${user._id}.${firstfile.originalname.split('.').pop()}`
+        `images/users/${user!._id}.${firstfile.originalname.split('.').pop()}`
       );
     case 'course':
       return bucket.file(`images/coruses/${uuidv4()}`);

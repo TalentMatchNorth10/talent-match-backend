@@ -1,5 +1,3 @@
-import { User } from '../models/types/user.interface';
-
 declare namespace NodeJS {
   interface ProcessEnv {
     PORT: string;
@@ -15,11 +13,5 @@ declare namespace NodeJS {
     GOOGLE_CLIENT_ID: string;
     GOOGLE_CLIENT_SECRET: string;
     GOOGLE_CLIENT_GMAIL_REFRESH_TOKEN: string;
-  }
-}
-
-declare module 'express-serve-static-core' {
-  interface Request {
-    user: User;
   }
 }
