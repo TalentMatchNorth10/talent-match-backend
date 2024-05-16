@@ -12,6 +12,7 @@ import userRouter from './routes/user';
 import authRouter from './routes/auth';
 import studentInfoRouter from './routes/studentInfo';
 import uploadRouter from './routes/upload';
+import studentReservationRouter from './routes/studentReservation';
 
 const app = express();
 
@@ -53,6 +54,7 @@ app.use('/api/user', userRouter);
 app.use('/api/auth', authRouter);
 
 app.use('/api/student_info', studentInfoRouter);
+app.use('/api/student_reservation', studentReservationRouter);
 
 app.use('/api/upload', uploadRouter);
 
