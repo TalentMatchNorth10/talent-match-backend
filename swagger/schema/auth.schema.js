@@ -167,7 +167,7 @@ const AuthSchema = {
             }
         },
         example: {
-            grant: 'string',
+            grant: 'string'
         }
     },
     GoogleClientResponseModel: {

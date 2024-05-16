@@ -118,7 +118,7 @@ async function isAuthResetPassword(
   return next();
 }
 
-function generateSendJWT(user: User, statusCode: number, res: Response) {
+function generateSendJWT(user: User) {
   const accessToken = jwt.sign(
     { id: user._id },
     process.env.JWT_SECRET as string,
@@ -135,13 +135,10 @@ function generateSendJWT(user: User, statusCode: number, res: Response) {
     }
   );
 
-  res.status(statusCode).json({
-    status: true,
-    data: {
-      accessToken,
-      refreshToken
-    }
-  });
+  return {
+    accessToken,
+    refreshToken
+  };
 }
 
 export { isAuth, isAuthRefresh, isAuthResetPassword, generateSendJWT };
