@@ -1,8 +1,13 @@
 import express from 'express';
-import studentReservationController from '../controllers/studentReservationController';
+import StudentReservationController from '../controllers/studentReservationController';
+import StudentReservationComment from '../swagger/comment/studentReservation.comment';
 
 const router = express.Router();
 
-router.post('/reserve_course', studentReservationController.reserve_course);
+router.post(
+  '/reserve_course',
+  StudentReservationComment.reserve_course,
+  StudentReservationController.reserve_course
+);
 
 export default router;
