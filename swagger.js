@@ -9,13 +9,21 @@ const { AuthSchema } = require('./swagger/schema/auth.schema');
 const { UserSchema } = require('./swagger/schema/user.schema');
 
 // 這裡是引入所有的 parameter
-const { AuthParameter } = require('./swagger/parameter/auth.parameter');
 
 const doc = {
   info: {
     title: 'Talent Match Backend API'
   },
-  host: 'localhost:8080',
+  servers: [
+    {
+      url: 'http://localhost:8080', // Local development URL
+      description: 'Local development server'
+    },
+    {
+      url: 'https://talent-match-backend.onrender.com', // Production URL
+      description: 'Production server'
+    }
+  ],
   components: {
     securitySchemes: {
       bearerAuth: {
@@ -27,9 +35,6 @@ const doc = {
       ...CommonSchema,
       ...AuthSchema,
       ...UserSchema
-    },
-    'parameters': {
-      ...AuthParameter
     }
   }
 };
