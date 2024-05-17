@@ -102,16 +102,10 @@ const AuthComment = {
     */
     next();
   },
-  googleClient: (req: Request, res: Response, next: NextFunction) => {
+  googleCallback: (req: Request, res: Response, next: NextFunction) => {
     /**
     * #swagger.tags = ['Auth']
     * #swagger.summary = 'Google登入Callback',
-    * #swagger.parameters[$ref] = [
-        "#/components/parameters/Code", 
-        "#/components/parameters/Scope", 
-        "#/components/parameters/AuthUser", 
-        "#/components/parameters/Prompt"
-    ],
     * #swagger.responses[200] = { 
         schema: { $ref: "#/components/schemas/GoogleClientResponseModel"}
     }

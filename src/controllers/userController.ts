@@ -9,7 +9,7 @@ const userController = {
       if (user) {
         handleSuccess(res, {
           nick_name: user.nick_name,
-          avator_image: user.avator_image
+          avator_image: user.avator_image || user.avator_google_url || ''
         });
       }
     }
