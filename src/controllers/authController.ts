@@ -39,7 +39,15 @@ const authController = {
       if (!isMatch) {
         return appError(400, '帳號或密碼錯誤', next);
       }
-      generateSendJWT(user, 200, res);
+
+      const { accessToken, refreshToken } = generateSendJWT(user);
+      res.status(200).json({
+        status: true,
+        data: {
+          access_token: accessToken,
+          refresh_token: refreshToken
+        }
+      });
     }
   ),
   register: handleErrorAsync(
@@ -93,33 +101,39 @@ const authController = {
   ),
   refresh: handleErrorAsync(
     async (req: CustomRequest, res: Response, next: NextFunction) => {
-      generateSendJWT(req.user, 200, res);
+      const { accessToken, refreshToken } = generateSendJWT(req.user);
+      res.status(200).json({
+        status: true,
+        data: {
+          access_token: accessToken,
+          refresh_token: refreshToken
+        }
+      });
     }
   ),
   google: passport.authenticate('google', { scope: ['profile', 'email'] }),
-  googleClient: handleErrorAsync(
+  googleCallback: handleErrorAsync(
     async (req: Request, res: Response, next: NextFunction) => {
       const userProfile: any = req.user;
       if (userProfile === undefined) {
         return appError(400, 'Google 登入失敗', next);
       }
 
-      const user = await UserModel.findOne({
-        email: userProfile.emails[0].value
-      });
-
-      if (!user) {
-        await UserModel.create({
+      const user = await UserModel.findOneAndUpdate(
+        { email: userProfile.emails[0].value },
+        {
           nick_name: userProfile.displayName,
-          email: userProfile.emails[0].value,
           name: userProfile.name.givenName + userProfile.name.familyName,
           google_id: userProfile.id,
           avator_google_url: userProfile.photos[0].value ?? ''
-        });
-      } else {
-        await user.updateOne({ google_id: userProfile.id });
-      }
-      generateSendJWT((req as any).user, 200, res);
+        },
+        { new: true, upsert: true }
+      );
+
+      const { accessToken, refreshToken } = generateSendJWT(user);
+      res.redirect(
+        `${process.env.FRONT_REDIRECT_URL}?access_token=${accessToken}&refresh_token=${refreshToken}`
+      );
     }
   ),
   sendEmail: handleErrorAsync(

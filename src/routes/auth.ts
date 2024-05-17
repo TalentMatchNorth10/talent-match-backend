@@ -16,10 +16,10 @@ router.post(
 );
 router.get('/google', AuthComment.google, AuthController.google);
 router.get(
-  '/google/client',
-  AuthComment.googleClient,
+  '/google/callback',
+  AuthComment.googleCallback,
   passport.authenticate('google', { session: false }),
-  AuthController.googleClient
+  AuthController.googleCallback
 );
 router.post(
   '/reset_password/send_email',
