@@ -24,7 +24,7 @@ const StudentReservationComment = {
       }
     */
   },
-  reservation_complete: (req: Request, res: Response, next: NextFunction) => {
+  status_update: (req: Request, res: Response, next: NextFunction) => {
     /**
      * #swagger.tags = ['Student Reservation']
      * #swagger.summary = '學生變更預約狀態為已完成'
@@ -32,12 +32,12 @@ const StudentReservationComment = {
             required: true,
             content: {
                 "application/json": {
-                    schema: { $ref: "#/components/schemas/ReservationCompleteResponseModel" }
+                    schema: { $ref: "#/components/schemas/StatusUpdateRequestModel" }
                 }
             }
         }
       * #swagger.responses[200] = { 
-          schema: { $ref: "#/components/schemas/ReserveCourseResponseModel" }
+          schema: { $ref: "#/components/schemas/StatusUpdateResponseModel" }
       }
       * #swagger.responses[400] = { 
           schema: { $ref: "#/components/schemas/Error400ResponseModel" }

@@ -57,20 +57,25 @@ const StudentReservationSchema = {
       }
     }
   },
-  ReservationCompleteRequestModel: {
+  StatusUpdateRequestModel: {
     type: 'object',
     required: ['reservation_id'],
     properties: {
       reservation_id: {
         type: 'string',
         description: '預約ID'
+      },
+      update_status: {
+        type: 'string',
+        description: '更新預約狀態'
       }
     },
     example: {
-      reservation_id: '6647830e2493c0c83bff3c74'
+      reservation_id: '6647830e2493c0c83bff3c74',
+      update_status: 'completed'
     }
   },
-  ReservationCompleteResponseModel: {
+  StatusUpdateResponseModel: {
     type: 'object',
     required: ['status', 'data'],
     properties: {
@@ -86,7 +91,7 @@ const StudentReservationSchema = {
     example: {
       status: true,
       data: {
-        message: '已將課程預約狀態改為已完成'
+        message: '課程預約狀態已更新'
       }
     }
   }
