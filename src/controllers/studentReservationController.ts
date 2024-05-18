@@ -50,9 +50,9 @@ const StudentReservationController = {
       }
     }
   ),
-  reservation_complete: handleErrorAsync(
+  status_update: handleErrorAsync(
     async (req: Request, res: Response, next: NextFunction) => {
-      const { reservation_id } = req.body;
+      const { reservation_id, update_status } = req.body;
 
       const objectId_reservation_id = new mongoose.Types.ObjectId(
         reservation_id
@@ -68,13 +68,13 @@ const StudentReservationController = {
         await Reservation.findByIdAndUpdate(
           objectId_reservation_id,
           {
-            student_status: 'completed'
+            student_status: update_status
           },
           { new: true }
         );
       }
       handleSuccess(res, {
-        message: '已將課程預約狀態改為已完成'
+        message: '課程預約狀態已更新'
       });
       // console.log(objectId_reservation_id);
     }

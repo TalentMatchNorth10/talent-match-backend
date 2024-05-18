@@ -12,9 +12,9 @@ router.post(
   StudentReservationController.reserve_course
 );
 router.patch(
-  '/reservation_complete',
+  '/status_update',
   isAuth,
-  StudentReservationController.reservation_complete
+  StudentReservationController.status_update
 );
 
 export default router;
