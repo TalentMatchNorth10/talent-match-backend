@@ -49,6 +49,35 @@ const StudentReservationController = {
         });
       }
     }
+  ),
+  reservation_complete: handleErrorAsync(
+    async (req: Request, res: Response, next: NextFunction) => {
+      const { reservation_id } = req.body;
+
+      const objectId_reservation_id = new mongoose.Types.ObjectId(
+        reservation_id
+      );
+
+      const existedReservation = await Reservation.find({
+        _id: objectId_reservation_id
+      });
+
+      if (existedReservation.length === 0) {
+        appError(400, '該預約不存在', next);
+      } else {
+        await Reservation.findByIdAndUpdate(
+          objectId_reservation_id,
+          {
+            student_status: 'completed'
+          },
+          { new: true }
+        );
+      }
+      handleSuccess(res, {
+        message: '已將課程預約狀態改為已完成'
+      });
+      // console.log(objectId_reservation_id);
+    }
   )
 };
 
