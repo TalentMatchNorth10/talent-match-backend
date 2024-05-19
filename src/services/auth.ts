@@ -4,6 +4,7 @@ import { CustomRequest } from '../types/express.interface';
 import { NextFunction, Request, Response } from 'express';
 import appError from './appError';
 import UserModel from '../models/userModel';
+import { HydratedDocument } from 'mongoose';
 
 const auth = 'authorization';
 
@@ -34,7 +35,7 @@ async function isAuth(req: CustomRequest, res: Response, next: NextFunction) {
   });
 
   const currentUser = await UserModel.findById(decoded.id);
-  req.user = currentUser;
+  req.user = currentUser as HydratedDocument<User>;
   if (!currentUser) {
     return appError(401, '使用者不存在', next);
   }

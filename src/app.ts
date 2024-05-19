@@ -13,6 +13,7 @@ import authRouter from './routes/auth';
 import studentInfoRouter from './routes/studentInfo';
 import uploadRouter from './routes/upload';
 import studentReservationRouter from './routes/studentReservation';
+import shopRouter from './routes/shop';
 
 const app = express();
 
@@ -52,11 +53,10 @@ app.use('/api-doc', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 app.use('/api/user', userRouter);
 app.use('/api/auth', authRouter);
-
 app.use('/api/student_info', studentInfoRouter);
 app.use('/api/student_reservation', studentReservationRouter);
-
 app.use('/api/upload', uploadRouter);
+app.use('/api/shop', shopRouter);
 
 // express 錯誤處理
 // 生產環境錯誤
