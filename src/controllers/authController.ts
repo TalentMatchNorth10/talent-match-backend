@@ -101,7 +101,7 @@ const authController = {
   ),
   refresh: handleErrorAsync(
     async (req: CustomRequest, res: Response, next: NextFunction) => {
-      const { accessToken, refreshToken } = generateSendJWT(req.user);
+      const { accessToken, refreshToken } = generateSendJWT(req.user!);
       res.status(200).json({
         status: true,
         data: {
@@ -247,8 +247,8 @@ const authController = {
       }
 
       const hashedPassword = await bcrypt.hash(password, 12);
-      user.password = hashedPassword;
-      await user.save();
+      user!.password = hashedPassword;
+      await user!.save();
 
       handleSuccess(res, {
         status: true,

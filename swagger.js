@@ -7,6 +7,7 @@ const endpointsFiles = ['./src/app.ts']; // 要指向的 API，通常使用 Expr
 const { CommonSchema } = require('./swagger/schema/common.schema');
 const { AuthSchema } = require('./swagger/schema/auth.schema');
 const { UserSchema } = require('./swagger/schema/user.schema');
+const { ShopSchema } = require('./swagger/schema/shop.schema');
 
 // 這裡是引入所有的 parameter
 
@@ -34,7 +35,8 @@ const doc = {
     '@schemas': {
       ...CommonSchema,
       ...AuthSchema,
-      ...UserSchema
+      ...UserSchema,
+      ...ShopSchema
     }
   }
 };

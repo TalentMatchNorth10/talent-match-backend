@@ -3,7 +3,7 @@ import { User } from './types/user.interface';
 
 const cartItemSchema = new Schema({
   course_id: Schema.Types.ObjectId,
-  purchase_item_id: Schema.Types.ObjectId
+  purchase_item_id: String
 });
 
 const coursePurchaseSchema = new Schema({

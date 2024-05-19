@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from 'express';
-import { send } from 'process';
 
 const AuthComment = {
   login: (req: Request, res: Response, next: NextFunction) => {
