@@ -30,7 +30,7 @@ const StudentController = {
 
       let formatDate: Date | null = null;
 
-      if (birthday !== null) {
+      if (birthday !== null && birthday !== undefined && birthday !== '') {
         formatDate = new Date(birthday);
       }
 
