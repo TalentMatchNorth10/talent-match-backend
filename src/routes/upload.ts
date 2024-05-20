@@ -8,72 +8,13 @@ const router = express.Router();
 
 import firebase from '../services/firebase';
 import { GetSignedUrlConfig } from '@google-cloud/storage';
+import UploadComment from '../swagger/comment/upload.comment';
 
 const bucket = firebase.storage().bucket();
 
 router.post(
-  /** 
-   * #swagger.tags = ['Upload']
-   * #swagger.summary = '上傳檔案'
-   * #swagger.description = '上傳檔案'
-   * #swagger.parameters['path'] = {
-          in: 'formData',
-          description: '上傳檔案的路徑',
-          required: true,
-          type: 'string',
-          enum: ['user', 'course']
-     }
-    * #swagger.parameters['file'] = {
-          in: 'formData',
-          description: '檔案',
-          required: true,
-          type: 'file'
-      }
-    * #swagger.security = [{
-          "bearerAuth": []
-      }]
-    * #swagger.responses[200] = {
-          description: '上傳成功',
-          schema: {
-              properties: {
-                  fileUrl: {
-                      type: "string",
-                      description: "檔案的網址"
-                  }
-              }
-          }
-      }
-    * #swagger.responses[400] = {
-          description: '請選擇圖片上傳路徑'
-      }
-    * #swagger.responses[400] = {
-          description: '尚未上傳檔案'
-      }
-    * #swagger.responses[500] = {
-          description: '上傳失敗'
-      }    
-    * #swagger.requestBody = {
-            required: true,
-            content: {
-                "multipart/form-data": {
-                    schema: {
-                        type: "object",
-                        properties: {
-                            path: {
-                                type: "string",
-                                enum: ["user", "course"]
-                            },
-                            file: {
-                                type: "string",
-                                format: "binary"
-                            }
-                        }
-                    }
-                }
-            }
-        } 
-    */
   '/file',
+  UploadComment.upload,
   isAuth,
   upload,
   handleErrorAsync(

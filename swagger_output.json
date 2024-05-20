@@ -18,9 +18,7 @@
   "paths": {
     "/api/user/user_info": {
       "get": {
-        "tags": [
-          "User"
-        ],
+        "tags": ["User"],
         "summary": "取得使用者資訊",
         "description": "",
         "responses": {
@@ -79,9 +77,7 @@
     },
     "/api/auth/login": {
       "post": {
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "summary": "使用者登入",
         "description": "",
         "responses": {
@@ -145,9 +141,7 @@
     },
     "/api/auth/register": {
       "post": {
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "summary": "使用者註冊",
         "description": "",
         "responses": {
@@ -211,9 +205,7 @@
     },
     "/api/auth/refresh": {
       "post": {
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "summary": "取得新的 Access Token",
         "description": "",
         "responses": {
@@ -277,9 +269,7 @@
     },
     "/api/auth/google": {
       "get": {
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "summary": "Google登入",
         "description": "",
         "responses": {
@@ -333,9 +323,7 @@
     },
     "/api/auth/google/callback": {
       "get": {
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "summary": "Google登入Callback",
         "description": "",
         "responses": {
@@ -389,9 +377,7 @@
     },
     "/api/auth/reset_password/send_email": {
       "post": {
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "summary": "重設密碼",
         "description": "",
         "responses": {
@@ -455,9 +441,7 @@
     },
     "/api/auth/reset_password/update": {
       "post": {
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "summary": "更新密碼",
         "description": "",
         "parameters": [
@@ -530,27 +514,8 @@
     },
     "/api/student_info/basic_info": {
       "get": {
-        "tags": [
-          "Student_Info"
-        ],
+        "tags": ["Student_Info"],
         "summary": "取得學生基本資訊",
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      },
-      "patch": {
-        "tags": [
-          "Student_Info"
-        ],
-        "summary": "更新學生基本資訊",
         "description": "",
         "responses": {
           "200": {
@@ -558,48 +523,12 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "boolean",
-                      "example": true
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "message": {
-                          "type": "string",
-                          "example": "更新學生基本資訊成功"
-                        }
-                      }
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
+                  "$ref": "#/components/schemas/StudentInfoResponseModel"
                 }
               },
               "application/xml": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "boolean",
-                      "example": true
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "message": {
-                          "type": "string",
-                          "example": "更新學生基本資訊成功"
-                        }
-                      }
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
+                  "$ref": "#/components/schemas/StudentInfoResponseModel"
                 }
               }
             }
@@ -609,48 +538,12 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "boolean",
-                      "example": false
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "message": {
-                          "type": "string",
-                          "example": "更新學生基本資訊失敗"
-                        }
-                      }
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
+                  "$ref": "#/components/schemas/Error400ResponseModel"
                 }
               },
               "application/xml": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "boolean",
-                      "example": false
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "message": {
-                          "type": "string",
-                          "example": "更新學生基本資訊失敗"
-                        }
-                      }
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
+                  "$ref": "#/components/schemas/Error400ResponseModel"
                 }
               }
             }
@@ -660,48 +553,12 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "boolean",
-                      "example": false
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "message": {
-                          "type": "string",
-                          "example": "伺服器錯誤"
-                        }
-                      }
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
+                  "$ref": "#/components/schemas/Error500ResponseModel"
                 }
               },
               "application/xml": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "boolean",
-                      "example": false
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "message": {
-                          "type": "string",
-                          "example": "伺服器錯誤"
-                        }
-                      }
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
+                  "$ref": "#/components/schemas/Error500ResponseModel"
                 }
               }
             }
@@ -712,6 +569,7 @@
             "bearerAuth": []
           }
         ]
+
       }
     },
     "/api/student_info/teacher_apply": {
@@ -816,73 +674,287 @@
             }
           }
         ],
+
+      },
+      "patch": {
+        "tags": ["Student_Info"],
+        "summary": "更新學生基本資訊",
+        "description": "",
         "responses": {
           "200": {
-            "description": "上傳成功",
+            "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "properties": {
-                      "type": "object",
-                      "properties": {
-                        "fileUrl": {
-                          "type": "object",
-                          "properties": {
-                            "type": {
-                              "type": "string",
-                              "example": "string"
-                            },
-                            "description": {
-                              "type": "string",
-                              "example": "檔案的網址"
-                            }
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
+                  "$ref": "#/components/schemas/UpdateStudentInfoResponseModel"
                 }
               },
               "application/xml": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "properties": {
-                      "type": "object",
-                      "properties": {
-                        "fileUrl": {
-                          "type": "object",
-                          "properties": {
-                            "type": {
-                              "type": "string",
-                              "example": "string"
-                            },
-                            "description": {
-                              "type": "string",
-                              "example": "檔案的網址"
-                            }
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
+                  "$ref": "#/components/schemas/UpdateStudentInfoResponseModel"
                 }
               }
             }
           },
           "400": {
-            "description": "尚未上傳檔案"
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              }
+            }
           },
           "500": {
-            "description": "上傳失敗"
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "in": "body",
+          "description": "更新學生基本資訊",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateStudentInfoRequestModel"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateStudentInfoRequestModel"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/favorites/": {
+      "get": {
+        "tags": ["Favorites"],
+        "summary": "取得收藏課程",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FavoritesResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/FavoritesResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              }
+            },
+            "schema": {
+              "$ref": "#/components/schemas/Error500ResponseModel"
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": ["Favorites"],
+        "summary": "新增收藏課程",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddFavoriteResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddFavoriteResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FavoriteRequestModel"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Favorites"],
+        "summary": "取消收藏課程",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CancelFavoriteResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/CancelFavoriteResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FavoriteRequestModel"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/upload/file": {
+      "post": {
+        "tags": ["Upload"],
+        "summary": "上傳檔案",
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
           }
         },
         "security": [
@@ -895,20 +967,7 @@
           "content": {
             "multipart/form-data": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "path": {
-                    "type": "string",
-                    "enum": [
-                      "user",
-                      "course"
-                    ]
-                  },
-                  "file": {
-                    "type": "string",
-                    "format": "binary"
-                  }
-                }
+                "$ref": "#/components/schemas/UploadRequestModel"
               }
             }
           }
@@ -917,9 +976,7 @@
     },
     "/api/shop/cart": {
       "get": {
-        "tags": [
-          "Shop"
-        ],
+        "tags": ["Shop"],
         "summary": "取得購物車項目列表",
         "description": "",
         "responses": {
@@ -976,9 +1033,7 @@
         ]
       },
       "post": {
-        "tags": [
-          "Shop"
-        ],
+        "tags": ["Shop"],
         "summary": "新增購物車項目",
         "description": "",
         "responses": {
@@ -1047,9 +1102,7 @@
     },
     "/api/shop/cart/{id}": {
       "delete": {
-        "tags": [
-          "Shop"
-        ],
+        "tags": ["Shop"],
         "summary": "刪除購物車項目",
         "description": "",
         "parameters": [
@@ -1131,10 +1184,7 @@
       },
       "Error400ResponseModel": {
         "type": "object",
-        "required": [
-          "status",
-          "message"
-        ],
+        "required": ["status", "message"],
         "properties": {
           "status": {
             "type": "boolean"
@@ -1150,10 +1200,7 @@
       },
       "Error500ResponseModel": {
         "type": "object",
-        "required": [
-          "status",
-          "message"
-        ],
+        "required": ["status", "message"],
         "properties": {
           "status": {
             "type": "boolean"
@@ -1169,10 +1216,7 @@
       },
       "LoginRequestModel": {
         "type": "object",
-        "required": [
-          "email",
-          "password"
-        ],
+        "required": ["email", "password"],
         "properties": {
           "email": {
             "type": "string",
@@ -1190,20 +1234,14 @@
       },
       "LoginResponseModel": {
         "type": "object",
-        "required": [
-          "status",
-          "data"
-        ],
+        "required": ["status", "data"],
         "properties": {
           "status": {
             "type": "boolean"
           },
           "data": {
             "type": "object",
-            "required": [
-              "access_token",
-              "refresh_token"
-            ],
+            "required": ["access_token", "refresh_token"],
             "properties": {
               "access_token": {
                 "type": "string",
@@ -1226,12 +1264,7 @@
       },
       "RegisterRequestModel": {
         "type": "object",
-        "required": [
-          "nick_name",
-          "email",
-          "password",
-          "confirm_password"
-        ],
+        "required": ["nick_name", "email", "password", "confirm_password"],
         "properties": {
           "nick_name": {
             "type": "string",
@@ -1259,19 +1292,14 @@
       },
       "RegisterResponseModel": {
         "type": "object",
-        "required": [
-          "status",
-          "data"
-        ],
+        "required": ["status", "data"],
         "properties": {
           "status": {
             "type": "boolean"
           },
           "data": {
             "type": "object",
-            "required": [
-              "message"
-            ],
+            "required": ["message"],
             "properties": {
               "message": {
                 "type": "string"
@@ -1288,9 +1316,7 @@
       },
       "RefreshRequestModel": {
         "type": "object",
-        "required": [
-          "refresh_token"
-        ],
+        "required": ["refresh_token"],
         "properties": {
           "refresh_token": {
             "type": "string",
@@ -1303,20 +1329,14 @@
       },
       "RefreshResponseModel": {
         "type": "object",
-        "required": [
-          "status",
-          "data"
-        ],
+        "required": ["status", "data"],
         "properties": {
           "status": {
             "type": "boolean"
           },
           "data": {
             "type": "object",
-            "required": [
-              "access_token",
-              "refresh_token"
-            ],
+            "required": ["access_token", "refresh_token"],
             "properties": {
               "access_token": {
                 "type": "string",
@@ -1339,19 +1359,14 @@
       },
       "GoogleResponseModel": {
         "type": "object",
-        "required": [
-          "status",
-          "data"
-        ],
+        "required": ["status", "data"],
         "properties": {
           "status": {
             "type": "boolean"
           },
           "data": {
             "type": "object",
-            "required": [
-              "message"
-            ],
+            "required": ["message"],
             "properties": {
               "message": {
                 "type": "string"
@@ -1368,9 +1383,7 @@
       },
       "GoogleClientRequestModel": {
         "type": "object",
-        "required": [
-          "grant"
-        ],
+        "required": ["grant"],
         "properties": {
           "grant": {
             "type": "string",
@@ -1383,20 +1396,14 @@
       },
       "GoogleClientResponseModel": {
         "type": "object",
-        "required": [
-          "status",
-          "data"
-        ],
+        "required": ["status", "data"],
         "properties": {
           "status": {
             "type": "boolean"
           },
           "data": {
             "type": "object",
-            "required": [
-              "access_token",
-              "refresh_token"
-            ],
+            "required": ["access_token", "refresh_token"],
             "properties": {
               "access_token": {
                 "type": "string",
@@ -1419,9 +1426,7 @@
       },
       "ResetPasswordSendEmailRequestModel": {
         "type": "object",
-        "required": [
-          "email"
-        ],
+        "required": ["email"],
         "properties": {
           "email": {
             "type": "string",
@@ -1434,19 +1439,14 @@
       },
       "ResetPasswordSendEmailResponseModel": {
         "type": "object",
-        "required": [
-          "status",
-          "data"
-        ],
+        "required": ["status", "data"],
         "properties": {
           "status": {
             "type": "boolean"
           },
           "data": {
             "type": "object",
-            "required": [
-              "message"
-            ],
+            "required": ["message"],
             "properties": {
               "message": {
                 "type": "string"
@@ -1463,10 +1463,7 @@
       },
       "ResetPasswordUpdateRequestModel": {
         "type": "object",
-        "required": [
-          "password",
-          "confirm_password"
-        ],
+        "required": ["password", "confirm_password"],
         "properties": {
           "token": {
             "type": "string",
@@ -1489,19 +1486,14 @@
       },
       "ResetPasswordUpdateResponseModel": {
         "type": "object",
-        "required": [
-          "status",
-          "data"
-        ],
+        "required": ["status", "data"],
         "properties": {
           "status": {
             "type": "boolean"
           },
           "data": {
             "type": "object",
-            "required": [
-              "message"
-            ],
+            "required": ["message"],
             "properties": {
               "message": {
                 "type": "string"
@@ -1518,21 +1510,14 @@
       },
       "UserInfoResponseModel": {
         "type": "object",
-        "required": [
-          "status",
-          "data"
-        ],
+        "required": ["status", "data"],
         "properties": {
           "status": {
             "type": "boolean"
           },
           "data": {
             "type": "object",
-            "required": [
-              "nick_name",
-              "avator_image",
-              "cart"
-            ],
+            "required": ["nick_name", "avator_image", "cart"],
             "properties": {
               "nick_name": {
                 "type": "string",
@@ -1579,10 +1564,90 @@
       },
       "GetCartItemsResponseModel": {
         "type": "object",
+        "required": ["status", "data"],
+      "StudentInfoResponseModel": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "nick_name": {
+                "type": "string"
+              },
+              "birthday": {
+                "type": "string"
+              },
+              "contact_phone": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "avator_image": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "example": {
+          "status": true,
+          "data": {
+            "name": "string",
+            "nick_name": "string",
+            "birthday": "string",
+            "contact_phone": "string",
+            "email": "string",
+            "avator_image": "string"
+          }
+        }
+      },
+      "UpdateStudentInfoRequestModel": {
+        "type": "object",
         "required": [
-          "status",
-          "data"
+          "name",
+          "nick_name",
+          "birthday",
+          "contact_phone",
+          "email",
+          "avator_image"
         ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "nick_name": {
+            "type": "string"
+          },
+          "birthday": {
+            "type": "string"
+          },
+          "contact_phone": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "avator_image": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "name": "string",
+          "nick_name": "string",
+          "birthday": "string",
+          "contact_phone": "string",
+          "email": "string",
+          "avator_image": "string"
+        }
+      },
+      "UpdateStudentInfoResponseModel": {
+        "type": "object",
         "properties": {
           "status": {
             "type": "boolean"
@@ -1632,6 +1697,97 @@
                 }
               }
             }
+          },
+            "type": "object",
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "example": {
+          "status": true,
+          "data": {
+            "message": "更新學生基本資訊成功"
+          }
+        }
+      },
+      "FavoritesResponseModel": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean",
+            "description": "狀態"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "favorites": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "course_id": {
+                      "type": "string",
+                      "description": "課程ID"
+                    },
+                    "rate": {
+                      "type": "number",
+                      "description": "評分"
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "課程名稱"
+                    },
+                    "content": {
+                      "type": "string",
+                      "description": "課程內容"
+                    },
+                    "main_image": {
+                      "type": "string",
+                      "description": "主圖片"
+                    },
+                    "main_category": {
+                      "type": "string",
+                      "description": "主類別"
+                    },
+                    "sub_category": {
+                      "type": "string",
+                      "description": "子類別"
+                    },
+                    "teacher_id": {
+                      "type": "string",
+                      "description": "教師ID"
+                    },
+                    "teacher_name": {
+                      "type": "string",
+                      "description": "教師名稱"
+                    },
+                    "teacher_avator": {
+                      "type": "string",
+                      "description": "教師頭像"
+                    },
+                    "price_quantity": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "price": {
+                            "type": "number",
+                            "description": "價格"
+                          },
+                          "quantity": {
+                            "type": "number",
+                            "description": "數量"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         },
         "example": {
@@ -1653,10 +1809,7 @@
       },
       "AddCartItemRequestModel": {
         "type": "object",
-        "required": [
-          "course_id",
-          "purchase_item_id"
-        ],
+        "required": ["course_id", "purchase_item_id"],
         "properties": {
           "course_id": {
             "type": "string",
@@ -1672,61 +1825,328 @@
           "purchase_item_id": "string"
         }
       },
-      "AddCartItemResponseModel": {
+      "FavoriteRequestModel": {
         "type": "object",
-        "required": [
-          "status",
-          "data"
-        ],
+        "required": ["course_id"],
         "properties": {
-          "status": {
-            "type": "boolean"
+          "course_id": {
+            "type": "string",
+            "description": "課程Id"
           },
-          "data": {
-            "type": "object",
-            "required": [
-              "message"
-            ],
-            "properties": {
-              "message": {
-                "type": "string"
+          "type": "string",
+          "description": "課程項目Id"
+        }
+      },
+      "example": {
+        "course_id": "string",
+        "purchase_item_id": "string"
+      }
+    },
+    "AddCartItemResponseModel": {
+      "type": "object",
+      "required": ["status", "data"],
+      "properties": {
+        "description": "課程ID"
+      },
+      "example": {
+        "course_id": "string"
+      }
+    },
+    "AddFavoriteResponseModel": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean",
+          "description": "狀態"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "faviorites": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "course_id": {
+                    "type": "string",
+                    "description": "課程ID"
+                  },
+                  "rate": {
+                    "type": "number",
+                    "description": "評分"
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "課程名稱"
+                  },
+                  "content": {
+                    "type": "string",
+                    "description": "課程內容"
+                  },
+                  "main_image": {
+                    "type": "string",
+                    "description": "主圖片"
+                  },
+                  "main_category": {
+                    "type": "string",
+                    "description": "主類別"
+                  },
+                  "sub_category": {
+                    "type": "string",
+                    "description": "子類別"
+                  },
+                  "teacher_id": {
+                    "type": "string",
+                    "description": "教師ID"
+                  },
+                  "teacher_name": {
+                    "type": "string",
+                    "description": "教師名稱"
+                  },
+                  "teacher_avator": {
+                    "type": "string",
+                    "description": "教師頭像"
+                  },
+                  "price_quantity": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "price": {
+                          "type": "number",
+                          "description": "價格"
+                        },
+                        "quantity": {
+                          "type": "number",
+                          "description": "數量"
+                        }
+                      }
+                    }
+                  }
+                }
               }
             }
-          }
-        },
-        "example": {
-          "status": true,
-          "data": {
-            "message": "加入購物車成功"
           }
         }
       },
-      "RemoveCartItemResponseModel": {
-        "type": "object",
-        "required": [
-          "status",
-          "data"
-        ],
-        "properties": {
-          "status": {
-            "type": "boolean"
-          },
-          "data": {
-            "type": "object",
-            "required": [
-              "message"
-            ],
-            "properties": {
-              "message": {
-                "type": "string"
-              }
+      "example": {
+        "status": true,
+        "data": {
+          "faviorites": [
+            {
+              "course_id": "string",
+              "rate": 0,
+              "name": "string",
+              "content": "string",
+              "main_image": "string",
+              "main_category": "string",
+              "sub_category": "string",
+              "teacher_id": "string",
+              "teacher_name": "string",
+              "teacher_avator": "string",
+              "price_quantity": [
+                {
+                  "price": 0,
+                  "quantity": 0
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "CancelFavoriteRequestModel": {
+      "type": "object",
+      "required": ["course_id"],
+      "properties": {
+        "course_id": {
+          "type": "string",
+          "description": "課程ID"
+        }
+      },
+      "example": {
+        "course_id": "string"
+      }
+    },
+    "CancelFavoriteResponseModel": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean",
+          "description": "狀態"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "message": {
+              "type": "string",
+              "description": "訊息"
             }
           }
         },
         "example": {
           "status": true,
           "data": {
-            "message": "刪除購物車成功"
+            "message": "取消收藏課程成功"
+          }
+        }
+      },
+      "UploadRequestModel": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "enum": [
+              "user",
+              "course"
+            ]
+          },
+          "file": {
+            "type": "string",
+            "format": "binary"
+          }
+        }
+      },
+      "example": {
+        "status": true,
+        "data": {
+          "message": "取消收藏課程成功"
+        }
+      }
+    },
+    "StudentInfoResponseModel": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "nick_name": {
+          "type": "string"
+        },
+        "birthday": {
+          "type": "string"
+        },
+        "contact_phone": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "avator_image": {
+          "type": "string"
+        }
+      },
+      "example": {
+        "name": "string",
+        "nick_name": "string",
+        "birthday": "string",
+        "contact_phone": "string",
+        "email": "string",
+        "avator_image": "string"
+      }
+    },
+    "UpdateStudentInfoRequestModel": {
+      "type": "object",
+      "required": [
+        "name",
+        "nick_name",
+        "birthday",
+        "contact_phone",
+        "email",
+        "avator_image"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "nick_name": {
+          "type": "string"
+        },
+        "birthday": {
+          "type": "string"
+        },
+        "contact_phone": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "avator_image": {
+          "type": "string"
+        }
+      },
+      "example": {
+        "name": "string",
+        "nick_name": "string",
+        "birthday": "string",
+        "contact_phone": "string",
+        "email": "string",
+        "avator_image": "string"
+      }
+    },
+    "UpdateStudentInfoResponseModel": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean"
+        },
+        "data": {
+          "type": "object",
+          "required": ["message"],
+          "properties": {
+            "message": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "example": {
+        "status": true,
+        "data": {
+          "message": "加入購物車成功"
+        }
+      }
+    },
+    "RemoveCartItemResponseModel": {
+      "type": "object",
+      "required": ["status", "data"],
+      "properties": {
+        "status": {
+          "type": "boolean"
+        },
+        "data": {
+          "type": "object",
+          "required": ["message"],
+          "properties": {
+            "message": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "example": {
+        "status": true,
+        "data": {
+          "message": "刪除購物車成功"
+        }
+      }
+    },
+    "UploadRequestModel": {
+      "required": true,
+      "content": {
+        "multipart/form-data": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string",
+                "enum": ["user", "course"]
+              },
+              "file": {
+                "type": "string",
+                "format": "binary"
+              }
+            }
           }
         }
       },
@@ -2041,6 +2461,18 @@
             "message": "申請成功"
           }
         }
+      }
+    },
+    "UploadResponseModel": {
+      "type": "object",
+      "properties": {
+        "fileUrl": {
+          "type": "string",
+          "description": "檔案的網址"
+        }
+      },
+      "example": {
+        "fileUrl": "string"
       }
     }
   }

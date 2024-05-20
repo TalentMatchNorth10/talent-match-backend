@@ -1,4 +1,4 @@
-import mongoose, { Schema } from 'mongoose';
+import mongoose, { Schema, Types } from 'mongoose';
 
 interface IPriceQuantity extends Document {
   _id: string;
@@ -17,7 +17,7 @@ interface ICourse extends Document {
   dist_id: string;
   survey_url: string;
   status: number;
-  teacher_id: string;
+  teacher_id: Types.ObjectId;
   purchase_message: string;
   video_ids: string[];
   file_ids: string[];
@@ -98,7 +98,8 @@ const courseSchema = new Schema<ICourse>(
     },
     status: { type: Number, required: true, enum: [1, 2, 3] },
     teacher_id: {
-      type: String,
+      type: Schema.Types.ObjectId,
+      ref: 'Teacher',
       required: function (this: ICourse) {
         return this.status === 2;
       }
