@@ -5,12 +5,12 @@ import User from '../models/userModel';
 import validator from 'validator';
 import appError from '../services/appError';
 
-const studentController = {
+const StudentController = {
   getBasicInfo: handleErrorAsync(
     async (req: Request, res: Response, next: NextFunction) => {
       const { name, nick_name, birthday, contact_phone, email, avator_image } =
         req.user!;
-      // 取得 token
+
       handleSuccess(res, {
         avator_image,
         name,
@@ -28,7 +28,11 @@ const studentController = {
       const { name, nick_name, birthday, contact_phone, email, avator_image } =
         req.body;
 
-      const formatDate = new Date(birthday);
+      let formatDate: Date | null = null;
+
+      if (birthday !== null) {
+        formatDate = new Date(birthday);
+      }
 
       if (validator.isEmail(email) === false) {
         appError(400, 'email 格式不正確', next);
@@ -40,7 +44,7 @@ const studentController = {
         {
           name,
           nick_name,
-          testDate: formatDate,
+          birthday: formatDate,
           contact_phone,
           email,
           avator_image
@@ -54,4 +58,4 @@ const studentController = {
   )
 };
 
-export default studentController;
+export default StudentController;
