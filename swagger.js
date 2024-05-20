@@ -9,7 +9,7 @@ const { AuthSchema } = require('./swagger/schema/auth.schema');
 const { UserSchema } = require('./swagger/schema/user.schema');
 const { ShopSchema } = require('./swagger/schema/shop.schema');
 const { StudentInfoSchema } = require('./swagger/schema//studentInfo.schema');
-const { FavoritesSchema } =require('./swagger/schema/favorites.schema');
+const { FavoritesSchema } = require('./swagger/schema/favorites.schema');
 const { UploadSchema } = require('./swagger/schema/upload.schema');
 
 // 這裡是引入所有的 parameter
@@ -42,10 +42,8 @@ const doc = {
       ...ShopSchema,
       ...FavoritesSchema,
       ...StudentInfoSchema,
+      ...FavoritesSchema,
       ...UploadSchema
-    },
-    'parameters': {
-      ...AuthParameter
     }
   }
 };

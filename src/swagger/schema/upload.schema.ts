@@ -1,21 +1,14 @@
 const UploadSchema = {
   UploadRequestModel: {
-    required: true,
-    content: {
-      'multipart/form-data': {
-        schema: {
-          type: 'object',
-          properties: {
-            path: {
-              type: 'string',
-              enum: ['user', 'course']
-            },
-            file: {
-              type: 'string',
-              format: 'binary'
-            }
-          }
-        }
+    type: 'object',
+    properties: {
+      path: {
+        type: 'string',
+        enum: ['user', 'course']
+      },
+      file: {
+        type: 'string',
+        format: 'binary'
       }
     }
   },

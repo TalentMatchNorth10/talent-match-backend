@@ -574,17 +574,6 @@
         "tags": ["Student_Info"],
         "summary": "更新學生基本資訊",
         "description": "",
-        "parameters": [
-          {
-            "name": "obj",
-            "in": "body",
-            "description": "更新學生基本資訊",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/UpdateStudentInfoRequestModel"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -636,7 +625,24 @@
           {
             "bearerAuth": []
           }
-        ]
+        ],
+        "requestBody": {
+          "in": "body",
+          "description": "更新學生基本資訊",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateStudentInfoRequestModel"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateStudentInfoRequestModel"
+              }
+            }
+          }
+        }
       }
     },
     "/api/favorites/": {
@@ -704,7 +710,6 @@
         "tags": ["Favorites"],
         "summary": "新增收藏課程",
         "description": "",
-        "parameters": [],
         "responses": {
           "200": {
             "description": "OK",
@@ -758,15 +763,11 @@
           }
         ],
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "course_id": {
-                    "example": "any"
-                  }
-                }
+                "$ref": "#/components/schemas/FavoriteRequestModel"
               }
             }
           }
@@ -776,7 +777,6 @@
         "tags": ["Favorites"],
         "summary": "取消收藏課程",
         "description": "",
-        "parameters": [],
         "responses": {
           "200": {
             "description": "OK",
@@ -830,15 +830,11 @@
           }
         ],
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "course_id": {
-                    "example": "any"
-                  }
-                }
+                "$ref": "#/components/schemas/FavoriteRequestModel"
               }
             }
           }
@@ -851,50 +847,8 @@
         "summary": "上傳檔案",
         "description": "",
         "responses": {
-          "200": {
-            "description": "上傳成功",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UploadResponseModel"
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/UploadResponseModel"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error400ResponseModel"
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error400ResponseModel"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error500ResponseModel"
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error500ResponseModel"
-                }
-              }
-            }
+          "default": {
+            "description": ""
           }
         },
         "security": [
@@ -903,7 +857,14 @@
           }
         ],
         "requestBody": {
-          "$ref": "#/components/schemas/UploadRequestModel"
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/UploadRequestModel"
+              }
+            }
+          }
         }
       }
     },
@@ -1498,6 +1459,78 @@
       "GetCartItemsResponseModel": {
         "type": "object",
         "required": ["status", "data"],
+      "StudentInfoResponseModel": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "nick_name": {
+            "type": "string"
+          },
+          "birthday": {
+            "type": "string"
+          },
+          "contact_phone": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "avator_image": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "name": "string",
+          "nick_name": "string",
+          "birthday": "string",
+          "contact_phone": "string",
+          "email": "string",
+          "avator_image": "string"
+        }
+      },
+      "UpdateStudentInfoRequestModel": {
+        "type": "object",
+        "required": [
+          "name",
+          "nick_name",
+          "birthday",
+          "contact_phone",
+          "email",
+          "avator_image"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "nick_name": {
+            "type": "string"
+          },
+          "birthday": {
+            "type": "string"
+          },
+          "contact_phone": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "avator_image": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "name": "string",
+          "nick_name": "string",
+          "birthday": "string",
+          "contact_phone": "string",
+          "email": "string",
+          "avator_image": "string"
+        }
+      },
+      "UpdateStudentInfoResponseModel": {
+        "type": "object",
         "properties": {
           "status": {
             "type": "boolean"
@@ -1547,6 +1580,19 @@
                 }
               }
             }
+          },
+            "type": "object",
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "example": {
+          "status": true,
+          "data": {
+            "message": "更新學生基本資訊成功"
           }
         }
       },
@@ -1662,7 +1708,7 @@
           "purchase_item_id": "string"
         }
       },
-      "AddFavoriteRequestModel": {
+      "FavoriteRequestModel": {
         "type": "object",
         "required": ["course_id"],
         "properties": {
@@ -1819,6 +1865,28 @@
               "type": "string",
               "description": "訊息"
             }
+          }
+        },
+        "example": {
+          "status": true,
+          "data": {
+            "message": "取消收藏課程成功"
+          }
+        }
+      },
+      "UploadRequestModel": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "enum": [
+              "user",
+              "course"
+            ]
+          },
+          "file": {
+            "type": "string",
+            "format": "binary"
           }
         }
       },

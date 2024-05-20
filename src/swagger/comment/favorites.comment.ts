@@ -32,11 +32,13 @@ const FavoritesComment = {
      * #swagger.tags = ['Favorites']
      * #swagger.summary = '新增收藏課程'
      * #swagger.security = [{"bearerAuth": []}]
-     * #swagger.parameters['body'] = {
-         in: 'body',
-         description: '新增收藏課程',
+     * #swagger.requestBody = {
          required: true,
-         schema: { $ref: "#/components/schemas/AddFavoriteRequestModel"}
+         content: {
+            'application/json': {
+                schema: { $ref: "#/components/schemas/FavoriteRequestModel"}
+            }
+         }
     }
     * #swagger.responses[200] = { 
         schema: {
@@ -61,11 +63,13 @@ const FavoritesComment = {
      * #swagger.tags = ['Favorites']
      * #swagger.summary = '取消收藏課程'
      * #swagger.security = [{"bearerAuth": []}]
-     * #swagger.parameters['body'] = {
-         in: 'body',
-         description: '取消收藏課程',
+     * #swagger.requestBody = {
          required: true,
-         schema: { $ref: "#/components/schemas/CancelFavoriteRequestModel"}
+         content: {
+            'application/json': {
+                schema: { $ref: "#/components/schemas/FavoriteRequestModel"}
+            }
+         }
     }
     * #swagger.responses[200] = { 
         schema: {

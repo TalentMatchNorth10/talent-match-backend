@@ -23,7 +23,7 @@ const StudentInfoComment = {
      * #swagger.tags = ['Student_Info']
      * #swagger.summary = '更新學生基本資訊'
      * #swagger.security = [{"bearerAuth": []}]
-     * #swagger.parameters['obj'] = {
+     * #swagger.requestBody = {
         in: 'body',
         description: '更新學生基本資訊',
         required: true,

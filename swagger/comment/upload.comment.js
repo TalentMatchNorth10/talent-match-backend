@@ -6,7 +6,15 @@ const UploadComment = {
          * #swagger.tags = ['Upload']
          * #swagger.summary = '上傳檔案'
          * #swagger.security = [{"bearerAuth": []}]
-         * #swagger.requestBody = { $ref: "#/components/schemas/UploadRequestModel" }
+         * #swagger.requestBody = {
+              required: true,
+              content: {
+                'multipart/form-data': {
+                  schema: { $ref: "#/components/schemas/UploadRequestModel" }
+                }
+              }
+            }
+         * }
          * #swagger.responses[200] = {
               description: '上傳成功',
               schema: { $ref: "#/components/schemas/UploadResponseModel" }

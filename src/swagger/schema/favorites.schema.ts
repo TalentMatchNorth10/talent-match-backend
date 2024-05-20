@@ -103,7 +103,7 @@ const FavoritesSchema = {
       }
     }
   },
-  AddFavoriteRequestModel: {
+  FavoriteRequestModel: {
     type: 'object',
     required: ['course_id'],
     properties: {
@@ -217,19 +217,6 @@ const FavoritesSchema = {
           }
         ]
       }
-    }
-  },
-  CancelFavoriteRequestModel: {
-    type: 'object',
-    required: ['course_id'],
-    properties: {
-      course_id: {
-        type: 'string',
-        description: '課程ID'
-      }
-    },
-    example: {
-      course_id: 'string'
     }
   },
   CancelFavoriteResponseModel: {
