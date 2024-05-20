@@ -26,4 +26,5 @@ export interface User extends Document {
   carts: CartItem[];
   course_purchases: CoursePurchase[];
   preference: number[];
+  favorites: Types.ObjectId[];
 }

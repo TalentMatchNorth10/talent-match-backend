@@ -31,7 +31,8 @@ const userSchema = new Schema<User>({
   },
   carts: { type: [cartItemSchema], default: [] },
   course_purchases: { type: [coursePurchaseSchema], default: [] },
-  preference: { type: [Number], default: [] }
+  preference: { type: [Number], default: [] },
+  favorites: { type: [Schema.Types.ObjectId], ref: 'Course', default: [] }
 });
 
 const User = mongoose.model('User', userSchema);
