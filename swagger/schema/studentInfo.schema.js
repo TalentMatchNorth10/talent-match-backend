@@ -5,20 +5,29 @@ const StudentInfoSchema = {
     StudentInfoResponseModel: {
         type: 'object',
         properties: {
-            name: { type: 'string' },
-            nick_name: { type: 'string' },
-            birthday: { type: 'string' },
-            contact_phone: { type: 'string' },
-            email: { type: 'string' },
-            avator_image: { type: 'string' }
+            status: { type: 'boolean' },
+            data: {
+                type: 'object',
+                properties: {
+                    name: { type: 'string' },
+                    nick_name: { type: 'string' },
+                    birthday: { type: 'string' },
+                    contact_phone: { type: 'string' },
+                    email: { type: 'string' },
+                    avator_image: { type: 'string' }
+                }
+            }
         },
         example: {
-            name: 'string',
-            nick_name: 'string',
-            birthday: 'string',
-            contact_phone: 'string',
-            email: 'string',
-            avator_image: 'string'
+            status: true,
+            data: {
+                name: 'string',
+                nick_name: 'string',
+                birthday: 'string',
+                contact_phone: 'string',
+                email: 'string',
+                avator_image: 'string'
+            }
         }
     },
     UpdateStudentInfoRequestModel: {
