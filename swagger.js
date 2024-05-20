@@ -8,6 +8,7 @@ const { CommonSchema } = require('./swagger/schema/common.schema');
 const { AuthSchema } = require('./swagger/schema/auth.schema');
 const { UserSchema } = require('./swagger/schema/user.schema');
 const { ShopSchema } = require('./swagger/schema/shop.schema');
+const { TeacherInfoSchema } = require('./swagger/schema/teacherInfo.schema');
 
 // 這裡是引入所有的 parameter
 
@@ -36,7 +37,8 @@ const doc = {
       ...CommonSchema,
       ...AuthSchema,
       ...UserSchema,
-      ...ShopSchema
+      ...ShopSchema,
+      ...TeacherInfoSchema
     }
   }
 };

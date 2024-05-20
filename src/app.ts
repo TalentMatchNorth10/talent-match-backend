@@ -11,6 +11,8 @@ import GoogleStrategy from 'passport-google-oauth20';
 import userRouter from './routes/user';
 import authRouter from './routes/auth';
 import studentInfoRouter from './routes/studentInfo';
+import teacherInfoRouter from './routes/teacherInfo';
+import homeRouter from './routes/home';
 import uploadRouter from './routes/upload';
 import studentReservationRouter from './routes/studentReservation';
 import shopRouter from './routes/shop';
@@ -55,6 +57,9 @@ app.use('/api/user', userRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/student_info', studentInfoRouter);
 app.use('/api/student_reservation', studentReservationRouter);
+app.use('/api/teacher_info', teacherInfoRouter);
+app.use('/api/home', homeRouter);
+
 app.use('/api/upload', uploadRouter);
 app.use('/api/shop', shopRouter);
 
