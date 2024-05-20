@@ -22,6 +22,7 @@ const UploadComment = {
          * #swagger.responses[400] = { schema: { $ref: "#/components/schemas/Error400ResponseModel"} }
          * #swagger.responses[500] = { schema: { $ref: "#/components/schemas/Error500ResponseModel" } }
         */
+        next();
     }
 };
 exports.default = UploadComment;
