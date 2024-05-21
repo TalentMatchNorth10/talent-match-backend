@@ -110,6 +110,6 @@ const ShopSchema = {
                 message: '刪除購物車成功'
             }
         }
-    },
+    }
 };
 exports.ShopSchema = ShopSchema;
