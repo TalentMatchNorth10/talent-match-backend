@@ -63,6 +63,6 @@ const ShopComment = {
         }
         */
         next();
-    },
+    }
 };
 exports.default = ShopComment;
