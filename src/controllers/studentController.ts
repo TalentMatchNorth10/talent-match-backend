@@ -30,8 +30,10 @@ const StudentController = {
 
       let formatDate: Date | null = null;
 
+      const timezoneOffset = new Date().getTimezoneOffset() * 60000; // 轉換為毫秒
+
       if (birthday !== null && birthday !== undefined && birthday !== '') {
-        formatDate = new Date(birthday);
+        formatDate = new Date(new Date(birthday).getTime() - timezoneOffset);
       }
 
       if (validator.isEmail(email) === false) {
