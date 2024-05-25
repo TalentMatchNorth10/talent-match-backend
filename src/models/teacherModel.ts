@@ -2,6 +2,7 @@ import mongoose, { Schema } from 'mongoose';
 import { validate } from 'uuid';
 
 const workExperienceSchema = new Schema({
+  id: { type: Schema.Types.ObjectId },
   is_working: { type: Boolean, default: false }, // 是否在職中
   workplace: { type: String, required: true }, // 單位名稱
   job_category: { type: String, required: true }, // 職務類別
@@ -14,6 +15,7 @@ const workExperienceSchema = new Schema({
 });
 
 const learningExperienceSchema = new Schema({
+  id: { type: Schema.Types.ObjectId },
   is_in_school: { type: Boolean, default: false }, // 是否在學中
   degree: { type: String, required: true }, // 學歷
   department: { type: String, required: true }, // 科系名稱
@@ -26,7 +28,8 @@ const learningExperienceSchema = new Schema({
   file: { type: String, required: true } // 文件路徑或參考
 });
 
-const teachingCertificateSchema = new Schema({
+export const teachingCertificateSchema = new Schema({
+  id: { type: Schema.Types.ObjectId },
   verifying_institution: { type: String, required: true },
   license_name: { type: String, required: true },
   name: { type: String, required: true },
