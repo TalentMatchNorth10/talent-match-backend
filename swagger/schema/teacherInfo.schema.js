@@ -486,7 +486,13 @@ const TeacherInfoSchema = {
     },
     PatchTeacherInfoBasicRequestModel: {
         type: 'object',
-        required: ['avator_image', 'main_categorys', 'sub_categorys', 'nationality', 'introduction'],
+        required: [
+            'avator_image',
+            'main_categorys',
+            'sub_categorys',
+            'nationality',
+            'introduction'
+        ],
         properties: {
             avator_image: {
                 type: 'string',
@@ -642,7 +648,17 @@ const TeacherInfoSchema = {
     },
     PatchTeacherInfoEducationRequestModel: {
         type: 'object',
-        required: ['degree', 'department', 'start_year', 'start_month', 'end_year', 'end_month', 'name', 'place', 'file'],
+        required: [
+            'degree',
+            'department',
+            'start_year',
+            'start_month',
+            'end_year',
+            'end_month',
+            'name',
+            'place',
+            'file'
+        ],
         properties: {
             is_in_school: {
                 type: 'boolean',
@@ -700,7 +716,15 @@ const TeacherInfoSchema = {
     },
     PatchTeacherInfoEducationResponseModel: {
         type: 'object',
-        required: ['verifying_institution', 'license_name', 'name', 'license_number', 'file', 'category', 'subject'],
+        required: [
+            'verifying_institution',
+            'license_name',
+            'name',
+            'license_number',
+            'file',
+            'category',
+            'subject'
+        ],
         properties: {
             verifying_institution: {
                 type: 'string',
@@ -745,7 +769,15 @@ const TeacherInfoSchema = {
         type: 'array',
         items: {
             type: 'object',
-            required: ['verifying_institution', 'license_name', 'name', 'license_number', 'file', 'category', 'subject'],
+            required: [
+                'verifying_institution',
+                'license_name',
+                'name',
+                'license_number',
+                'file',
+                'category',
+                'subject'
+            ],
             properties: {
                 verifying_institution: {
                     type: 'string',
@@ -777,7 +809,8 @@ const TeacherInfoSchema = {
                 }
             }
         },
-        example: [{
+        example: [
+            {
                 verifying_institution: 'string',
                 license_name: 'string',
                 name: 'string',
@@ -785,7 +818,8 @@ const TeacherInfoSchema = {
                 file: 'string',
                 category: 'string',
                 subject: 'string'
-            }]
+            }
+        ]
     },
     PatchTeacherInfoCertificateResponseModel: {
         type: 'object',
