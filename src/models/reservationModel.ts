@@ -2,9 +2,21 @@ import mongoose, { Schema } from 'mongoose';
 
 const reservationSchema = new Schema(
   {
-    course_id: { type: String, required: [true, '課程ID為必填項'] },
-    teacher_id: { type: String, required: [true, '授課老師ID為必填項'] },
-    student_id: { type: String, required: [true, '學生ID為必填項'] },
+    course_id: {
+      type: Schema.Types.ObjectId,
+      ref: 'Course',
+      required: [true, '課程ID為必填項']
+    },
+    teacher_id: {
+      type: Schema.Types.ObjectId,
+      ref: 'Teacher',
+      required: [true, '授課老師ID為必填項']
+    },
+    student_id: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+      required: [true, '學生ID為必填項']
+    },
     reserve_time: { type: Date, required: [true, '預約時間為必填項'] },
     teacher_status: {
       type: String,

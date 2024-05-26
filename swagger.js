@@ -14,6 +14,7 @@ const { TeacherInfoSchema } = require('./swagger/schema/teacherInfo.schema');
 const { StudentInfoSchema } = require('./swagger/schema//studentInfo.schema');
 const { FavoritesSchema } = require('./swagger/schema/favorites.schema');
 const { UploadSchema } = require('./swagger/schema/upload.schema');
+const { TeacherReserveSchema } = require('./swagger/schema/teacherReserve.schema');
 
 
 // 這裡是引入所有的 parameter
@@ -48,6 +49,7 @@ const doc = {
       ...FavoritesSchema,
       ...StudentInfoSchema,
       ...FavoritesSchema,
+      ...TeacherReserveSchema,
       ...UploadSchema
 
     }
