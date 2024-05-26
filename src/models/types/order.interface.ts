@@ -1,16 +1,43 @@
 import { Types } from 'mongoose';
 
+export enum PurchaseWay {
+  LINE_PAY = 1,
+  CREDIT = 2
+}
+
+export enum Invoice {
+  PERSONAL = 1,
+  COMPANY = 2,
+  TRANSFER = 3
+}
+
+export enum InvoiceWay {
+  EMAIL = 1,
+  MOBILE_BARCODE = 2,
+  NATURAL_CERTIFICATE = 3
+}
+
+export enum Status {
+  PENDING = 1,
+  SUCCESS = 2,
+  FAIL = 3
+}
+
 interface PurchaseItem extends Document {
-  quantity: number;
-  price: number;
+  course_id: Types.ObjectId;
+  purchase_item_id: string;
 }
 
 export interface Order extends Document {
+  status: Status.PENDING | Status.SUCCESS | Status.FAIL;
   create_date: Date;
   purchase_items: PurchaseItem[];
-  purchase_way: 1 | 2;
-  invoice: 1 | 2 | 3;
-  invoice_way?: 1 | 2 | 3;
+  purchase_way: PurchaseWay.LINE_PAY | PurchaseWay.CREDIT;
+  invoice: Invoice.PERSONAL | Invoice.COMPANY | Invoice.TRANSFER;
+  invoice_way?:
+    | InvoiceWay.EMAIL
+    | InvoiceWay.MOBILE_BARCODE
+    | InvoiceWay.NATURAL_CERTIFICATE;
   invoice_code?: string;
   natural_certificate?: string;
   tax_id?: string;

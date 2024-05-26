@@ -2,13 +2,17 @@ import mongoose, { Schema } from 'mongoose';
 import { Order } from './types/order.interface';
 
 const purchaseItemSchema = new Schema({
-  _id: Schema.Types.ObjectId,
-  quantity: { type: Number, required: [true, '購買堂数量為必填項'] },
-  price: { type: Number, required: [true, '價格為必填項'] }
+  course_id: Schema.Types.ObjectId,
+  purchase_item_id: String
 });
 
 const orderSchema = new Schema<Order>(
   {
+    status: {
+      type: Number,
+      required: [true, '訂單狀態為必填項'],
+      enum: [1, 2, 3]
+    },
     create_date: { type: Date, required: [true, '訂單創建日期為必填項'] },
     purchase_items: {
       type: [purchaseItemSchema],
