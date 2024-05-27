@@ -7,6 +7,8 @@ import Reservation from '../models/reservationModel';
 import { DateRange, DateUtil } from '../utils/date-util';
 import { toObjectId } from '../utils/common-util';
 import Teacher from '../models/teacherModel';
+import Course from '../models/courseModel';
+import mongoose from 'mongoose';
 
 interface TeacherReserveQuery {
   range?: DateRange;
@@ -14,168 +16,68 @@ interface TeacherReserveQuery {
 }
 
 const TeacherReserveController = {
-  getInitReserves: handleErrorAsync(
+  getSelectList: handleErrorAsync(
     async (req: Request, res: Response, next: NextFunction) => {
       const teacherId = req.user?.teacher_id;
 
-      const { startDate, endDate } = DateUtil.getDateRange(DateRange.WEEK);
+      const courseList = await Course.find({ teacher_id: teacherId }).select(
+        'name _id'
+      );
 
-      const reserves = await Reservation.aggregate([
+      const studentList = await Reservation.aggregate([
         {
-          $facet: {
-            upcomingReserves: [
-              {
-                $match: {
-                  teacher_id: teacherId,
-                  teacher_status: 'reserved',
-                  reserve_time: {
-                    $gte: startDate,
-                    $lt: endDate
-                  }
-                }
-              },
-              {
-                $lookup: {
-                  from: 'courses',
-                  localField: 'course_id',
-                  foreignField: '_id',
-                  as: 'course_id'
-                }
-              },
-              {
-                $unwind: '$course_id'
-              },
-              {
-                $lookup: {
-                  from: 'users',
-                  localField: 'student_id',
-                  foreignField: '_id',
-                  as: 'student_id'
-                }
-              },
-              { $unwind: '$student_id' },
-              {
-                $project: {
-                  course: {
-                    name: '$course_id.name'
-                  },
-                  student: {
-                    name: '$student_id.name',
-                    email: '$student_id.email'
-                  },
-                  reserve_time: '$reserve_time',
-                  teacher_status: '$teacher_status'
-                }
-              },
-              {
-                $sort: {
-                  reserve_time: 1 // 1 表示升序排序
-                }
+          $match: { teacher_id: teacherId }
+        },
+        {
+          $lookup: {
+            from: 'users',
+            localField: 'student_id',
+            foreignField: '_id',
+            as: 'student_info'
+          }
+        },
+        {
+          $unwind: '$student_info'
+        },
+        {
+          $group: {
+            _id: '$course_id',
+            students: {
+              $addToSet: {
+                _id: '$student_info._id',
+                name: '$student_info.name'
               }
-            ],
-            expiredReserves: [
-              {
-                $match: {
-                  teacher_id: teacherId,
-                  reserve_time: {
-                    $lt: DateUtil.formatLocalDate(new Date())
-                  },
-                  teacher_status: {
-                    $in: ['reserved', 'completed']
-                  },
-                  student_status: 'reserved'
-                }
-              },
-              {
-                $lookup: {
-                  from: 'courses',
-                  localField: 'course_id',
-                  foreignField: '_id',
-                  as: 'course_id'
-                }
-              },
-              {
-                $unwind: '$course_id'
-              },
-              {
-                $lookup: {
-                  from: 'users',
-                  localField: 'student_id',
-                  foreignField: '_id',
-                  as: 'student_id'
-                }
-              },
-              { $unwind: '$student_id' },
-              {
-                $project: {
-                  course: {
-                    name: '$course_id.name'
-                  },
-                  student: {
-                    name: '$student_id.name',
-                    email: '$student_id.email'
-                  },
-                  reserve_time: '$reserve_time',
-                  teacher_status: '$teacher_status',
-                  student_status: '$student_status'
-                }
-              },
-              {
-                $sort: {
-                  reserve_time: 1 // 1 表示升序排序
-                }
-              }
-            ],
-            courseList: [
-              {
-                $match: {
-                  teacher_id: teacherId
-                }
-              },
-              {
-                $lookup: {
-                  from: 'courses',
-                  localField: 'teacher_id',
-                  foreignField: 'teacher_id',
-                  as: 'courses'
-                }
-              },
-              {
-                $unwind: '$courses'
-              },
-              {
-                $group: {
-                  _id: '$courses._id',
-                  course_name: { $first: '$courses.name' }
-                }
-              },
-              {
-                $project: {
-                  _id: 1,
-                  course_name: 1
-                }
-              }
-            ]
+            }
+          }
+        },
+        {
+          $project: {
+            _id: 0,
+            course_id: '$_id',
+            students: 1
           }
         }
       ]);
 
-      // 處理返回的結果
-      const upcomingReserves = reserves[0].upcomingReserves;
-      const expiredReserves = reserves[0].expiredReserves;
-      const courseList = reserves[0].courseList;
-
       handleSuccess(res, {
-        reserves: upcomingReserves,
-        expiredReserves,
-        courseList
+        courseList,
+        studentList
       });
     }
   ),
   getReserves: handleErrorAsync(
     async (req: Request, res: Response, next: NextFunction) => {
-      const { range = DateRange.WEEK, courseId = '' } =
+      const { range = DateRange.TwoDays, courseId = '' } =
         req.query! as TeacherReserveQuery;
+
+      if (!range || !Object.values(DateRange).includes(range)) {
+        return appError(400, '請提供正確的日期範圍', next);
+      }
+
+      if (!mongoose.Types.ObjectId.isValid(courseId)) {
+        return appError(400, '查無此課程', next);
+      }
+
       const teacherId = req.user?.teacher_id;
       const { startDate, endDate } = DateUtil.getDateRange(range);
 
@@ -435,6 +337,52 @@ const TeacherReserveController = {
       ]).sort({ date: 1 });
 
       handleSuccess(res, { calendar });
+    }
+  ),
+  getAllReserves: handleErrorAsync(
+    async (req: Request, res: Response, next: NextFunction) => {
+      const teacherId = req.user?.teacher_id;
+
+      const reserves = await Reservation.aggregate([
+        {
+          $match: {
+            teacher_id: teacherId
+          }
+        },
+        {
+          $lookup: {
+            from: 'courses',
+            localField: 'course_id',
+            foreignField: '_id',
+            as: 'course'
+          }
+        },
+        { $unwind: '$course' },
+        {
+          $lookup: {
+            from: 'users',
+            localField: 'student_id',
+            foreignField: '_id',
+            as: 'student'
+          }
+        },
+        { $unwind: '$student' },
+        {
+          $project: {
+            _id: 0,
+            course: '$course.name',
+            student_name: '$student.name',
+            student_email: '$student.email',
+            reserve_time: {
+              $dateToString: { format: '%Y-%m-%d %H:%M', date: '$reserve_time' }
+            },
+            teacher_status: 1,
+            student_status: 1
+          }
+        }
+      ]);
+
+      handleSuccess(res, { reserves });
     }
   )
 };
