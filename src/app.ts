@@ -19,6 +19,7 @@ import favoriteRouter from './routes/favorites';
 import uploadRouter from './routes/upload';
 import studentReservationRouter from './routes/studentReservation';
 import shopRouter from './routes/shop';
+import teacherReserveRouter from './routes/teacherReserve';
 
 const app = express();
 
@@ -63,8 +64,8 @@ app.use('/api/student_reservation', studentReservationRouter);
 
 app.use('/api/teacher_info', teacherInfoRouter);
 app.use('/api/home', homeRouter);
+app.use('/api/teacher_reserves', teacherReserveRouter);
 app.use('/api/favorites', favoriteRouter);
-
 app.use('/api/upload', uploadRouter);
 app.use('/api/shop', shopRouter);
 
