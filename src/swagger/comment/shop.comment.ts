@@ -63,6 +63,31 @@ const ShopComment = {
     }
     */
     next();
+  },
+  paymentCreate: (req: Request, res: Response, next: NextFunction) => {
+    /**
+    * #swagger.tags = ['Shop']
+    * #swagger.summary = '建立付款'
+    * #swagger.security = [{"bearerAuth": []}]
+    * #swagger.requestBody = {
+          required: true,
+          content: {
+              "application/json": {
+                  schema: { $ref: "#/components/schemas/PaymentCreateRequestModel" }
+              }
+          }
+      }
+    * #swagger.responses[200] = { 
+        schema: { $ref: "#/components/schemas/PaymentCreateResponseModel" }
+    }
+    * #swagger.responses[400] = { 
+        schema: { $ref: "#/components/schemas/Error400ResponseModel" }
+    }
+    * #swagger.responses[500] = { 
+        schema: { $ref: "#/components/schemas/Error500ResponseModel" }
+    }
+    */
+    next();
   }
 };
 

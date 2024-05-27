@@ -110,6 +110,79 @@ const ShopSchema = {
                 message: '刪除購物車成功'
             }
         }
+    },
+    PaymentCreateRequestModel: {
+        type: 'object',
+        required: [
+            'name',
+            'email',
+            'region',
+            'city',
+            'district',
+            'address',
+            'invoice',
+            'invoice_way',
+            'purchase_items'
+        ],
+        properties: {
+            name: { type: 'string' },
+            email: { type: 'string' },
+            region: { type: 'string' },
+            city: { type: 'string' },
+            district: { type: 'string' },
+            address: { type: 'string' },
+            invoice: { type: 'string' },
+            invoice_way: { type: 'string' },
+            purchase_items: {
+                type: 'array',
+                items: {
+                    type: 'object',
+                    required: ['course_id', 'purchase_item_id'],
+                    properties: {
+                        course_id: { type: 'string' },
+                        purchase_item_id: { type: 'string' }
+                    }
+                }
+            }
+        },
+        example: {
+            name: 'string',
+            email: 'string',
+            region: 'string',
+            city: 'string',
+            district: 'string',
+            address: 'string',
+            invoice: 'string',
+            invoice_way: 'string',
+            purchase_items: [
+                {
+                    course_id: 'string',
+                    purchase_item_id: 'string'
+                }
+            ]
+        }
+    },
+    PaymentCreateResponseModel: {
+        type: 'object',
+        required: ['status', 'data'],
+        properties: {
+            status: { type: 'boolean' },
+            data: {
+                type: 'object',
+                required: ['message', 'payment_id'],
+                properties: {
+                    message: { type: 'string' },
+                    payment_id: { type: 'string' }
+                }
+            }
+        },
+        example: {
+            status: true,
+            data: {
+                message: '建立付款成功',
+                payment_id: 'string'
+            }
+        }
     }
 };
 exports.ShopSchema = ShopSchema;

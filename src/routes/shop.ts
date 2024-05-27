@@ -23,5 +23,11 @@ router.delete(
   ShopComment.removeCartItem,
   shopController.removeCartItem
 );
+router.post(
+  '/payment_create',
+  isAuth,
+  ShopComment.paymentCreate,
+  shopController.paymentCreate
+);
 
 export default router;
