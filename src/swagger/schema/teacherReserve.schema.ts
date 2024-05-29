@@ -1,5 +1,5 @@
 const TeacherReserveSchema = {
-  GetReservesInitResponseModel: {
+  GetSelectListResponseModel: {
     type: 'object',
     properties: {
       status: {
@@ -9,81 +9,6 @@ const TeacherReserveSchema = {
       data: {
         type: 'object',
         properties: {
-          reserves: {
-            type: 'array',
-            items: {
-              type: 'object',
-              properties: {
-                _id: {
-                  type: 'string'
-                },
-                course: {
-                  type: 'object',
-                  properties: {
-                    name: {
-                      type: 'string'
-                    }
-                  }
-                },
-                student: {
-                  type: 'object',
-                  properties: {
-                    name: {
-                      type: 'string'
-                    },
-                    email: {
-                      type: 'string'
-                    }
-                  }
-                },
-                reserve_time: {
-                  type: 'string'
-                },
-                teacher_status: {
-                  type: 'string'
-                }
-              }
-            }
-          },
-          expiredReserves: {
-            type: 'array',
-            items: {
-              type: 'object',
-              properties: {
-                _id: {
-                  type: 'string'
-                },
-                course: {
-                  type: 'object',
-                  properties: {
-                    name: {
-                      type: 'string'
-                    }
-                  }
-                },
-                student: {
-                  type: 'object',
-                  properties: {
-                    name: {
-                      type: 'string'
-                    },
-                    email: {
-                      type: 'string'
-                    }
-                  }
-                },
-                reserve_time: {
-                  type: 'string'
-                },
-                teacher_status: {
-                  type: 'string'
-                },
-                student_status: {
-                  type: 'string'
-                }
-              }
-            }
-          },
           courseList: {
             type: 'array',
             items: {
@@ -92,8 +17,33 @@ const TeacherReserveSchema = {
                 _id: {
                   type: 'string'
                 },
-                course_name: {
+                name: {
                   type: 'string'
+                }
+              }
+            }
+          },
+          studentList: {
+            type: 'array',
+            items: {
+              type: 'object',
+              properties: {
+                course_id: {
+                  type: 'string'
+                },
+                students: {
+                  type: 'array',
+                  items: {
+                    type: 'object',
+                    properties: {
+                      _id: {
+                        type: 'string'
+                      },
+                      name: {
+                        type: 'string'
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -104,83 +54,41 @@ const TeacherReserveSchema = {
     example: {
       status: true,
       data: {
-        reserves: [
-          {
-            _id: '664c5a960e656d5d5511fbf6',
-            course: {
-              name: '吉他基礎入門課程'
-            },
-            student: {
-              name: 'shiba測試用',
-              email: 'shiba@gmail.com'
-            },
-            reserve_time: '2024-05-29T00:00:00.000Z',
-            teacher_status: 'reserved'
-          },
-          {
-            _id: '664f37a45555adceed97cac6',
-            course: {
-              name: '水彩畫入門課程'
-            },
-            student: {
-              name: 'shiba測試用',
-              email: 'shiba@gmail.com'
-            },
-            reserve_time: '2024-05-29T00:00:00.000Z',
-            teacher_status: 'reserved'
-          },
-          {
-            _id: '664c5a960e656d5d5511fbf7',
-            course: {
-              name: '吉他基礎入門課程'
-            },
-            student: {
-              name: 'shiba測試用',
-              email: 'shiba@gmail.com'
-            },
-            reserve_time: '2024-05-31T23:00:00.000Z',
-            teacher_status: 'reserved'
-          }
-        ],
-        expiredReserves: [
-          {
-            _id: '664c5a960e656d5d5511fbf4',
-            course: {
-              name: '吉他基礎入門課程'
-            },
-            student: {
-              name: 'shiba測試用',
-              email: 'shiba@gmail.com'
-            },
-            reserve_time: '2024-05-23T00:00:00.000Z',
-            teacher_status: 'completed',
-            student_status: 'reserved'
-          }
-        ],
         courseList: [
           {
             _id: '66462077589368f14e1bf98e',
-            course_name: '吉他基礎入門課程'
-          },
-          {
-            _id: '664622f2589368f14e1d712a',
-            course_name: '基本法語會話課程'
+            name: '吉他基礎入門課程'
           },
           {
             _id: '664622f2589368f14e1d712d',
-            course_name: '烹飪基礎技巧課程'
-          },
-          {
-            _id: '664622f2589368f14e1d712b',
-            course_name: '瑜伽基礎訓練課程'
-          },
-          {
-            _id: '664622f2589368f14e1d712c',
-            course_name: '基礎程式設計入門課程'
+            name: '烹飪基礎技巧課程'
           },
           {
             _id: '664622f2589368f14e1d7129',
-            course_name: '水彩畫入門課程'
+            name: '水彩畫入門課程'
+          },
+          {
+            _id: '664622f2589368f14e1d712a',
+            name: '基本法語會話課程'
+          },
+          {
+            _id: '664622f2589368f14e1d712b',
+            name: '瑜伽基礎訓練課程'
+          },
+          {
+            _id: '664622f2589368f14e1d712c',
+            name: '基礎程式設計入門課程'
+          }
+        ],
+        studentList: [
+          {
+            course_id: '66462077589368f14e1bf98e',
+            students: [
+              {
+                _id: '6649a044284874f28d8fa9be',
+                name: 'shiba測試用'
+              }
+            ]
           }
         ]
       }
@@ -691,6 +599,46 @@ const TeacherReserveSchema = {
             date: '2024-05-31'
           }
         ]
+      }
+    }
+  },
+  GetAllReservesResponseModel: {
+    type: 'object',
+    properties: {
+      status: {
+        type: 'boolean',
+        description: '狀態'
+      },
+      data: {
+        type: 'object',
+        properties: {
+          reserves: {
+            type: 'array',
+            items: {
+              type: 'object',
+              properties: {
+                teacher_status: {
+                  type: 'string'
+                },
+                student_status: {
+                  type: 'string'
+                },
+                course: {
+                  type: 'string'
+                },
+                student_name: {
+                  type: 'string'
+                },
+                student_email: {
+                  type: 'string'
+                },
+                reserve_time: {
+                  type: 'string'
+                }
+              }
+            }
+          }
+        }
       }
     }
   }

@@ -1,13 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const TeacherReserveComment = {
-    getReservesInit: (req, res, next) => {
+    getSelectList: (req, res, next) => {
         /**
          * #swagger.tags = ['TeacherReserve']
-         * #swagger.summary = '取得預約初始化資料'
+         * #swagger.summary = '取得下拉選單資料'
          * #swagger.security = [{"bearerAuth": []}]
          * #swagger.responses[200] = {
-             schema: { $ref: "#/components/schemas/GetReservesInitResponseModel"}
+             schema: { $ref: "#/components/schemas/GetSelectListResponseModel"}
         }
         * #swagger.responses[400] = {
             schema: {
@@ -165,6 +165,27 @@ const TeacherReserveComment = {
          }
          * #swagger.responses[200] = {
              schema: { $ref: "#/components/schemas/GetCalendarResponseModel"}
+        }
+        * #swagger.responses[400] = {
+            schema: {
+            $ref: "#/components/schemas/Error400ResponseModel"
+            }
+        }
+        * #swagger.responses[500] = {
+            schema: {
+                $ref: "#/components/schemas/Error500ResponseModel"
+            }
+        }
+        */
+        next();
+    },
+    getAllReserves: (req, res, next) => {
+        /**
+         * #swagger.tags = ['TeacherReserve']
+         * #swagger.summary = '取得已預約課程清單（列表）'
+         * #swagger.security = [{"bearerAuth": []}]
+         * #swagger.responses[200] = {
+             schema: { $ref: "#/components/schemas/GetAllReservesResponseModel"}
         }
         * #swagger.responses[400] = {
             schema: {

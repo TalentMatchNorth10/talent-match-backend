@@ -5,10 +5,10 @@ import TeacherReserveComment from '../swagger/comment/teacherReserve.comment';
 const router = express.Router();
 
 router.get(
-  '/reserves_init',
-  TeacherReserveComment.getReservesInit,
+  '/course_list',
+  TeacherReserveComment.getSelectList,
   isAuth,
-  TeacherReserveController.getInitReserves
+  TeacherReserveController.getSelectList
 );
 
 router.get(
@@ -43,6 +43,13 @@ router.patch(
   TeacherReserveComment.updateCanReserveWeek,
   isAuth,
   TeacherReserveController.updateCanReserveWeek
+);
+
+router.get(
+  '/list',
+  TeacherReserveComment.getAllReserves,
+  isAuth,
+  TeacherReserveController.getAllReserves
 );
 
 router.get(

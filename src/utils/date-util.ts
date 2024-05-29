@@ -1,5 +1,6 @@
 import { format } from 'path';
 export enum DateRange {
+  TwoDays = 'twoDays',
   WEEK = 'week',
   MONTH = 'month'
 }
@@ -19,6 +20,21 @@ export const DateUtil = {
     const now = this.formatLocalDate(new Date());
 
     switch (range) {
+      case DateRange.TwoDays:
+        return {
+          startDate: now,
+          endDate: this.formatLocalDate(
+            new Date(
+              now.getFullYear(),
+              now.getMonth(),
+              now.getDate() + 2,
+              0,
+              0,
+              0,
+              0
+            )
+          )
+        };
       case DateRange.WEEK:
         return {
           startDate: now,

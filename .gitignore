@@ -1,3 +1,7 @@
 node_modules
 config.env
 dist
+src/dev-data
+.env
+.env.*
+!.env.example
