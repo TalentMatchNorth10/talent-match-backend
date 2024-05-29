@@ -2329,6 +2329,77 @@
           }
         }
       }
+    },
+    "/api/common/tag": {
+      "get": {
+        "tags": [
+          "Common"
+        ],
+        "summary": "取得分類",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetTags"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetTags"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error403ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error403ResponseModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error404ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error404ResponseModel"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -2362,6 +2433,44 @@
           "message": "錯誤訊息"
         }
       },
+      "Error403ResponseModel": {
+        "type": "object",
+        "required": [
+          "status",
+          "message"
+        ],
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "status": "false",
+          "message": "沒有權限"
+        }
+      },
+      "Error404ResponseModel": {
+        "type": "object",
+        "required": [
+          "status",
+          "message"
+        ],
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "status": "false",
+          "message": "not found"
+        }
+      },
       "Error500ResponseModel": {
         "type": "object",
         "required": [
@@ -2380,6 +2489,43 @@
           "status": "false",
           "message": "伺服器錯誤"
         }
+      },
+      "GetTags": {
+        "type": "object",
+        "properties": {
+          "main_category": {
+            "type": "string"
+          },
+          "sub_category": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "example": [
+          {
+            "main_category": "音樂",
+            "sub_category": [
+              "長笛",
+              "吉他"
+            ]
+          },
+          {
+            "main_category": "廚藝",
+            "sub_category": [
+              "蛋糕裝飾",
+              "中餐基礎"
+            ]
+          },
+          {
+            "main_category": "美術",
+            "sub_category": [
+              "油畫",
+              "水彩"
+            ]
+          }
+        ]
       },
       "LoginRequestModel": {
         "type": "object",
