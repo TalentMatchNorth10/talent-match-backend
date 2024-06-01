@@ -93,9 +93,7 @@ const authController = {
       });
 
       handleSuccess(res, {
-        data: {
-          message: '註冊成功'
-        }
+        message: '註冊成功'
       });
     }
   ),
@@ -192,9 +190,7 @@ const authController = {
 
       await transporter.sendMail(mailOptions);
       handleSuccess(res, {
-        data: {
-          message: '已發送密碼更新信件至您的信箱'
-        }
+        message: '已發送密碼更新信件至您的信箱'
       });
     }
   ),
@@ -251,8 +247,7 @@ const authController = {
       await user!.save();
 
       handleSuccess(res, {
-        status: true,
-        data: { message: '密碼已成功更新' }
+        message: '密碼已成功更新'
       });
     }
   )

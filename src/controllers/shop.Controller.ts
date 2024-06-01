@@ -95,7 +95,9 @@ const shopController = {
       req.user!.carts.push(cartItem);
       await req.user!.save();
 
-      handleSuccess(res, '成功加入購物車');
+      handleSuccess(res, {
+        message: '成功加入購物車'
+      });
     }
   ),
   removeCartItem: handleErrorAsync(
@@ -111,7 +113,9 @@ const shopController = {
 
       await req.user!.save();
 
-      handleSuccess(res, '成功移除購物車項目');
+      handleSuccess(res, {
+        message: '成功移除購物車項目'
+      });
     }
   ),
   paymentCreate: handleErrorAsync(
