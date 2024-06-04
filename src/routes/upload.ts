@@ -29,7 +29,7 @@ router.post(
 
       const files = (req.files as Express.Multer.File[])[0];
 
-      console.log(req.body);
+      // console.log(req.body);
       const blob = createBlob(req, files);
 
       const blobStream = blob.createWriteStream();

@@ -147,7 +147,6 @@ const teacherController = {
       }
 
       try {
-        console.log(teacherId);
         // 查找並更新教師資料
         const updatedTeacher = await Teacher.findByIdAndUpdate(
           { _id: teacherId },
