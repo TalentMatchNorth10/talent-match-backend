@@ -1,6 +1,6 @@
 import express, { Request } from 'express';
 import { isAuth } from '../services/auth';
-import upload from '../services/image';
+import upload from '../services/upload';
 import handleErrorAsync from '../services/handleErrorAsync';
 import appError from '../services/appError';
 import { v4 as uuidv4 } from 'uuid';
@@ -12,15 +12,24 @@ import UploadComment from '../swagger/comment/upload.comment';
 
 const bucket = firebase.storage().bucket();
 
+export interface UploadRequestModel {
+  fileType: 'image' | 'video';
+  path: 'user' | 'course';
+}
+
 router.post(
   '/file',
   UploadComment.upload,
   isAuth,
   upload,
   handleErrorAsync(
-    async (req: Request<any, any, { path: 'user' | 'course' }>, res, next) => {
+    async (req: Request<any, any, UploadRequestModel>, res, next) => {
+      if (!req.body.fileType) {
+        return next(appError(400, '請選擇上傳檔案類型', next));
+      }
+
       if (!req.body.path) {
-        return next(appError(400, '請選擇圖片上傳路徑', next));
+        return next(appError(400, '請選擇上傳路徑', next));
       }
 
       if (!req.files || req.files.length === 0) {
@@ -32,7 +41,7 @@ router.post(
       // console.log(req.body);
       const blob = createBlob(req, files);
 
-      const blobStream = blob.createWriteStream();
+      const blobStream = blob!.createWriteStream();
 
       // 監聽上傳狀態，當上傳完成時，會觸發 finish 事件
       blobStream.on('finish', () => {
@@ -42,7 +51,7 @@ router.post(
           expires: '12-31-2500' // 網址的有效期限
         };
         // 取得檔案的網址
-        blob.getSignedUrl(config, (err, fileUrl) => {
+        blob!.getSignedUrl(config, (err, fileUrl) => {
           res.send({
             fileUrl
           });
@@ -60,18 +69,30 @@ router.post(
   )
 );
 
-function createBlob(req: Request, firstfile: Express.Multer.File) {
-  const { body, user } = req;
-  switch (body.path) {
-    case 'user':
-      return bucket.file(
-        `images/users/${uuidv4()}.${firstfile.originalname.split('.').pop()}`
-      );
-    case 'course':
-      return bucket.file(`images/coruses/${uuidv4()}`);
-    default:
-      return bucket.file(`images/${uuidv4()}`);
+function createBlob(
+  req: Request<any, any, UploadRequestModel>,
+  file: Express.Multer.File
+) {
+  const { fileType, path } = req.body;
+  const fileExtension = file.originalname.split('.').pop();
+  const fileName = `${uuidv4()}.${fileExtension}`;
+
+  if (fileType === 'image') {
+    if (path === 'user') {
+      return bucket.file(`images/users/${fileName}`);
+    }
+    if (path === 'course') {
+      return bucket.file(`images/courses/${fileName}`);
+    }
+  } else if (fileType === 'video') {
+    if (path === 'user') {
+      return bucket.file(`videos/users/${fileName}`);
+    }
+    if (path === 'course') {
+      return bucket.file(`videos/courses/${fileName}`);
+    }
   }
+  return bucket.file(`files/${fileName}`);
 }
 
 export default router;

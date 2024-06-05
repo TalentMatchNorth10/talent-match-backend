@@ -2,6 +2,10 @@ const UploadSchema = {
   UploadRequestModel: {
     type: 'object',
     properties: {
+      fileType: {
+        type: 'string',
+        enum: ['image', 'video']
+      },
       path: {
         type: 'string',
         enum: ['user', 'course']
