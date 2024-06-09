@@ -61,22 +61,22 @@ const CommonSchema = {
             sub_category: {
                 type: 'array',
                 items: {
-                    "type": "string"
+                    type: 'string'
                 }
             }
         },
         example: [
             {
-                "main_category": "音樂", // 課程主類別
-                "sub_category": ["長笛", "吉他"], // 課程次類別
+                main_category: '音樂', // 課程主類別
+                sub_category: ['長笛', '吉他'] // 課程次類別
             },
             {
-                "main_category": "廚藝", // 課程主類別
-                "sub_category": ["蛋糕裝飾", "中餐基礎"], // 課程次類別
+                main_category: '廚藝', // 課程主類別
+                sub_category: ['蛋糕裝飾', '中餐基礎'] // 課程次類別
             },
             {
-                "main_category": "美術", // 課程主類別
-                "sub_category": ["油畫", "水彩"], // 課程次類別
+                main_category: '美術', // 課程主類別
+                sub_category: ['油畫', '水彩'] // 課程次類別
             }
         ]
     }
