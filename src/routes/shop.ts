@@ -29,5 +29,11 @@ router.post(
   ShopComment.paymentCreate,
   shopController.paymentCreate
 );
+router.get(
+  '/order/:id',
+  isAuth,
+  ShopComment.orderDetail,
+  shopController.orderDetail
+);
 
 export default router;

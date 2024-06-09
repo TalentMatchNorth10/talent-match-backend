@@ -8,14 +8,13 @@ const { CommonSchema } = require('./swagger/schema/common.schema');
 const { AuthSchema } = require('./swagger/schema/auth.schema');
 const { UserSchema } = require('./swagger/schema/user.schema');
 const { ShopSchema } = require('./swagger/schema/shop.schema');
-
 const { TeacherInfoSchema } = require('./swagger/schema/teacherInfo.schema');
-
 const { StudentInfoSchema } = require('./swagger/schema//studentInfo.schema');
 const { FavoritesSchema } = require('./swagger/schema/favorites.schema');
 const { UploadSchema } = require('./swagger/schema/upload.schema');
-const { TeacherReserveSchema } = require('./swagger/schema/teacherReserve.schema');
-
+const {
+  TeacherReserveSchema
+} = require('./swagger/schema/teacherReserve.schema');
 
 // 這裡是引入所有的 parameter
 
@@ -51,8 +50,8 @@ const doc = {
       ...FavoritesSchema,
       ...TeacherReserveSchema,
       ...UploadSchema
-
-    }
+    },
+    parameters: {}
   }
 };
 

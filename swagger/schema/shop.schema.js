@@ -115,24 +115,36 @@ const ShopSchema = {
         type: 'object',
         required: [
             'name',
-            'email',
+            'phone',
             'region',
             'city',
             'district',
             'address',
+            'purchase_way',
             'invoice',
             'invoice_way',
+            'invoice_code',
+            'natural_certificate',
+            'tax_id',
+            'company_letterhead',
+            'donation_unit',
             'purchase_items'
         ],
         properties: {
             name: { type: 'string' },
-            email: { type: 'string' },
-            region: { type: 'string' },
+            phone: { type: 'string' },
+            region: { type: 'boolean' },
             city: { type: 'string' },
             district: { type: 'string' },
             address: { type: 'string' },
-            invoice: { type: 'string' },
-            invoice_way: { type: 'string' },
+            purchase_way: { type: 'number' },
+            invoice: { type: 'number' },
+            invoice_way: { type: 'number' },
+            invoice_code: { type: 'string' },
+            natural_certificate: { type: 'string' },
+            tax_id: { type: 'string' },
+            company_letterhead: { type: 'string' },
+            donation_unit: { type: 'number' },
             purchase_items: {
                 type: 'array',
                 items: {
@@ -147,13 +159,19 @@ const ShopSchema = {
         },
         example: {
             name: 'string',
-            email: 'string',
+            phone: 'string',
             region: 'string',
             city: 'string',
             district: 'string',
             address: 'string',
-            invoice: 'string',
-            invoice_way: 'string',
+            purchase_way: 'number',
+            invoice: 'number',
+            invoice_way: 'number',
+            invoice_code: 'string',
+            natural_certificate: 'string',
+            tax_id: 'string',
+            company_letterhead: 'string',
+            donation_unit: 'number',
             purchase_items: [
                 {
                     course_id: 'string',
@@ -182,6 +200,57 @@ const ShopSchema = {
                 message: '建立付款成功',
                 payment_id: 'string'
             }
+        }
+    },
+    OrderDetailResponseModel: {
+        type: 'object',
+        required: ['status', 'data'],
+        properties: {
+            status: { type: 'boolean' },
+            data: {
+                type: 'array',
+                items: {
+                    type: 'object',
+                    required: [
+                        'course_id',
+                        'purchase_item_id',
+                        'name',
+                        'image',
+                        'content',
+                        'quantity',
+                        'price',
+                        'main_category',
+                        'sub_category'
+                    ],
+                    properties: {
+                        course_id: { type: 'string' },
+                        purchase_item_id: { type: 'string' },
+                        name: { type: 'string' },
+                        image: { type: 'string' },
+                        content: { type: 'string' },
+                        quantity: { type: 'number' },
+                        price: { type: 'number' },
+                        main_category: { type: 'string' },
+                        sub_category: { type: 'string' }
+                    }
+                }
+            }
+        },
+        example: {
+            status: true,
+            data: [
+                {
+                    course_id: 'string',
+                    purchase_item_id: 'string',
+                    name: 'string',
+                    image: 'string',
+                    content: 'string',
+                    quantity: 0,
+                    price: 0,
+                    main_category: 'string',
+                    sub_category: 'string'
+                }
+            ]
         }
     }
 };

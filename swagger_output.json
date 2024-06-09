@@ -2330,6 +2330,77 @@
         }
       }
     },
+    "/api/shop/order/{id}": {
+      "get": {
+        "tags": [
+          "Shop"
+        ],
+        "summary": "取得訂單明細",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderDetailResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderDetailResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
     "/api/common/tag": {
       "get": {
         "tags": [
@@ -2400,6 +2471,456 @@
           }
         }
       }
+    },
+    "/api/common/options/payment-way": {
+      "get": {
+        "tags": [
+          "Common"
+        ],
+        "summary": "取得付款方式選項",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentWayResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentWayResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/common/options/invoice": {
+      "get": {
+        "tags": [
+          "Common"
+        ],
+        "summary": "取得發票類型選項",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvoiceResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvoiceResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/common/options/invoice-way": {
+      "get": {
+        "tags": [
+          "Common"
+        ],
+        "summary": "取得發票領取方式選項",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvoiceWayResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvoiceWayResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/common/options/donation-unit": {
+      "get": {
+        "tags": [
+          "Common"
+        ],
+        "summary": "取得捐款單位選項",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DonationUnitResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/DonationUnitResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/common/options/region": {
+      "get": {
+        "tags": [
+          "Common"
+        ],
+        "summary": "取得海內外選項",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegionResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegionResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/common/options/city": {
+      "post": {
+        "tags": [
+          "Common"
+        ],
+        "summary": "取得城市選項",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CityResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/CityResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              }
+            },
+            "schema": {
+              "$ref": "#/components/schemas/Error500ResponseModel"
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CityRequestModel"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/common/options/dist": {
+      "post": {
+        "tags": [
+          "Common"
+        ],
+        "summary": "取得區域選項",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DistrictResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/DistrictResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DistrictRequestModel"
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -2409,7 +2930,317 @@
         "scheme": "bearer"
       }
     },
+    "parameters": {},
     "schemas": {
+      "PaymentWayResponseModel": {
+        "type": "object",
+        "required": [
+          "status",
+          "data"
+        ],
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "label",
+                "value"
+              ],
+              "properties": {
+                "label": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        },
+        "example": {
+          "status": true,
+          "data": [
+            {
+              "label": "string",
+              "value": "number"
+            }
+          ]
+        }
+      },
+      "InvoiceResponseModel": {
+        "type": "object",
+        "required": [
+          "status",
+          "data"
+        ],
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "label",
+                "value"
+              ],
+              "properties": {
+                "label": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        },
+        "example": {
+          "status": true,
+          "data": [
+            {
+              "label": "string",
+              "value": "number"
+            }
+          ]
+        }
+      },
+      "InvoiceWayResponseModel": {
+        "type": "object",
+        "required": [
+          "status",
+          "data"
+        ],
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "label",
+                "value"
+              ],
+              "properties": {
+                "label": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        },
+        "example": {
+          "status": true,
+          "data": [
+            {
+              "label": "string",
+              "value": "number"
+            }
+          ]
+        }
+      },
+      "DonationUnitResponseModel": {
+        "type": "object",
+        "required": [
+          "status",
+          "data"
+        ],
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "label",
+                "value"
+              ],
+              "properties": {
+                "label": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        },
+        "example": {
+          "status": true,
+          "data": [
+            {
+              "label": "string",
+              "value": "string"
+            }
+          ]
+        }
+      },
+      "RegionResponseModel": {
+        "type": "object",
+        "required": [
+          "status",
+          "data"
+        ],
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "label",
+                "value"
+              ],
+              "properties": {
+                "label": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "example": {
+          "status": true,
+          "data": [
+            {
+              "label": "string",
+              "value": "boolean"
+            }
+          ]
+        }
+      },
+      "CityRequestModel": {
+        "type": "object",
+        "required": [
+          "is_oversea"
+        ],
+        "properties": {
+          "is_oversea": {
+            "type": "boolean",
+            "description": "是否為海外"
+          }
+        },
+        "example": {
+          "is_oversea": true
+        }
+      },
+      "CityResponseModel": {
+        "type": "object",
+        "required": [
+          "status",
+          "data"
+        ],
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "label",
+                "value"
+              ],
+              "properties": {
+                "label": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "example": {
+          "status": true,
+          "data": [
+            {
+              "label": "string",
+              "value": "string"
+            }
+          ]
+        }
+      },
+      "DistrictRequestModel": {
+        "type": "object",
+        "required": [
+          "is_oversea",
+          "city_id"
+        ],
+        "properties": {
+          "is_oversea": {
+            "type": "boolean",
+            "description": "是否為海外"
+          },
+          "city_id": {
+            "type": "string",
+            "description": "城市Id"
+          }
+        },
+        "example": {
+          "is_oversea": true,
+          "city_id": "string"
+        }
+      },
+      "DistrictResponseModel": {
+        "type": "object",
+        "required": [
+          "status",
+          "data"
+        ],
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "label",
+                "value"
+              ],
+              "properties": {
+                "label": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "example": {
+          "status": true,
+          "data": [
+            {
+              "label": "string",
+              "value": "string"
+            }
+          ]
+        }
+      },
       "StringValueModel": {
         "type": "string",
         "example": "string"
@@ -3094,24 +3925,30 @@
         "type": "object",
         "required": [
           "name",
-          "email",
+          "phone",
           "region",
           "city",
           "district",
           "address",
+          "purchase_way",
           "invoice",
           "invoice_way",
+          "invoice_code",
+          "natural_certificate",
+          "tax_id",
+          "company_letterhead",
+          "donation_unit",
           "purchase_items"
         ],
         "properties": {
           "name": {
             "type": "string"
           },
-          "email": {
+          "phone": {
             "type": "string"
           },
           "region": {
-            "type": "string"
+            "type": "boolean"
           },
           "city": {
             "type": "string"
@@ -3122,11 +3959,29 @@
           "address": {
             "type": "string"
           },
+          "purchase_way": {
+            "type": "number"
+          },
           "invoice": {
-            "type": "string"
+            "type": "number"
           },
           "invoice_way": {
+            "type": "number"
+          },
+          "invoice_code": {
             "type": "string"
+          },
+          "natural_certificate": {
+            "type": "string"
+          },
+          "tax_id": {
+            "type": "string"
+          },
+          "company_letterhead": {
+            "type": "string"
+          },
+          "donation_unit": {
+            "type": "number"
           },
           "purchase_items": {
             "type": "array",
@@ -3149,13 +4004,19 @@
         },
         "example": {
           "name": "string",
-          "email": "string",
+          "phone": "string",
           "region": "string",
           "city": "string",
           "district": "string",
           "address": "string",
-          "invoice": "string",
-          "invoice_way": "string",
+          "purchase_way": "number",
+          "invoice": "number",
+          "invoice_way": "number",
+          "invoice_code": "string",
+          "natural_certificate": "string",
+          "tax_id": "string",
+          "company_letterhead": "string",
+          "donation_unit": "number",
           "purchase_items": [
             {
               "course_id": "string",
@@ -3196,6 +4057,80 @@
             "message": "建立付款成功",
             "payment_id": "string"
           }
+        }
+      },
+      "OrderDetailResponseModel": {
+        "type": "object",
+        "required": [
+          "status",
+          "data"
+        ],
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "course_id",
+                "purchase_item_id",
+                "name",
+                "image",
+                "content",
+                "quantity",
+                "price",
+                "main_category",
+                "sub_category"
+              ],
+              "properties": {
+                "course_id": {
+                  "type": "string"
+                },
+                "purchase_item_id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "image": {
+                  "type": "string"
+                },
+                "content": {
+                  "type": "string"
+                },
+                "quantity": {
+                  "type": "number"
+                },
+                "price": {
+                  "type": "number"
+                },
+                "main_category": {
+                  "type": "string"
+                },
+                "sub_category": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "example": {
+          "status": true,
+          "data": [
+            {
+              "course_id": "string",
+              "purchase_item_id": "string",
+              "name": "string",
+              "image": "string",
+              "content": "string",
+              "quantity": 0,
+              "price": 0,
+              "main_category": "string",
+              "sub_category": "string"
+            }
+          ]
         }
       },
       "PostTeacherInfoRequestModel": {

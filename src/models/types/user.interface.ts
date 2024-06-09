@@ -2,7 +2,7 @@ import { Types } from 'mongoose';
 
 export interface CartItem {
   course_id: Types.ObjectId;
-  purchase_item_id: Types.ObjectId;
+  purchase_item_id: string;
 }
 
 export interface CoursePurchase {
