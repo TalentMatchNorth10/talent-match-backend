@@ -88,6 +88,23 @@ const ShopComment = {
     }
     */
     next();
+  },
+  orderDetail: (req: Request, res: Response, next: NextFunction) => {
+    /**
+    * #swagger.tags = ['Shop']
+    * #swagger.summary = '取得訂單明細'
+    * #swagger.security = [{"bearerAuth": []}]
+    * #swagger.responses[200] = { 
+        schema: { $ref: "#/components/schemas/OrderDetailResponseModel" }
+    }
+    * #swagger.responses[400] = { 
+        schema: { $ref: "#/components/schemas/Error400ResponseModel" }
+    }
+    * #swagger.responses[500] = { 
+        schema: { $ref: "#/components/schemas/Error500ResponseModel" }
+    }
+    */
+    next();
   }
 };
 

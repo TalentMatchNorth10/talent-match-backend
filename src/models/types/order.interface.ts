@@ -23,8 +23,11 @@ export enum Status {
   FAIL = 3
 }
 
-interface PurchaseItem extends Document {
-  course_id: Types.ObjectId;
+export interface PurchaseItem extends Document {
+  course_id: {
+    type: Types.ObjectId;
+    ref: 'Course';
+  };
   purchase_item_id: string;
 }
 

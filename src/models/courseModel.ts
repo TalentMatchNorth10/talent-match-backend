@@ -6,7 +6,7 @@ interface IPriceQuantity extends Document {
   quantity: number;
 }
 
-interface ICourse extends Document {
+export interface ICourse extends Document {
   name: string;
   main_image: string;
   content: string;

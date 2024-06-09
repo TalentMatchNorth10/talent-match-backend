@@ -1,8 +1,11 @@
 import mongoose, { Schema } from 'mongoose';
-import { Order } from './types/order.interface';
+import { Order, PurchaseItem } from './types/order.interface';
 
-const purchaseItemSchema = new Schema({
-  course_id: Schema.Types.ObjectId,
+const purchaseItemSchema = new Schema<PurchaseItem>({
+  course_id: {
+    type: Schema.Types.ObjectId,
+    ref: 'Course'
+  },
   purchase_item_id: String
 });
 

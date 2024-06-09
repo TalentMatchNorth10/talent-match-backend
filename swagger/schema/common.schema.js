@@ -2,6 +2,226 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CommonSchema = void 0;
 const CommonSchema = {
+    PaymentWayResponseModel: {
+        type: 'object',
+        required: ['status', 'data'],
+        properties: {
+            status: { type: 'boolean' },
+            data: {
+                type: 'array',
+                items: {
+                    type: 'object',
+                    required: ['label', 'value'],
+                    properties: {
+                        label: { type: 'string' },
+                        value: { type: 'number' }
+                    }
+                }
+            }
+        },
+        example: {
+            status: true,
+            data: [
+                {
+                    label: 'string',
+                    value: 'number'
+                }
+            ]
+        }
+    },
+    InvoiceResponseModel: {
+        type: 'object',
+        required: ['status', 'data'],
+        properties: {
+            status: { type: 'boolean' },
+            data: {
+                type: 'array',
+                items: {
+                    type: 'object',
+                    required: ['label', 'value'],
+                    properties: {
+                        label: { type: 'string' },
+                        value: { type: 'number' }
+                    }
+                }
+            }
+        },
+        example: {
+            status: true,
+            data: [
+                {
+                    label: 'string',
+                    value: 'number'
+                }
+            ]
+        }
+    },
+    InvoiceWayResponseModel: {
+        type: 'object',
+        required: ['status', 'data'],
+        properties: {
+            status: { type: 'boolean' },
+            data: {
+                type: 'array',
+                items: {
+                    type: 'object',
+                    required: ['label', 'value'],
+                    properties: {
+                        label: { type: 'string' },
+                        value: { type: 'number' }
+                    }
+                }
+            }
+        },
+        example: {
+            status: true,
+            data: [
+                {
+                    label: 'string',
+                    value: 'number'
+                }
+            ]
+        }
+    },
+    DonationUnitResponseModel: {
+        type: 'object',
+        required: ['status', 'data'],
+        properties: {
+            status: { type: 'boolean' },
+            data: {
+                type: 'array',
+                items: {
+                    type: 'object',
+                    required: ['label', 'value'],
+                    properties: {
+                        label: { type: 'string' },
+                        value: { type: 'number' }
+                    }
+                }
+            }
+        },
+        example: {
+            status: true,
+            data: [
+                {
+                    label: 'string',
+                    value: 'string'
+                }
+            ]
+        }
+    },
+    RegionResponseModel: {
+        type: 'object',
+        required: ['status', 'data'],
+        properties: {
+            status: { type: 'boolean' },
+            data: {
+                type: 'array',
+                items: {
+                    type: 'object',
+                    required: ['label', 'value'],
+                    properties: {
+                        label: { type: 'string' },
+                        value: { type: 'boolean' }
+                    }
+                }
+            }
+        },
+        example: {
+            status: true,
+            data: [
+                {
+                    label: 'string',
+                    value: 'boolean'
+                }
+            ]
+        }
+    },
+    CityRequestModel: {
+        type: 'object',
+        required: ['is_oversea'],
+        properties: {
+            is_oversea: {
+                type: 'boolean',
+                description: '是否為海外'
+            }
+        },
+        example: {
+            is_oversea: true
+        }
+    },
+    CityResponseModel: {
+        type: 'object',
+        required: ['status', 'data'],
+        properties: {
+            status: { type: 'boolean' },
+            data: {
+                type: 'array',
+                items: {
+                    type: 'object',
+                    required: ['label', 'value'],
+                    properties: {
+                        label: { type: 'string' },
+                        value: { type: 'string' }
+                    }
+                }
+            }
+        },
+        example: {
+            status: true,
+            data: [
+                {
+                    label: 'string',
+                    value: 'string'
+                }
+            ]
+        }
+    },
+    DistrictRequestModel: {
+        type: 'object',
+        required: ['is_oversea', 'city_id'],
+        properties: {
+            is_oversea: {
+                type: 'boolean',
+                description: '是否為海外'
+            },
+            city_id: {
+                type: 'string',
+                description: '城市Id'
+            }
+        },
+        example: {
+            is_oversea: true,
+            city_id: 'string'
+        }
+    },
+    DistrictResponseModel: {
+        type: 'object',
+        required: ['status', 'data'],
+        properties: {
+            status: { type: 'boolean' },
+            data: {
+                type: 'array',
+                items: {
+                    type: 'object',
+                    required: ['label', 'value'],
+                    properties: {
+                        label: { type: 'string' },
+                        value: { type: 'string' }
+                    }
+                }
+            }
+        },
+        example: {
+            status: true,
+            data: [
+                {
+                    label: 'string',
+                    value: 'string'
+                }
+            ]
+        }
+    },
     StringValueModel: {
         type: 'string',
         example: 'string'
