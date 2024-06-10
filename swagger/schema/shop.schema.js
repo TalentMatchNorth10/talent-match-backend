@@ -185,21 +185,11 @@ const ShopSchema = {
         required: ['status', 'data'],
         properties: {
             status: { type: 'boolean' },
-            data: {
-                type: 'object',
-                required: ['message', 'payment_id'],
-                properties: {
-                    message: { type: 'string' },
-                    payment_id: { type: 'string' }
-                }
-            }
+            data: { type: 'string' }
         },
         example: {
             status: true,
-            data: {
-                message: '建立付款成功',
-                payment_id: 'string'
-            }
+            data: "string"
         }
     },
     OrderDetailResponseModel: {

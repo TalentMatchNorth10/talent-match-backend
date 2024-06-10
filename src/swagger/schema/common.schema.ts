@@ -1,4 +1,47 @@
 const CommonSchema = {
+  TagsResponseModel: {
+    type: 'object',
+    required: ['status', 'data'],
+    properties: {
+      status: { type: 'boolean' },
+      data: {
+        type: 'array',
+        items: {
+          type: 'object',
+          properties: {
+            icon_url: { type: 'string' },
+            main_category: { type: 'string' },
+            sub_category: {
+              type: 'array',
+              items: {
+                type: 'string'
+              }
+            }
+          }
+        }
+      }
+    },
+    example: {
+      status: true,
+      data: [
+        {
+          icon_url: 'string', // 圖示網址
+          main_category: '音樂', // 課程主類別
+          sub_category: ['長笛', '吉他'] // 課程次類別
+        },
+        {
+          icon_url: 'string', // 圖示網址
+          main_category: '廚藝', // 課程主類別
+          sub_category: ['蛋糕裝飾', '中餐基礎'] // 課程次類別
+        },
+        {
+          icon_url: 'string', // 圖示網址
+          main_category: '美術', // 課程主類別
+          sub_category: ['油畫', '水彩'] // 課程次類別
+        }
+      ]
+    }
+  },
   PaymentWayResponseModel: {
     type: 'object',
     required: ['status', 'data'],
@@ -270,32 +313,6 @@ const CommonSchema = {
       status: 'false',
       message: '伺服器錯誤'
     }
-  },
-  GetTags: {
-    type: 'object',
-    properties: {
-      main_category: { type: 'string' },
-      sub_category: {
-        type: 'array',
-        items: {
-          type: 'string'
-        }
-      }
-    },
-    example: [
-      {
-        main_category: '音樂', // 課程主類別
-        sub_category: ['長笛', '吉他'] // 課程次類別
-      },
-      {
-        main_category: '廚藝', // 課程主類別
-        sub_category: ['蛋糕裝飾', '中餐基礎'] // 課程次類別
-      },
-      {
-        main_category: '美術', // 課程主類別
-        sub_category: ['油畫', '水彩'] // 課程次類別
-      }
-    ]
   }
 };
 

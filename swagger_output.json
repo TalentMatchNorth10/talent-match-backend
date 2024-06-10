@@ -2414,12 +2414,12 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/GetTags"
+                  "$ref": "#/components/schemas/TagsResponseModel"
                 }
               },
               "application/xml": {
                 "schema": {
-                  "$ref": "#/components/schemas/GetTags"
+                  "$ref": "#/components/schemas/TagsResponseModel"
                 }
               }
             }
@@ -2932,6 +2932,67 @@
     },
     "parameters": {},
     "schemas": {
+      "TagsResponseModel": {
+        "type": "object",
+        "required": [
+          "status",
+          "data"
+        ],
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "icon_url": {
+                  "type": "string"
+                },
+                "main_category": {
+                  "type": "string"
+                },
+                "sub_category": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "example": {
+          "status": true,
+          "data": [
+            {
+              "icon_url": "string",
+              "main_category": "音樂",
+              "sub_category": [
+                "長笛",
+                "吉他"
+              ]
+            },
+            {
+              "icon_url": "string",
+              "main_category": "廚藝",
+              "sub_category": [
+                "蛋糕裝飾",
+                "中餐基礎"
+              ]
+            },
+            {
+              "icon_url": "string",
+              "main_category": "美術",
+              "sub_category": [
+                "油畫",
+                "水彩"
+              ]
+            }
+          ]
+        }
+      },
       "PaymentWayResponseModel": {
         "type": "object",
         "required": [
@@ -3320,43 +3381,6 @@
           "status": "false",
           "message": "伺服器錯誤"
         }
-      },
-      "GetTags": {
-        "type": "object",
-        "properties": {
-          "main_category": {
-            "type": "string"
-          },
-          "sub_category": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          }
-        },
-        "example": [
-          {
-            "main_category": "音樂",
-            "sub_category": [
-              "長笛",
-              "吉他"
-            ]
-          },
-          {
-            "main_category": "廚藝",
-            "sub_category": [
-              "蛋糕裝飾",
-              "中餐基礎"
-            ]
-          },
-          {
-            "main_category": "美術",
-            "sub_category": [
-              "油畫",
-              "水彩"
-            ]
-          }
-        ]
       },
       "LoginRequestModel": {
         "type": "object",
@@ -4036,27 +4060,12 @@
             "type": "boolean"
           },
           "data": {
-            "type": "object",
-            "required": [
-              "message",
-              "payment_id"
-            ],
-            "properties": {
-              "message": {
-                "type": "string"
-              },
-              "payment_id": {
-                "type": "string"
-              }
-            }
+            "type": "string"
           }
         },
         "example": {
           "status": true,
-          "data": {
-            "message": "建立付款成功",
-            "payment_id": "string"
-          }
+          "data": "string"
         }
       },
       "OrderDetailResponseModel": {

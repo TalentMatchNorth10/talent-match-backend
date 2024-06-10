@@ -322,7 +322,7 @@ const shopController = {
       };
 
       const paymentForm = ecpay.payment_client.aio_check_out_all(base_param);
-      res.redirect(paymentForm);
+      handleSuccess(res, paymentForm);
     }
   ),
   paymentReturn: handleErrorAsync(
