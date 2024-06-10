@@ -6,7 +6,7 @@ const CommonComment = {
          * #swagger.tags = ['Common']
          * #swagger.summary = '取得分類'
          * #swagger.responses[200] = { 
-             schema: { $ref: "#/components/schemas/GetTags" }
+             schema: { $ref: "#/components/schemas/TagsResponseModel" }
         }
         * #swagger.responses[403] = { 
             schema: { $ref: "#/components/schemas/Error403ResponseModel" }
