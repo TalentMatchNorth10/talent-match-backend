@@ -189,7 +189,7 @@ const ShopSchema = {
         },
         example: {
             status: true,
-            data: "string"
+            data: 'string'
         }
     },
     OrderDetailResponseModel: {

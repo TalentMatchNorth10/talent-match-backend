@@ -23,6 +23,7 @@ const StudentReservationComment = {
               schema: { $ref: "#/components/schemas/Error500ResponseModel" }
           }
         */
+        next();
     },
     status_update: (req, res, next) => {
         /**
@@ -46,6 +47,29 @@ const StudentReservationComment = {
               schema: { $ref: "#/components/schemas/Error500ResponseModel" }
           }
         */
+        next();
+    },
+    get_reserves_time: (req, res, next) => {
+        /**
+         * #swagger.tags = ['Student Reservation']
+         * #swagger.summary = '取得可預約時間清單'
+         * #swagger.security = [{"bearerAuth": []}]
+         * #swagger.requestBody = {
+            in: 'body',
+            required: true,
+            schema: { $ref: "#/components/schemas/GetReservesTimeRequestModel"}
+        }
+        * #swagger.responses[200] = {
+            schema: { $ref: "#/components/schemas/GetReservesTimeResponseModel"}
+        }
+        * #swagger.responses[400] = {
+            schema: { $ref: "#/components/schemas/Error400ResponseModel"}
+        }
+        * #swagger.responses[500] = {
+            schema: { $ref: "#/components/schemas/Error500ResponseModel"}
+        }
+        */
+        next();
     }
 };
 exports.default = StudentReservationComment;
