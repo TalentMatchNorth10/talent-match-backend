@@ -1,28 +1,6 @@
 import mongoose, { Schema, Types } from 'mongoose';
-
-interface IPriceQuantity extends Document {
-  _id: string;
-  price: number;
-  quantity: number;
-}
-
-export interface ICourse extends Document {
-  name: string;
-  main_image: string;
-  content: string;
-  price_quantity: IPriceQuantity[];
-  main_category: string;
-  sub_category: string;
-  city_id: string;
-  dist_id: string;
-  survey_url: string;
-  status: number;
-  teacher_id: Types.ObjectId;
-  purchase_message: string;
-  video_ids: string[];
-  file_ids: string[];
-  file_url_ids: string[];
-}
+import { IPriceQuantity, ICourse } from './types/course.interface';
+import Review from './reviewModel';
 
 const priceQuantitySchema = new Schema<IPriceQuantity>({
   _id: String,
@@ -91,12 +69,13 @@ const courseSchema = new Schema<ICourse>(
       }
     },
     survey_url: {
-      type: String,
-      required: function (this: ICourse) {
-        return this.status === 2;
-      }
+      type: String
     },
-    status: { type: Number, required: true, enum: [1, 2, 3] },
+    status: {
+      type: Number,
+      required: true,
+      enum: [1, 2, 3]
+    },
     teacher_id: {
       type: Schema.Types.ObjectId,
       ref: 'Teacher',
