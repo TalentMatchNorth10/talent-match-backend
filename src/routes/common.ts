@@ -5,7 +5,7 @@ import CommonComment from '../swagger/comment/common.comment';
 const router = express.Router();
 
 router.get('/tag', CommonComment.getTags, commonController.getTags);
-
+router.get('/search_result/all', CommonComment.search, commonController.search);
 router.get(
   '/options/payment-way',
   CommonComment.paymentWayOption,

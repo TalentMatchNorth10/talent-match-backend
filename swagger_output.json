@@ -18,9 +18,7 @@
   "paths": {
     "/api/user/user_info": {
       "get": {
-        "tags": [
-          "User"
-        ],
+        "tags": ["User"],
         "summary": "取得使用者資訊",
         "description": "",
         "responses": {
@@ -79,9 +77,7 @@
     },
     "/api/auth/login": {
       "post": {
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "summary": "使用者登入",
         "description": "",
         "responses": {
@@ -145,9 +141,7 @@
     },
     "/api/auth/register": {
       "post": {
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "summary": "使用者註冊",
         "description": "",
         "responses": {
@@ -211,9 +205,7 @@
     },
     "/api/auth/refresh": {
       "post": {
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "summary": "取得新的 Access Token",
         "description": "",
         "responses": {
@@ -277,9 +269,7 @@
     },
     "/api/auth/google": {
       "get": {
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "summary": "Google登入",
         "description": "",
         "responses": {
@@ -333,9 +323,7 @@
     },
     "/api/auth/google/callback": {
       "get": {
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "summary": "Google登入Callback",
         "description": "",
         "responses": {
@@ -389,9 +377,7 @@
     },
     "/api/auth/reset_password/send_email": {
       "post": {
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "summary": "重設密碼",
         "description": "",
         "responses": {
@@ -455,9 +441,7 @@
     },
     "/api/auth/reset_password/update": {
       "post": {
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "summary": "更新密碼",
         "description": "",
         "parameters": [
@@ -591,9 +575,7 @@
     },
     "/api/student_info/basic_info": {
       "get": {
-        "tags": [
-          "Student_Info"
-        ],
+        "tags": ["Student_Info"],
         "summary": "取得學生基本資訊",
         "description": "",
         "responses": {
@@ -650,9 +632,7 @@
         ]
       },
       "patch": {
-        "tags": [
-          "Student_Info"
-        ],
+        "tags": ["Student_Info"],
         "summary": "更新學生基本資訊",
         "description": "",
         "responses": {
@@ -728,9 +708,7 @@
     },
     "/api/student_reservation/reserve_course": {
       "post": {
-        "tags": [
-          "Student Reservation"
-        ],
+        "tags": ["Student Reservation"],
         "summary": "學生預約課程",
         "description": "",
         "responses": {
@@ -881,9 +859,7 @@
     },
     "/api/teacher_info/": {
       "get": {
-        "tags": [
-          "Teacher_info"
-        ],
+        "tags": ["Teacher_info"],
         "summary": "取得老師資料",
         "description": "",
         "responses": {
@@ -942,9 +918,7 @@
     },
     "/api/teacher_info/basic": {
       "patch": {
-        "tags": [
-          "Teacher_info"
-        ],
+        "tags": ["Teacher_info"],
         "summary": "更新老師基本資料",
         "description": "",
         "responses": {
@@ -1013,9 +987,7 @@
     },
     "/api/teacher_info/work": {
       "post": {
-        "tags": [
-          "Teacher_info"
-        ],
+        "tags": ["Teacher_info"],
         "summary": "新增老師履歷",
         "description": "",
         "responses": {
@@ -1082,9 +1054,7 @@
         }
       },
       "patch": {
-        "tags": [
-          "Teacher_info"
-        ],
+        "tags": ["Teacher_info"],
         "summary": "更新老師履歷",
         "description": "",
         "responses": {
@@ -1151,9 +1121,7 @@
         }
       },
       "delete": {
-        "tags": [
-          "Teacher_info"
-        ],
+        "tags": ["Teacher_info"],
         "summary": "刪除老師履歷",
         "description": "",
         "responses": {
@@ -1222,9 +1190,7 @@
     },
     "/api/teacher_info/education": {
       "patch": {
-        "tags": [
-          "Teacher_info"
-        ],
+        "tags": ["Teacher_info"],
         "summary": "更新老師學歷",
         "description": "",
         "responses": {
@@ -1293,9 +1259,7 @@
     },
     "/api/teacher_info/certificate": {
       "patch": {
-        "tags": [
-          "Teacher_info"
-        ],
+        "tags": ["Teacher_info"],
         "summary": "更新老師教學證照",
         "description": "",
         "responses": {
@@ -1364,9 +1328,7 @@
     },
     "/api/home/teacher_apply": {
       "post": {
-        "tags": [
-          "Home"
-        ],
+        "tags": ["Home"],
         "summary": "申請老師",
         "description": "",
         "responses": {
@@ -1435,9 +1397,7 @@
     },
     "/api/teacher_reserves/course_list": {
       "get": {
-        "tags": [
-          "TeacherReserve"
-        ],
+        "tags": ["TeacherReserve"],
         "summary": "取得下拉選單資料",
         "description": "",
         "responses": {
@@ -1496,9 +1456,7 @@
     },
     "/api/teacher_reserves/reserves": {
       "get": {
-        "tags": [
-          "TeacherReserve"
-        ],
+        "tags": ["TeacherReserve"],
         "summary": "取得預約課程清單",
         "description": "",
         "parameters": [
@@ -1573,9 +1531,7 @@
         ]
       },
       "patch": {
-        "tags": [
-          "TeacherReserve"
-        ],
+        "tags": ["TeacherReserve"],
         "summary": "更新預約課程",
         "description": "",
         "responses": {
@@ -1644,9 +1600,7 @@
     },
     "/api/teacher_reserves/expired_reserves": {
       "get": {
-        "tags": [
-          "TeacherReserve"
-        ],
+        "tags": ["TeacherReserve"],
         "summary": "取得逾期預約課程清單",
         "description": "",
         "responses": {
@@ -1705,9 +1659,7 @@
     },
     "/api/teacher_reserves/can_reserve_week": {
       "get": {
-        "tags": [
-          "TeacherReserve"
-        ],
+        "tags": ["TeacherReserve"],
         "summary": "取得可預約週數",
         "description": "",
         "responses": {
@@ -1764,9 +1716,7 @@
         ]
       },
       "patch": {
-        "tags": [
-          "TeacherReserve"
-        ],
+        "tags": ["TeacherReserve"],
         "summary": "更新可預約週數",
         "description": "",
         "responses": {
@@ -1835,9 +1785,7 @@
     },
     "/api/teacher_reserves/list": {
       "get": {
-        "tags": [
-          "TeacherReserve"
-        ],
+        "tags": ["TeacherReserve"],
         "summary": "取得已預約課程清單（列表）",
         "description": "",
         "responses": {
@@ -1896,9 +1844,7 @@
     },
     "/api/teacher_reserves/calendar": {
       "get": {
-        "tags": [
-          "TeacherReserve"
-        ],
+        "tags": ["TeacherReserve"],
         "summary": "取得已預約課程清單（日曆）",
         "description": "",
         "parameters": [
@@ -1967,9 +1913,7 @@
     },
     "/api/favorites/": {
       "get": {
-        "tags": [
-          "Favorites"
-        ],
+        "tags": ["Favorites"],
         "summary": "取得收藏課程",
         "description": "",
         "responses": {
@@ -2029,9 +1973,7 @@
         ]
       },
       "post": {
-        "tags": [
-          "Favorites"
-        ],
+        "tags": ["Favorites"],
         "summary": "新增收藏課程",
         "description": "",
         "responses": {
@@ -2098,9 +2040,7 @@
         }
       },
       "delete": {
-        "tags": [
-          "Favorites"
-        ],
+        "tags": ["Favorites"],
         "summary": "取消收藏課程",
         "description": "",
         "responses": {
@@ -2169,9 +2109,7 @@
     },
     "/api/upload/file": {
       "post": {
-        "tags": [
-          "Upload"
-        ],
+        "tags": ["Upload"],
         "summary": "上傳檔案",
         "description": "",
         "responses": {
@@ -2198,9 +2136,7 @@
     },
     "/api/shop/cart": {
       "get": {
-        "tags": [
-          "Shop"
-        ],
+        "tags": ["Shop"],
         "summary": "取得購物車項目列表",
         "description": "",
         "responses": {
@@ -2257,9 +2193,7 @@
         ]
       },
       "post": {
-        "tags": [
-          "Shop"
-        ],
+        "tags": ["Shop"],
         "summary": "新增購物車項目",
         "description": "",
         "responses": {
@@ -2328,9 +2262,7 @@
     },
     "/api/shop/cart/{id}": {
       "delete": {
-        "tags": [
-          "Shop"
-        ],
+        "tags": ["Shop"],
         "summary": "刪除購物車項目",
         "description": "",
         "parameters": [
@@ -2399,9 +2331,7 @@
     },
     "/api/shop/payment_create": {
       "post": {
-        "tags": [
-          "Shop"
-        ],
+        "tags": ["Shop"],
         "summary": "建立付款",
         "description": "",
         "responses": {
@@ -2470,9 +2400,7 @@
     },
     "/api/shop/order/{id}": {
       "get": {
-        "tags": [
-          "Shop"
-        ],
+        "tags": ["Shop"],
         "summary": "取得訂單明細",
         "description": "",
         "parameters": [
@@ -2541,9 +2469,7 @@
     },
     "/api/common/tag": {
       "get": {
-        "tags": [
-          "Common"
-        ],
+        "tags": ["Common"],
         "summary": "取得分類",
         "description": "",
         "responses": {
@@ -2612,9 +2538,7 @@
     },
     "/api/common/options/payment-way": {
       "get": {
-        "tags": [
-          "Common"
-        ],
+        "tags": ["Common"],
         "summary": "取得付款方式選項",
         "description": "",
         "responses": {
@@ -2673,9 +2597,7 @@
     },
     "/api/common/options/invoice": {
       "get": {
-        "tags": [
-          "Common"
-        ],
+        "tags": ["Common"],
         "summary": "取得發票類型選項",
         "description": "",
         "responses": {
@@ -2734,9 +2656,7 @@
     },
     "/api/common/options/invoice-way": {
       "get": {
-        "tags": [
-          "Common"
-        ],
+        "tags": ["Common"],
         "summary": "取得發票領取方式選項",
         "description": "",
         "responses": {
@@ -2795,9 +2715,7 @@
     },
     "/api/common/options/donation-unit": {
       "get": {
-        "tags": [
-          "Common"
-        ],
+        "tags": ["Common"],
         "summary": "取得捐款單位選項",
         "description": "",
         "responses": {
@@ -2856,9 +2774,7 @@
     },
     "/api/common/options/region": {
       "get": {
-        "tags": [
-          "Common"
-        ],
+        "tags": ["Common"],
         "summary": "取得海內外選項",
         "description": "",
         "responses": {
@@ -2917,9 +2833,7 @@
     },
     "/api/common/options/city": {
       "post": {
-        "tags": [
-          "Common"
-        ],
+        "tags": ["Common"],
         "summary": "取得城市選項",
         "description": "",
         "responses": {
@@ -2991,9 +2905,7 @@
     },
     "/api/common/options/dist": {
       "post": {
-        "tags": [
-          "Common"
-        ],
+        "tags": ["Common"],
         "summary": "取得區域選項",
         "description": "",
         "responses": {
@@ -3059,6 +2971,142 @@
           }
         }
       }
+    },
+    "/api/common/search_result/all": {
+      "get": {
+        "tags": ["Common"],
+        "summary": "搜尋(關鍵字/類別)",
+        "description": "有丟keyword即是關鍵字搜尋，否則是類別搜尋（只查課程）",
+        "parameters": [
+          {
+            "name": "page",
+            "description": "頁數",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "size",
+            "description": "每頁筆數",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort",
+            "description": "排序: 'new' | 'hit' | 'cheap'",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "keyword",
+            "description": "關鍵字",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "main_category",
+            "description": "課程主類別",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sub_category",
+            "description": "課程次類別",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "city_id",
+            "description": "縣市id",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Search"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Search"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/common/city": {
+      "get": {
+        "tags": ["Common"],
+        "summary": "取得縣市地區id",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getCity"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/getCity"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -3072,10 +3120,7 @@
     "schemas": {
       "TagsResponseModel": {
         "type": "object",
-        "required": [
-          "status",
-          "data"
-        ],
+        "required": ["status", "data"],
         "properties": {
           "status": {
             "type": "boolean"
@@ -3107,36 +3152,24 @@
             {
               "icon_url": "string",
               "main_category": "音樂",
-              "sub_category": [
-                "長笛",
-                "吉他"
-              ]
+              "sub_category": ["長笛", "吉他"]
             },
             {
               "icon_url": "string",
               "main_category": "廚藝",
-              "sub_category": [
-                "蛋糕裝飾",
-                "中餐基礎"
-              ]
+              "sub_category": ["蛋糕裝飾", "中餐基礎"]
             },
             {
               "icon_url": "string",
               "main_category": "美術",
-              "sub_category": [
-                "油畫",
-                "水彩"
-              ]
+              "sub_category": ["油畫", "水彩"]
             }
           ]
         }
       },
       "PaymentWayResponseModel": {
         "type": "object",
-        "required": [
-          "status",
-          "data"
-        ],
+        "required": ["status", "data"],
         "properties": {
           "status": {
             "type": "boolean"
@@ -3145,10 +3178,7 @@
             "type": "array",
             "items": {
               "type": "object",
-              "required": [
-                "label",
-                "value"
-              ],
+              "required": ["label", "value"],
               "properties": {
                 "label": {
                   "type": "string"
@@ -3172,10 +3202,7 @@
       },
       "InvoiceResponseModel": {
         "type": "object",
-        "required": [
-          "status",
-          "data"
-        ],
+        "required": ["status", "data"],
         "properties": {
           "status": {
             "type": "boolean"
@@ -3184,10 +3211,7 @@
             "type": "array",
             "items": {
               "type": "object",
-              "required": [
-                "label",
-                "value"
-              ],
+              "required": ["label", "value"],
               "properties": {
                 "label": {
                   "type": "string"
@@ -3211,10 +3235,7 @@
       },
       "InvoiceWayResponseModel": {
         "type": "object",
-        "required": [
-          "status",
-          "data"
-        ],
+        "required": ["status", "data"],
         "properties": {
           "status": {
             "type": "boolean"
@@ -3223,10 +3244,7 @@
             "type": "array",
             "items": {
               "type": "object",
-              "required": [
-                "label",
-                "value"
-              ],
+              "required": ["label", "value"],
               "properties": {
                 "label": {
                   "type": "string"
@@ -3250,10 +3268,7 @@
       },
       "DonationUnitResponseModel": {
         "type": "object",
-        "required": [
-          "status",
-          "data"
-        ],
+        "required": ["status", "data"],
         "properties": {
           "status": {
             "type": "boolean"
@@ -3262,10 +3277,7 @@
             "type": "array",
             "items": {
               "type": "object",
-              "required": [
-                "label",
-                "value"
-              ],
+              "required": ["label", "value"],
               "properties": {
                 "label": {
                   "type": "string"
@@ -3289,10 +3301,7 @@
       },
       "RegionResponseModel": {
         "type": "object",
-        "required": [
-          "status",
-          "data"
-        ],
+        "required": ["status", "data"],
         "properties": {
           "status": {
             "type": "boolean"
@@ -3301,10 +3310,7 @@
             "type": "array",
             "items": {
               "type": "object",
-              "required": [
-                "label",
-                "value"
-              ],
+              "required": ["label", "value"],
               "properties": {
                 "label": {
                   "type": "string"
@@ -3328,9 +3334,7 @@
       },
       "CityRequestModel": {
         "type": "object",
-        "required": [
-          "is_oversea"
-        ],
+        "required": ["is_oversea"],
         "properties": {
           "is_oversea": {
             "type": "boolean",
@@ -3343,10 +3347,7 @@
       },
       "CityResponseModel": {
         "type": "object",
-        "required": [
-          "status",
-          "data"
-        ],
+        "required": ["status", "data"],
         "properties": {
           "status": {
             "type": "boolean"
@@ -3355,10 +3356,7 @@
             "type": "array",
             "items": {
               "type": "object",
-              "required": [
-                "label",
-                "value"
-              ],
+              "required": ["label", "value"],
               "properties": {
                 "label": {
                   "type": "string"
@@ -3382,10 +3380,7 @@
       },
       "DistrictRequestModel": {
         "type": "object",
-        "required": [
-          "is_oversea",
-          "city_id"
-        ],
+        "required": ["is_oversea", "city_id"],
         "properties": {
           "is_oversea": {
             "type": "boolean",
@@ -3403,10 +3398,7 @@
       },
       "DistrictResponseModel": {
         "type": "object",
-        "required": [
-          "status",
-          "data"
-        ],
+        "required": ["status", "data"],
         "properties": {
           "status": {
             "type": "boolean"
@@ -3415,10 +3407,7 @@
             "type": "array",
             "items": {
               "type": "object",
-              "required": [
-                "label",
-                "value"
-              ],
+              "required": ["label", "value"],
               "properties": {
                 "label": {
                   "type": "string"
@@ -3446,10 +3435,7 @@
       },
       "Error400ResponseModel": {
         "type": "object",
-        "required": [
-          "status",
-          "message"
-        ],
+        "required": ["status", "message"],
         "properties": {
           "status": {
             "type": "boolean"
@@ -3465,10 +3451,7 @@
       },
       "Error403ResponseModel": {
         "type": "object",
-        "required": [
-          "status",
-          "message"
-        ],
+        "required": ["status", "message"],
         "properties": {
           "status": {
             "type": "boolean"
@@ -3484,10 +3467,7 @@
       },
       "Error404ResponseModel": {
         "type": "object",
-        "required": [
-          "status",
-          "message"
-        ],
+        "required": ["status", "message"],
         "properties": {
           "status": {
             "type": "boolean"
@@ -3503,10 +3483,7 @@
       },
       "Error500ResponseModel": {
         "type": "object",
-        "required": [
-          "status",
-          "message"
-        ],
+        "required": ["status", "message"],
         "properties": {
           "status": {
             "type": "boolean"
@@ -3520,12 +3497,190 @@
           "message": "伺服器錯誤"
         }
       },
+      "GetTags": {
+        "type": "object",
+        "properties": {
+          "main_category": {
+            "type": "string"
+          },
+          "sub_category": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "example": [
+          {
+            "main_category": "音樂",
+            "sub_category": ["長笛", "吉他"]
+          },
+          {
+            "main_category": "廚藝",
+            "sub_category": ["蛋糕裝飾", "中餐基礎"]
+          },
+          {
+            "main_category": "美術",
+            "sub_category": ["油畫", "水彩"]
+          }
+        ]
+      },
       "LoginRequestModel": {
         "type": "object",
-        "required": [
-          "email",
-          "password"
-        ],
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "teachers": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "avator_image": {
+                      "type": "string"
+                    },
+                    "rate_avg": {
+                      "type": "number"
+                    },
+                    "rate_count": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "_id",
+                    "name",
+                    "avator_image",
+                    "rate_avg",
+                    "rate_count"
+                  ]
+                }
+              },
+              "courses": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "main_image": {
+                      "type": "string"
+                    },
+                    "content": {
+                      "type": "string"
+                    },
+                    "price_quantity": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "price": {
+                            "type": "number"
+                          },
+                          "quantity": {
+                            "type": "number"
+                          }
+                        },
+                        "required": ["price", "quantity"]
+                      }
+                    },
+                    "main_category": {
+                      "type": "string"
+                    },
+                    "sub_category": {
+                      "type": "string"
+                    },
+                    "price_unit": {
+                      "type": "number"
+                    },
+                    "rate_avg": {
+                      "type": "number"
+                    },
+                    "review_count": {
+                      "type": "number"
+                    },
+                    "teacher_name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "_id",
+                    "name",
+                    "main_image",
+                    "content",
+                    "price_quantity",
+                    "main_category",
+                    "sub_category",
+                    "price_unit",
+                    "rate_avg",
+                    "review_count",
+                    "teacher_name"
+                  ]
+                }
+              },
+              "total": {
+                "type": "number"
+              }
+            },
+            "required": ["courses", "total"]
+          }
+        },
+        "required": ["status", "data"],
+        "example": {
+          "status": true,
+          "data": {
+            "teachers": [
+              {
+                "_id": "665ae4ba971e705a4aa6a94a",
+                "name": "teacher_name",
+                "avator_image": "avator_image.jpg",
+                "rate_avg": 4.5,
+                "rate_count": 2
+              }
+            ],
+            "courses": [
+              {
+                "_id": "665bdfe65b0ab5aecfe5fdda",
+                "name": "田徑訓練基礎課程",
+                "main_image": "https://example.com/images/athletics_training_course.jpg",
+                "content": "這門課程專為希望提升田徑技能的初學者設計，涵蓋基本的田徑技術和訓練方法。",
+                "price_quantity": [
+                  {
+                    "price": 3000,
+                    "quantity": 20
+                  },
+                  {
+                    "price": 5000,
+                    "quantity": 30
+                  }
+                ],
+                "main_category": "運動",
+                "sub_category": "田徑",
+                "price_unit": 150,
+                "rate_avg": 4.5,
+                "review_count": 2,
+                "teacher_name": "老師"
+              }
+            ],
+            "total": 1
+          }
+        }
+      },
+      "LoginRequestModel": {
+        "type": "object",
+        "required": ["email", "password"],
         "properties": {
           "email": {
             "type": "string",
@@ -3543,20 +3698,14 @@
       },
       "LoginResponseModel": {
         "type": "object",
-        "required": [
-          "status",
-          "data"
-        ],
+        "required": ["status", "data"],
         "properties": {
           "status": {
             "type": "boolean"
           },
           "data": {
             "type": "object",
-            "required": [
-              "access_token",
-              "refresh_token"
-            ],
+            "required": ["access_token", "refresh_token"],
             "properties": {
               "access_token": {
                 "type": "string",
@@ -3579,12 +3728,7 @@
       },
       "RegisterRequestModel": {
         "type": "object",
-        "required": [
-          "nick_name",
-          "email",
-          "password",
-          "confirm_password"
-        ],
+        "required": ["nick_name", "email", "password", "confirm_password"],
         "properties": {
           "nick_name": {
             "type": "string",
@@ -3612,19 +3756,14 @@
       },
       "RegisterResponseModel": {
         "type": "object",
-        "required": [
-          "status",
-          "data"
-        ],
+        "required": ["status", "data"],
         "properties": {
           "status": {
             "type": "boolean"
           },
           "data": {
             "type": "object",
-            "required": [
-              "message"
-            ],
+            "required": ["message"],
             "properties": {
               "message": {
                 "type": "string"
@@ -3641,9 +3780,7 @@
       },
       "RefreshRequestModel": {
         "type": "object",
-        "required": [
-          "refresh_token"
-        ],
+        "required": ["refresh_token"],
         "properties": {
           "refresh_token": {
             "type": "string",
@@ -3656,20 +3793,14 @@
       },
       "RefreshResponseModel": {
         "type": "object",
-        "required": [
-          "status",
-          "data"
-        ],
+        "required": ["status", "data"],
         "properties": {
           "status": {
             "type": "boolean"
           },
           "data": {
             "type": "object",
-            "required": [
-              "access_token",
-              "refresh_token"
-            ],
+            "required": ["access_token", "refresh_token"],
             "properties": {
               "access_token": {
                 "type": "string",
@@ -3692,19 +3823,14 @@
       },
       "GoogleResponseModel": {
         "type": "object",
-        "required": [
-          "status",
-          "data"
-        ],
+        "required": ["status", "data"],
         "properties": {
           "status": {
             "type": "boolean"
           },
           "data": {
             "type": "object",
-            "required": [
-              "message"
-            ],
+            "required": ["message"],
             "properties": {
               "message": {
                 "type": "string"
@@ -3721,9 +3847,7 @@
       },
       "GoogleClientRequestModel": {
         "type": "object",
-        "required": [
-          "grant"
-        ],
+        "required": ["grant"],
         "properties": {
           "grant": {
             "type": "string",
@@ -3736,20 +3860,14 @@
       },
       "GoogleClientResponseModel": {
         "type": "object",
-        "required": [
-          "status",
-          "data"
-        ],
+        "required": ["status", "data"],
         "properties": {
           "status": {
             "type": "boolean"
           },
           "data": {
             "type": "object",
-            "required": [
-              "access_token",
-              "refresh_token"
-            ],
+            "required": ["access_token", "refresh_token"],
             "properties": {
               "access_token": {
                 "type": "string",
@@ -3772,9 +3890,7 @@
       },
       "ResetPasswordSendEmailRequestModel": {
         "type": "object",
-        "required": [
-          "email"
-        ],
+        "required": ["email"],
         "properties": {
           "email": {
             "type": "string",
@@ -3787,19 +3903,14 @@
       },
       "ResetPasswordSendEmailResponseModel": {
         "type": "object",
-        "required": [
-          "status",
-          "data"
-        ],
+        "required": ["status", "data"],
         "properties": {
           "status": {
             "type": "boolean"
           },
           "data": {
             "type": "object",
-            "required": [
-              "message"
-            ],
+            "required": ["message"],
             "properties": {
               "message": {
                 "type": "string"
@@ -3816,10 +3927,7 @@
       },
       "ResetPasswordUpdateRequestModel": {
         "type": "object",
-        "required": [
-          "password",
-          "confirm_password"
-        ],
+        "required": ["password", "confirm_password"],
         "properties": {
           "token": {
             "type": "string",
@@ -3842,19 +3950,14 @@
       },
       "ResetPasswordUpdateResponseModel": {
         "type": "object",
-        "required": [
-          "status",
-          "data"
-        ],
+        "required": ["status", "data"],
         "properties": {
           "status": {
             "type": "boolean"
           },
           "data": {
             "type": "object",
-            "required": [
-              "message"
-            ],
+            "required": ["message"],
             "properties": {
               "message": {
                 "type": "string"
@@ -3871,21 +3974,14 @@
       },
       "UserInfoResponseModel": {
         "type": "object",
-        "required": [
-          "status",
-          "data"
-        ],
+        "required": ["status", "data"],
         "properties": {
           "status": {
             "type": "boolean"
           },
           "data": {
             "type": "object",
-            "required": [
-              "nick_name",
-              "avator_image",
-              "cart"
-            ],
+            "required": ["nick_name", "avator_image", "cart"],
             "properties": {
               "nick_name": {
                 "type": "string",
@@ -3932,10 +4028,7 @@
       },
       "GetCartItemsResponseModel": {
         "type": "object",
-        "required": [
-          "status",
-          "data"
-        ],
+        "required": ["status", "data"],
         "properties": {
           "status": {
             "type": "boolean"
@@ -4006,10 +4099,7 @@
       },
       "AddCartItemRequestModel": {
         "type": "object",
-        "required": [
-          "course_id",
-          "purchase_item_id"
-        ],
+        "required": ["course_id", "purchase_item_id"],
         "properties": {
           "course_id": {
             "type": "string",
@@ -4027,19 +4117,14 @@
       },
       "AddCartItemResponseModel": {
         "type": "object",
-        "required": [
-          "status",
-          "data"
-        ],
+        "required": ["status", "data"],
         "properties": {
           "status": {
             "type": "boolean"
           },
           "data": {
             "type": "object",
-            "required": [
-              "message"
-            ],
+            "required": ["message"],
             "properties": {
               "message": {
                 "type": "string"
@@ -4056,19 +4141,14 @@
       },
       "RemoveCartItemResponseModel": {
         "type": "object",
-        "required": [
-          "status",
-          "data"
-        ],
+        "required": ["status", "data"],
         "properties": {
           "status": {
             "type": "boolean"
           },
           "data": {
             "type": "object",
-            "required": [
-              "message"
-            ],
+            "required": ["message"],
             "properties": {
               "message": {
                 "type": "string"
@@ -4149,10 +4229,7 @@
             "type": "array",
             "items": {
               "type": "object",
-              "required": [
-                "course_id",
-                "purchase_item_id"
-              ],
+              "required": ["course_id", "purchase_item_id"],
               "properties": {
                 "course_id": {
                   "type": "string"
@@ -4189,16 +4266,22 @@
       },
       "PaymentCreateResponseModel": {
         "type": "object",
-        "required": [
-          "status",
-          "data"
-        ],
+        "required": ["status", "data"],
         "properties": {
           "status": {
             "type": "boolean"
           },
           "data": {
-            "type": "string"
+            "type": "object",
+            "required": ["message", "payment_id"],
+            "properties": {
+              "message": {
+                "type": "string"
+              },
+              "payment_id": {
+                "type": "string"
+              }
+            }
           }
         },
         "example": {
@@ -4208,10 +4291,7 @@
       },
       "OrderDetailResponseModel": {
         "type": "object",
-        "required": [
-          "status",
-          "data"
-        ],
+        "required": ["status", "data"],
         "properties": {
           "status": {
             "type": "boolean"
@@ -4518,12 +4598,8 @@
         },
         "example": {
           "avator_image": "string",
-          "main_categorys": [
-            "string"
-          ],
-          "sub_categorys": [
-            "string"
-          ],
+          "main_categorys": ["string"],
+          "sub_categorys": ["string"],
           "nationality": "string",
           "work_experiences": [
             {
@@ -4565,19 +4641,14 @@
       },
       "PostTeacherInfoResponseModel": {
         "type": "object",
-        "required": [
-          "status",
-          "data"
-        ],
+        "required": ["status", "data"],
         "properties": {
           "status": {
             "type": "boolean"
           },
           "data": {
             "type": "object",
-            "required": [
-              "message"
-            ],
+            "required": ["message"],
             "properties": {
               "message": {
                 "type": "string"
@@ -4731,12 +4802,8 @@
           "status": true,
           "data": {
             "avator_image": "string",
-            "main_categorys": [
-              "string"
-            ],
-            "sub_categorys": [
-              "string"
-            ],
+            "main_categorys": ["string"],
+            "sub_categorys": ["string"],
             "nationality": "string",
             "introduction": "string",
             "work_experiences": [
@@ -4827,19 +4894,14 @@
       },
       "PostTeacherInfoWorkResponseModel": {
         "type": "object",
-        "required": [
-          "status",
-          "data"
-        ],
+        "required": ["status", "data"],
         "properties": {
           "status": {
             "type": "boolean"
           },
           "data": {
             "type": "object",
-            "required": [
-              "message"
-            ],
+            "required": ["message"],
             "properties": {
               "message": {
                 "type": "string"
@@ -4895,31 +4957,22 @@
         },
         "example": {
           "avator_image": "string",
-          "main_categorys": [
-            "string"
-          ],
-          "sub_categorys": [
-            "string"
-          ],
+          "main_categorys": ["string"],
+          "sub_categorys": ["string"],
           "nationality": "string",
           "introduction": "string"
         }
       },
       "PatchTeacherInfoBasicResponseModel": {
         "type": "object",
-        "required": [
-          "status",
-          "data"
-        ],
+        "required": ["status", "data"],
         "properties": {
           "status": {
             "type": "boolean"
           },
           "data": {
             "type": "object",
-            "required": [
-              "message"
-            ],
+            "required": ["message"],
             "properties": {
               "message": {
                 "type": "string"
@@ -4981,19 +5034,14 @@
       },
       "PatchTeacherInfoWorkResponseModel": {
         "type": "object",
-        "required": [
-          "status",
-          "data"
-        ],
+        "required": ["status", "data"],
         "properties": {
           "status": {
             "type": "boolean"
           },
           "data": {
             "type": "object",
-            "required": [
-              "message"
-            ],
+            "required": ["message"],
             "properties": {
               "message": {
                 "type": "string"
@@ -5020,19 +5068,14 @@
       },
       "DeleteTeacherInfoWorkResponseModel": {
         "type": "object",
-        "required": [
-          "status",
-          "data"
-        ],
+        "required": ["status", "data"],
         "properties": {
           "status": {
             "type": "boolean"
           },
           "data": {
             "type": "object",
-            "required": [
-              "message"
-            ],
+            "required": ["message"],
             "properties": {
               "message": {
                 "type": "string"
@@ -5224,19 +5267,14 @@
       },
       "PatchTeacherInfoCertificateResponseModel": {
         "type": "object",
-        "required": [
-          "status",
-          "data"
-        ],
+        "required": ["status", "data"],
         "properties": {
           "status": {
             "type": "boolean"
           },
           "data": {
             "type": "object",
-            "required": [
-              "message"
-            ],
+            "required": ["message"],
             "properties": {
               "message": {
                 "type": "string"
@@ -5357,9 +5395,7 @@
       },
       "FavoriteRequestModel": {
         "type": "object",
-        "required": [
-          "course_id"
-        ],
+        "required": ["course_id"],
         "properties": {
           "course_id": {
             "type": "string",
@@ -5959,71 +5995,13 @@
           "data": {
             "can_reserve_week": [
               {
-                "mon": [
-                  13,
-                  14,
-                  15,
-                  16,
-                  17,
-                  18,
-                  19
-                ],
-                "tue": [
-                  13,
-                  14,
-                  15,
-                  16,
-                  17,
-                  18,
-                  19
-                ],
-                "wed": [
-                  13,
-                  14,
-                  15,
-                  16,
-                  17,
-                  18,
-                  19
-                ],
-                "thu": [
-                  13,
-                  14,
-                  15,
-                  16,
-                  17,
-                  18,
-                  19
-                ],
-                "fri": [
-                  13,
-                  14,
-                  15,
-                  16,
-                  17,
-                  18,
-                  19
-                ],
-                "sat": [
-                  13,
-                  14,
-                  15,
-                  16,
-                  17,
-                  18,
-                  19
-                ],
-                "sun": [
-                  10,
-                  13,
-                  14,
-                  15,
-                  16,
-                  17,
-                  18,
-                  19,
-                  23
-                ],
+                "mon": [13, 14, 15, 16, 17, 18, 19],
+                "tue": [13, 14, 15, 16, 17, 18, 19],
+                "wed": [13, 14, 15, 16, 17, 18, 19],
+                "thu": [13, 14, 15, 16, 17, 18, 19],
+                "fri": [13, 14, 15, 16, 17, 18, 19],
+                "sat": [13, 14, 15, 16, 17, 18, 19],
+                "sun": [10, 13, 14, 15, 16, 17, 18, 19, 23],
                 "_id": "665027752d730755af09328d"
               }
             ]
@@ -6090,71 +6068,13 @@
         "example": {
           "can_reserve_week": [
             {
-              "mon": [
-                13,
-                14,
-                15,
-                16,
-                17,
-                18,
-                19
-              ],
-              "tue": [
-                13,
-                14,
-                15,
-                16,
-                17,
-                18,
-                19
-              ],
-              "wed": [
-                13,
-                14,
-                15,
-                16,
-                17,
-                18,
-                19
-              ],
-              "thu": [
-                13,
-                14,
-                15,
-                16,
-                17,
-                18,
-                19
-              ],
-              "fri": [
-                13,
-                14,
-                15,
-                16,
-                17,
-                18,
-                19
-              ],
-              "sat": [
-                13,
-                14,
-                15,
-                16,
-                17,
-                18,
-                19
-              ],
-              "sun": [
-                10,
-                13,
-                14,
-                15,
-                16,
-                17,
-                18,
-                19,
-                23
-              ],
+              "mon": [13, 14, 15, 16, 17, 18, 19],
+              "tue": [13, 14, 15, 16, 17, 18, 19],
+              "wed": [13, 14, 15, 16, 17, 18, 19],
+              "thu": [13, 14, 15, 16, 17, 18, 19],
+              "fri": [13, 14, 15, 16, 17, 18, 19],
+              "sat": [13, 14, 15, 16, 17, 18, 19],
+              "sun": [10, 13, 14, 15, 16, 17, 18, 19, 23],
               "_id": "665027752d730755af09328d"
             }
           ]
@@ -6364,17 +6284,11 @@
         "properties": {
           "fileType": {
             "type": "string",
-            "enum": [
-              "image",
-              "video"
-            ]
+            "enum": ["image", "video"]
           },
           "path": {
             "type": "string",
-            "enum": [
-              "user",
-              "course"
-            ]
+            "enum": ["user", "course"]
           },
           "file": {
             "type": "string",
