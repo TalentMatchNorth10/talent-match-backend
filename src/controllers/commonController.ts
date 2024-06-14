@@ -51,17 +51,17 @@ const commonController = {
           keyword: string;
           main_category: string;
           sub_category: string;
-          size: string;
-          page: string;
+          size: number;
+          page: number;
           city_id: string;
         }>;
       } = {};
 
       let sortParam: Record<string, 1 | -1>;
       const sortMap = new Map<string, { [key: string]: 1 | -1 }>([
-        ['new', { createdAt: -1 }], // TODO 先按造課程創建時間排序，不確定是否按造上架時間更好
-        ['hit', { review_count: -1 }], // 按造評價數
-        ['cheap', { price_unit: 1 }] //  按造單堂價格
+        ['new', { createdAt: -1, _id: 1 }], // TODO 先按造課程創建時間排序，不確定是否按造上架時間更好
+        ['hit', { review_count: -1, _id: 1 }], // 按造評價數
+        ['cheap', { price_unit: 1, _id: 1 }] // TODO 按造單堂價格, 待改成非單堂
       ]);
 
       if (typeof sort === 'string') {
@@ -205,14 +205,13 @@ const commonController = {
               $project: {
                 avator_image: 1,
                 name: 1,
-                rate_avg: 1,
+                rate_avg: { $round: ['$rate_avg', 1] },
                 rate_count: 1
               }
             }
           ]);
           searchResult.teachers = teachers;
         }
-
         const [courses, total] = await Promise.all([
           Course.aggregate([
             {
@@ -228,6 +227,11 @@ const commonController = {
                 ...query,
                 status: { $eq: 1 }, // 課程上架中
                 'teacher.application_status': { $eq: 3 } // 老師通過審核
+              }
+            },
+            {
+              $addFields: {
+                avator_image: { $first: '$teacher.avator_image' }
               }
             },
             // 計算單堂價格
@@ -292,9 +296,10 @@ const commonController = {
                 price_quantity: 1,
                 main_category: 1,
                 sub_category: 1,
-                rate_avg: 1,
+                rate_avg: { $round: ['$rate_avg', 1] },
                 review_count: 1,
                 teacher_name: 1,
+                avator_image: 1,
                 price_unit: 1
               }
             },
@@ -305,7 +310,7 @@ const commonController = {
               $skip: skip // 跳過文檔數量
             },
             {
-              $limit: size // 返回的文檔數量
+              $limit: size
             }
           ]),
           Course.countDocuments(query)

@@ -1,12 +1,12 @@
-'use strict';
-Object.defineProperty(exports, '__esModule', { value: true });
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const CommonComment = {
-  getTags: (req, res, next) => {
-    /**
+    getTags: (req, res, next) => {
+        /**
               * #swagger.tags = ['Common']
               * #swagger.summary = '取得分類'
               * #swagger.responses[200] = {
-                  schema: { $ref: "#/components/schemas/GetTags" }
+                  schema: { $ref: "#/components/schemas/TagsResponseModel" }
               }
               * #swagger.responses[403] = {
                   schema: { $ref: "#/components/schemas/Error403ResponseModel" }
@@ -18,10 +18,60 @@ const CommonComment = {
                   schema: { $ref: "#/components/schemas/Error500ResponseModel" }
               }
             */
-    next();
-  },
-  paymentWayOption: (req, res, next) => {
-    /**
+        next();
+    },
+    getCity: (req, res, next) => {
+        /**
+              * #swagger.tags = ['Common']
+              * #swagger.summary = '取得縣市地區id'
+              * #swagger.responses[200] = {
+                  schema: { $ref: "#/components/schemas/getCity" }
+              }
+              * #swagger.responses[500] = {
+                  schema: { $ref: "#/components/schemas/Error500ResponseModel" }
+              }
+            */
+        next();
+    },
+    search: (req, res, next) => {
+        /**
+              * #swagger.tags = ['Common']
+              * #swagger.summary = '搜尋(關鍵字/類別)'
+              * #swagger.description = '有丟keyword即是關鍵字搜尋，否則是類別搜尋（只查課程）'
+              * #swagger.parameters['page'] = {
+                  description: "頁數",
+                  type: 'number'
+              }
+              * #swagger.parameters['size'] = {
+                  description: "每頁筆數",
+                  type: 'number'
+              }
+              * #swagger.parameters['sort'] = {
+                  description: "排序: \'new\' | \'hit\' | \'cheap\'",
+              }
+              * #swagger.parameters['keyword'] = {
+                  description: "關鍵字",
+              }
+              * #swagger.parameters['main_category'] = {
+                  description: "課程主類別",
+              }
+              * #swagger.parameters['sub_category'] = {
+                  description: "課程次類別",
+              }
+              * #swagger.parameters['city_id'] = {
+                  description: "縣市id",
+              }
+              * #swagger.responses[200] = {
+                  schema: { $ref: "#/components/schemas/Search" }
+              }
+              * #swagger.responses[500] = {
+                  schema: { $ref: "#/components/schemas/Error500ResponseModel" }
+              }
+            */
+        next();
+    },
+    paymentWayOption: (req, res, next) => {
+        /**
         * #swagger.tags = ['Common']
         * #swagger.summary = '取得付款方式選項'
         * #swagger.security = [{"bearerAuth": []}]
@@ -39,10 +89,10 @@ const CommonComment = {
             }
         }
         */
-    next();
-  },
-  invoiceOption: (req, res, next) => {
-    /**
+        next();
+    },
+    invoiceOption: (req, res, next) => {
+        /**
             * #swagger.tags = ['Common']
             * #swagger.summary = '取得發票類型選項'
             * #swagger.security = [{"bearerAuth": []}]
@@ -60,10 +110,10 @@ const CommonComment = {
                 }
             }
             */
-    next();
-  },
-  invoiceWayOption: (req, res, next) => {
-    /**
+        next();
+    },
+    invoiceWayOption: (req, res, next) => {
+        /**
             * #swagger.tags = ['Common']
             * #swagger.summary = '取得發票領取方式選項'
             * #swagger.security = [{"bearerAuth": []}]
@@ -81,10 +131,10 @@ const CommonComment = {
                 }
             }
             */
-    next();
-  },
-  donationUnitOption: (req, res, next) => {
-    /**
+        next();
+    },
+    donationUnitOption: (req, res, next) => {
+        /**
             * #swagger.tags = ['Common']
             * #swagger.summary = '取得捐款單位選項'
             * #swagger.security = [{"bearerAuth": []}]
@@ -102,10 +152,10 @@ const CommonComment = {
                 }
             }
             */
-    next();
-  },
-  regionOption: (req, res, next) => {
-    /**
+        next();
+    },
+    regionOption: (req, res, next) => {
+        /**
             * #swagger.tags = ['Common']
             * #swagger.summary = '取得海內外選項'
             * #swagger.security = [{"bearerAuth": []}]
@@ -123,10 +173,10 @@ const CommonComment = {
                 }
             }
         */
-    next();
-  },
-  cityOption: (req, res, next) => {
-    /**
+        next();
+    },
+    cityOption: (req, res, next) => {
+        /**
              * #swagger.tags = ['Common']
              * #swagger.summary = '取得城市選項'
              * #swagger.security = [{"bearerAuth": []}]
@@ -157,10 +207,10 @@ const CommonComment = {
                 }
             }
             */
-    next();
-  },
-  distOption: (req, res, next) => {
-    /**
+        next();
+    },
+    distOption: (req, res, next) => {
+        /**
              * #swagger.tags = ['Common']
              * #swagger.summary = '取得區域選項'
              * #swagger.security = [{"bearerAuth": []}]
@@ -186,42 +236,7 @@ const CommonComment = {
                 }
             }
         */
-    next();
-  },
-  search: (req, res, next) => {
-    /**
-              * #swagger.tags = ['Common']
-              * #swagger.summary = '搜尋(關鍵字/類別)'
-              * #swagger.description = '有丟keyword即是關鍵字搜尋，否則是類別搜尋（只查課程）'
-              * #swagger.parameters['page'] = {
-                  description: "頁數",
-              }
-              * #swagger.parameters['size'] = {
-                  description: "每頁筆數",
-              }
-              * #swagger.parameters['sort'] = {
-                  description: "排序: \'new\' | \'hit\' | \'cheap\'",
-              }
-              * #swagger.parameters['keyword'] = {
-                  description: "關鍵字",
-              }
-              * #swagger.parameters['main_category'] = {
-                  description: "課程主類別",
-              }
-              * #swagger.parameters['sub_category'] = {
-                  description: "課程次類別",
-              }
-              * #swagger.parameters['city_id'] = {
-                  description: "縣市id",
-              }
-              * #swagger.responses[200] = {
-                  schema: { $ref: "#/components/schemas/Search" }
-              }
-              * #swagger.responses[500] = {
-                  schema: { $ref: "#/components/schemas/Error500ResponseModel" }
-              }
-            */
-    next();
-  }
+        next();
+    }
 };
 exports.default = CommonComment;

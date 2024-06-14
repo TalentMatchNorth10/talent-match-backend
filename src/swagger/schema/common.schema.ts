@@ -463,7 +463,8 @@ const CommonSchema = {
                 price_unit: { type: 'number' },
                 rate_avg: { type: 'number' },
                 review_count: { type: 'number' },
-                teacher_name: { type: 'string' }
+                teacher_name: { type: 'string' },
+                avator_image: { type: 'string' }
               },
               required: [
                 '_id',
@@ -476,7 +477,8 @@ const CommonSchema = {
                 'price_unit',
                 'rate_avg',
                 'review_count',
-                'teacher_name'
+                'teacher_name',
+                'avator_image'
               ]
             }
           },
@@ -521,7 +523,8 @@ const CommonSchema = {
             price_unit: 150,
             rate_avg: 4.5,
             review_count: 2,
-            teacher_name: '老師'
+            teacher_name: '老師',
+            avator_image: 'avator_image.jpg'
           }
         ],
         total: 1
