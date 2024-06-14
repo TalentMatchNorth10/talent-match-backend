@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import handleSuccess from '../services/handleSuccess';
 import handleErrorAsync from '../services/handleErrorAsync';
 import UserModel from '../models/userModel';
-import CourseModel, { ICourse } from '../models/courseModel';
+import CourseModel from '../models/courseModel';
 import OrderModel from '../models/orderModel';
 import appError from '../services/appError';
 import { CustomRequest } from '../types/express.interface';

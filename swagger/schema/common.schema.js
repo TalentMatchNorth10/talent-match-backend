@@ -316,6 +316,221 @@ const CommonSchema = {
             status: 'false',
             message: '伺服器錯誤'
         }
+    },
+    GetTags: {
+        type: 'object',
+        properties: {
+            main_category: { type: 'string' },
+            sub_category: {
+                type: 'array',
+                items: {
+                    type: 'string'
+                }
+            }
+        },
+        example: [
+            {
+                main_category: '音樂', // 課程主類別
+                sub_category: ['長笛', '吉他'] // 課程次類別
+            },
+            {
+                main_category: '廚藝', // 課程主類別
+                sub_category: ['蛋糕裝飾', '中餐基礎'] // 課程次類別
+            },
+            {
+                main_category: '美術', // 課程主類別
+                sub_category: ['油畫', '水彩'] // 課程次類別
+            }
+        ]
+    },
+    getCity: {
+        type: 'object',
+        properties: {
+            status: { type: 'boolean' },
+            data: {
+                type: 'object',
+                properties: {
+                    TAIWAN_CITIES: {
+                        type: 'array',
+                        items: {
+                            type: 'object',
+                            properties: {
+                                city: { type: 'string' },
+                                city_id: { type: 'string' }
+                            }
+                        }
+                    },
+                    TAIWAN_DISTRICTS: {
+                        type: 'object',
+                        additionalProperties: {
+                            type: 'array',
+                            items: {
+                                type: 'object',
+                                properties: {
+                                    dist: { type: 'string' },
+                                    dist_id: { type: 'string' }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        example: {
+            status: true,
+            data: {
+                TAIWAN_CITIES: [
+                    {
+                        city: '台北市',
+                        city_id: '1'
+                    },
+                    {
+                        city: '新北市',
+                        city_id: '2'
+                    }
+                ],
+                TAIWAN_DISTRICTS: {
+                    '1': [
+                        {
+                            dist: '中正區',
+                            dist_id: '1'
+                        },
+                        {
+                            dist: '大同區',
+                            dist_id: '2'
+                        }
+                    ],
+                    '2': [
+                        {
+                            dist: '板橋區',
+                            dist_id: '1'
+                        },
+                        {
+                            dist: '三重區',
+                            dist_id: '2'
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    Search: {
+        type: 'object',
+        properties: {
+            status: { type: 'boolean' },
+            data: {
+                type: 'object',
+                properties: {
+                    teachers: {
+                        type: 'array',
+                        items: {
+                            type: 'object',
+                            properties: {
+                                _id: { type: 'string' },
+                                name: { type: 'string' },
+                                avator_image: { type: 'string' },
+                                rate_avg: { type: 'number' },
+                                rate_count: { type: 'number' }
+                            },
+                            required: [
+                                '_id',
+                                'name',
+                                'avator_image',
+                                'rate_avg',
+                                'rate_count'
+                            ]
+                        }
+                    },
+                    courses: {
+                        type: 'array',
+                        items: {
+                            type: 'object',
+                            properties: {
+                                _id: { type: 'string' },
+                                name: { type: 'string' },
+                                main_image: { type: 'string' },
+                                content: { type: 'string' },
+                                price_quantity: {
+                                    type: 'array',
+                                    items: {
+                                        type: 'object',
+                                        properties: {
+                                            price: { type: 'number' },
+                                            quantity: { type: 'number' }
+                                        },
+                                        required: ['price', 'quantity']
+                                    }
+                                },
+                                main_category: { type: 'string' },
+                                sub_category: { type: 'string' },
+                                price_unit: { type: 'number' },
+                                rate_avg: { type: 'number' },
+                                review_count: { type: 'number' },
+                                teacher_name: { type: 'string' },
+                                avator_image: { type: 'string' }
+                            },
+                            required: [
+                                '_id',
+                                'name',
+                                'main_image',
+                                'content',
+                                'price_quantity',
+                                'main_category',
+                                'sub_category',
+                                'price_unit',
+                                'rate_avg',
+                                'review_count',
+                                'teacher_name',
+                                'avator_image'
+                            ]
+                        }
+                    },
+                    total: { type: 'number' }
+                },
+                required: ['courses', 'total']
+            }
+        },
+        required: ['status', 'data'],
+        example: {
+            status: true,
+            data: {
+                teachers: [
+                    {
+                        _id: '665ae4ba971e705a4aa6a94a',
+                        name: 'teacher_name',
+                        avator_image: 'avator_image.jpg',
+                        rate_avg: 4.5,
+                        rate_count: 2
+                    }
+                ],
+                courses: [
+                    {
+                        _id: '665bdfe65b0ab5aecfe5fdda',
+                        name: '田徑訓練基礎課程',
+                        main_image: 'https://example.com/images/athletics_training_course.jpg',
+                        content: '這門課程專為希望提升田徑技能的初學者設計，涵蓋基本的田徑技術和訓練方法。',
+                        price_quantity: [
+                            {
+                                price: 3000,
+                                quantity: 20
+                            },
+                            {
+                                price: 5000,
+                                quantity: 30
+                            }
+                        ],
+                        main_category: '運動',
+                        sub_category: '田徑',
+                        price_unit: 150,
+                        rate_avg: 4.5,
+                        review_count: 2,
+                        teacher_name: '老師',
+                        avator_image: 'avator_image.jpg'
+                    }
+                ],
+                total: 1
+            }
+        }
     }
 };
 exports.CommonSchema = CommonSchema;

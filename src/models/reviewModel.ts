@@ -10,8 +10,7 @@ const reviewSchema = new Schema(
       min: [1, '評價分數最低為1'],
       max: [5, '評價分數最高為5']
     },
-    comment: { type: String, required: [true, '評價內容為必填項'] },
-    create_datetime: { type: Date, required: [true, '創建時間為必填項'] }
+    comment: { type: String, required: [true, '評價內容為必填項'] }
   },
   {
     timestamps: true // 自動創建 createdAt 和 updatedAt 時間戳記
@@ -20,4 +19,4 @@ const reviewSchema = new Schema(
 
 const Review = mongoose.model('Review', reviewSchema);
 
-module.exports = Review;
+export default Review;

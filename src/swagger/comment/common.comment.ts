@@ -3,21 +3,71 @@ import { Request, Response, NextFunction } from 'express';
 const CommonComment = {
   getTags: (req: Request, res: Response, next: NextFunction) => {
     /**
-         * #swagger.tags = ['Common']
-         * #swagger.summary = '取得分類'
-         * #swagger.responses[200] = { 
-             schema: { $ref: "#/components/schemas/TagsResponseModel" }
-        }
-        * #swagger.responses[403] = { 
-            schema: { $ref: "#/components/schemas/Error403ResponseModel" }
-        }
-        * #swagger.responses[404] = { 
-            schema: { $ref: "#/components/schemas/Error404ResponseModel" }
-        }
-        * #swagger.responses[500] = { 
-            schema: { $ref: "#/components/schemas/Error500ResponseModel" }
-        }
-    */
+          * #swagger.tags = ['Common']
+          * #swagger.summary = '取得分類'
+          * #swagger.responses[200] = { 
+              schema: { $ref: "#/components/schemas/TagsResponseModel" }
+          }
+          * #swagger.responses[403] = { 
+              schema: { $ref: "#/components/schemas/Error403ResponseModel" }
+          }
+          * #swagger.responses[404] = { 
+              schema: { $ref: "#/components/schemas/Error404ResponseModel" }
+          }
+          * #swagger.responses[500] = { 
+              schema: { $ref: "#/components/schemas/Error500ResponseModel" }
+          }
+        */
+    next();
+  },
+  getCity: (req: Request, res: Response, next: NextFunction) => {
+    /**
+          * #swagger.tags = ['Common']
+          * #swagger.summary = '取得縣市地區id'
+          * #swagger.responses[200] = { 
+              schema: { $ref: "#/components/schemas/getCity" }
+          }
+          * #swagger.responses[500] = { 
+              schema: { $ref: "#/components/schemas/Error500ResponseModel" }
+          }
+        */
+    next();
+  },
+  search: (req: Request, res: Response, next: NextFunction) => {
+    /**
+          * #swagger.tags = ['Common']
+          * #swagger.summary = '搜尋(關鍵字/類別)'
+          * #swagger.description = '有丟keyword即是關鍵字搜尋，否則是類別搜尋（只查課程）'
+          * #swagger.parameters['page'] = {
+              description: "頁數", 
+              type: 'number'
+          } 
+          * #swagger.parameters['size'] = {
+              description: "每頁筆數", 
+              type: 'number'
+          } 
+          * #swagger.parameters['sort'] = {
+              description: "排序: \'new\' | \'hit\' | \'cheap\'", 
+          } 
+          * #swagger.parameters['keyword'] = {
+              description: "關鍵字", 
+          } 
+          * #swagger.parameters['main_category'] = {
+              description: "課程主類別",                   
+          } 
+          * #swagger.parameters['sub_category'] = {
+              description: "課程次類別",                   
+          } 
+          * #swagger.parameters['city_id'] = {
+              description: "縣市id",                   
+          } 
+          * #swagger.responses[200] = { 
+              schema: { $ref: "#/components/schemas/Search" }
+          }
+          * #swagger.responses[500] = { 
+              schema: { $ref: "#/components/schemas/Error500ResponseModel" }
+          }
+        */
     next();
   },
   paymentWayOption: (req: Request, res: Response, next: NextFunction) => {
