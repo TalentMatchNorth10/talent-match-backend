@@ -10,6 +10,7 @@ import GoogleStrategy from 'passport-google-oauth20';
 // 路由配置引入
 import userRouter from './routes/user';
 import authRouter from './routes/auth';
+import studentRouter from './routes/student';
 import studentInfoRouter from './routes/studentInfo';
 
 import teacherInfoRouter from './routes/teacherInfo';
@@ -60,6 +61,7 @@ app.use('/api-doc', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 app.use('/api/user', userRouter);
 app.use('/api/auth', authRouter);
+app.use('/api/student', studentRouter);
 app.use('/api/student_info', studentInfoRouter);
 app.use('/api/student_reservation', studentReservationRouter);
 

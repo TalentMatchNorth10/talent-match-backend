@@ -528,6 +528,67 @@
         }
       }
     },
+    "/api/student/purchased_courses": {
+      "get": {
+        "tags": [
+          "Student"
+        ],
+        "summary": "取得學生已購買課程",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PurchasedCoursesResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/PurchasedCoursesResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
     "/api/student_info/basic_info": {
       "get": {
         "tags": [
@@ -737,6 +798,83 @@
         "responses": {
           "default": {
             "description": ""
+          }
+        }
+      }
+    },
+    "/api/student_reservation/reserves_time": {
+      "post": {
+        "tags": [
+          "Student Reservation"
+        ],
+        "summary": "取得可預約時間清單",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetReservesTimeResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetReservesTimeResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "in": "body",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetReservesTimeRequestModel"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/GetReservesTimeRequestModel"
+              }
+            }
           }
         }
       }
@@ -6254,6 +6392,333 @@
         },
         "example": {
           "fileUrl": "string"
+        }
+      },
+      "ReserveCourseRequestModel": {
+        "type": "object",
+        "required": [
+          "course_id",
+          "teacher_id",
+          "student_id",
+          "reserve_time"
+        ],
+        "properties": {
+          "course_id": {
+            "type": "string",
+            "description": "課程ID"
+          },
+          "teacher_id": {
+            "type": "string",
+            "description": "老師ID"
+          },
+          "student_id": {
+            "type": "string",
+            "description": "學生ID"
+          },
+          "reserve_time": {
+            "type": "string",
+            "description": "預約時間"
+          },
+          "teacher_status": {
+            "type": "string",
+            "description": "老師預約狀態"
+          },
+          "student_status": {
+            "type": "string",
+            "description": "學生預約狀態"
+          }
+        },
+        "example": {
+          "course_id": "66462077589368f14e1bf98e",
+          "teacher_id": "6644cdc6589368f14e4d50cb",
+          "student_id": "6646d28f9e480956e12bca07",
+          "reserve_time": "2024/05/18 13:00",
+          "teacher_status": "reserved",
+          "student_status": "reserved"
+        }
+      },
+      "ReserveCourseResponseModel": {
+        "type": "object",
+        "required": [
+          "status",
+          "data"
+        ],
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "required": [
+              "message"
+            ],
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "example": {
+          "status": true,
+          "data": {
+            "message": "新增預約成功"
+          }
+        }
+      },
+      "StatusUpdateRequestModel": {
+        "type": "object",
+        "required": [
+          "reservation_id"
+        ],
+        "properties": {
+          "reservation_id": {
+            "type": "string",
+            "description": "預約ID"
+          },
+          "update_status": {
+            "type": "string",
+            "description": "更新預約狀態"
+          }
+        },
+        "example": {
+          "reservation_id": "6647830e2493c0c83bff3c74",
+          "update_status": "completed"
+        }
+      },
+      "StatusUpdateResponseModel": {
+        "type": "object",
+        "required": [
+          "status",
+          "data"
+        ],
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "required": [
+              "message"
+            ],
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "example": {
+          "status": true,
+          "data": {
+            "message": "課程預約狀態已更新"
+          }
+        }
+      },
+      "GetReservesTimeRequestModel": {
+        "type": "object",
+        "required": [
+          "teacher_id",
+          "date"
+        ],
+        "properties": {
+          "teacher_id": {
+            "type": "string",
+            "description": "老師ID"
+          },
+          "date": {
+            "type": "string",
+            "description": "日期"
+          }
+        },
+        "example": {
+          "teacher_id": "6644cdc6589368f14e4d50cb",
+          "date": "2024-05-18"
+        }
+      },
+      "GetReservesTimeResponseModel": {
+        "type": "object",
+        "required": [
+          "status",
+          "data"
+        ],
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "can_reserve_times": {
+                "type": "object",
+                "properties": {
+                  "morningTimes": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "afternoonTimes": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "eveningTimes": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "example": {
+          "status": true,
+          "data": {
+            "can_reserve_times": {
+              "morningTimes": [
+                "10:00"
+              ],
+              "afternoonTimes": [
+                "13:00",
+                "14:00",
+                "15:00",
+                "16:00",
+                "17:00"
+              ],
+              "eveningTimes": [
+                "18:00",
+                "19:00",
+                "23:00"
+              ]
+            }
+          }
+        }
+      },
+      "PurchasedCoursesResponseModel": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "purchased_courses": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "quantity_total": {
+                      "type": "number"
+                    },
+                    "course_id": {
+                      "type": "string"
+                    },
+                    "course_name": {
+                      "type": "string"
+                    },
+                    "teacher_id": {
+                      "type": "string"
+                    },
+                    "teacher_name": {
+                      "type": "string"
+                    },
+                    "main_category": {
+                      "type": "string"
+                    },
+                    "main_image": {
+                      "type": "string"
+                    },
+                    "city_id": {
+                      "type": "string"
+                    },
+                    "remain_quantity": {
+                      "type": "number"
+                    },
+                    "reserved_course": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "reserve_time": {
+                            "type": "string"
+                          },
+                          "teacher_status": {
+                            "type": "string"
+                          },
+                          "student_status": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "example": {
+          "status": true,
+          "data": {
+            "purchased_courses": [
+              {
+                "quantity_total": 21,
+                "course_id": "66462077589368f14e1bf98e",
+                "course_name": "吉他基礎入門課程",
+                "teacher_id": "66541517285a36fb1a197a0d",
+                "teacher_name": "柴可夫斯基",
+                "main_category": "音樂",
+                "main_image": "https://fakeimg.pl/250x100",
+                "city_id": "TPE",
+                "remain_quantity": 17,
+                "reserved_course": [
+                  {
+                    "reserve_time": "2024-06-12T19:00:00.000Z",
+                    "teacher_status": "reserved",
+                    "student_status": "reserved"
+                  },
+                  {
+                    "reserve_time": "2024-06-13T19:00:00.000Z",
+                    "teacher_status": "reserved",
+                    "student_status": "reserved"
+                  },
+                  {
+                    "reserve_time": "2024-06-16T19:00:00.000Z",
+                    "teacher_status": "reserved",
+                    "student_status": "reserved"
+                  },
+                  {
+                    "reserve_time": "2024-06-19T19:00:00.000Z",
+                    "teacher_status": "reserved",
+                    "student_status": "reserved"
+                  }
+                ]
+              },
+              {
+                "quantity_total": 30,
+                "course_id": "664622f2589368f14e1d712a",
+                "course_name": "基本法語會話課程",
+                "teacher_id": "66541517285a36fb1a197a0d",
+                "teacher_name": "柴可夫斯基",
+                "main_category": "語言",
+                "main_image": "https://example.com/images/french_course.jpg",
+                "city_id": "TPE",
+                "remain_quantity": 29,
+                "reserved_course": [
+                  {
+                    "reserve_time": "2024-06-16T19:00:00.000Z",
+                    "teacher_status": "reserved",
+                    "student_status": "reserved"
+                  }
+                ]
+              }
+            ]
+          }
         }
       }
     }

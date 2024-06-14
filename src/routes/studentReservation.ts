@@ -7,14 +7,21 @@ const router = express.Router();
 
 router.post(
   '/reserve_course',
-  isAuth,
   StudentReservationComment.reserve_course,
+  isAuth,
   StudentReservationController.reserve_course
 );
 router.patch(
   '/status_update',
   isAuth,
   StudentReservationController.status_update
+);
+
+router.post(
+  '/reserves_time',
+  StudentReservationComment.get_reserves_time,
+  isAuth,
+  StudentReservationController.get_reserves_time
 );
 
 export default router;

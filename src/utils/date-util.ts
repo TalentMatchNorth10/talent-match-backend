@@ -90,5 +90,25 @@ export const DateUtil = {
     return `${formattedDate.getFullYear()}-${
       formattedDate.getMonth() + 1
     }-${formattedDate.getDate()}`;
+  },
+  getDayStartAndEnd(dateString: string): { startDate: Date; endDate: Date } {
+    const date = new Date(dateString);
+
+    return {
+      startDate: this.formatLocalDate(
+        new Date(date.getFullYear(), date.getMonth(), date.getDate())
+      ),
+      endDate: this.formatLocalDate(
+        new Date(
+          date.getFullYear(),
+          date.getMonth(),
+          date.getDate(),
+          23,
+          59,
+          59,
+          999
+        )
+      )
+    };
   }
 };

@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.StudentReservationSchema = void 0;
 const StudentReservationSchema = {
     ReserveCourseRequestModel: {
         type: 'object',
@@ -96,6 +97,69 @@ const StudentReservationSchema = {
                 message: '課程預約狀態已更新'
             }
         }
+    },
+    GetReservesTimeRequestModel: {
+        type: 'object',
+        required: ['teacher_id', 'date'],
+        properties: {
+            teacher_id: {
+                type: 'string',
+                description: '老師ID'
+            },
+            date: {
+                type: 'string',
+                description: '日期'
+            }
+        },
+        example: {
+            teacher_id: '6644cdc6589368f14e4d50cb',
+            date: '2024-05-18'
+        }
+    },
+    GetReservesTimeResponseModel: {
+        type: 'object',
+        required: ['status', 'data'],
+        properties: {
+            status: { type: 'boolean' },
+            data: {
+                type: 'object',
+                properties: {
+                    can_reserve_times: {
+                        type: 'object',
+                        properties: {
+                            morningTimes: {
+                                type: 'array',
+                                items: {
+                                    type: 'string'
+                                }
+                            },
+                            afternoonTimes: {
+                                type: 'array',
+                                items: {
+                                    type: 'string'
+                                }
+                            },
+                            eveningTimes: {
+                                type: 'array',
+                                items: {
+                                    type: 'string'
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        example: {
+            status: true,
+            data: {
+                can_reserve_times: {
+                    morningTimes: ['10:00'],
+                    afternoonTimes: ['13:00', '14:00', '15:00', '16:00', '17:00'],
+                    eveningTimes: ['18:00', '19:00', '23:00']
+                }
+            }
+        }
     }
 };
-exports.default = StudentReservationSchema;
+exports.StudentReservationSchema = StudentReservationSchema;
