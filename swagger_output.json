@@ -1362,6 +1362,420 @@
         }
       }
     },
+    "/api/teacher_course/courses/draft": {
+      "post": {
+        "tags": [
+          "Teacher_course"
+        ],
+        "summary": "新增/儲存老師草稿",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostTeacherCourseDraftResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostTeacherCourseDraftResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostTeacherCourseDraftRequestModel"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/teacher_course/courses/{courseId}/publish": {
+      "post": {
+        "tags": [
+          "Teacher_course"
+        ],
+        "summary": "上架課程",
+        "description": "",
+        "parameters": [
+          {
+            "name": "courseId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostTeacherCoursePublishResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostTeacherCoursePublishResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/teacher_course/courses/{courseId}/unpublish": {
+      "post": {
+        "tags": [
+          "Teacher_course"
+        ],
+        "summary": "下架課程",
+        "description": "",
+        "parameters": [
+          {
+            "name": "courseId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostTeacherCourseUnpublishResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostTeacherCourseUnpublishResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/teacher_course/courses/{courseId}": {
+      "get": {
+        "tags": [
+          "Teacher_course"
+        ],
+        "summary": "取得指定課程",
+        "description": "",
+        "parameters": [
+          {
+            "name": "courseId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetTeacherCourseResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetTeacherCourseResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Teacher_course"
+        ],
+        "summary": "刪除指定課程",
+        "description": "",
+        "parameters": [
+          {
+            "name": "courseId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteTeacherCourseResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteTeacherCourseResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/teacher_course/courses": {
+      "get": {
+        "tags": [
+          "Teacher_course"
+        ],
+        "summary": "取得所有課程",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetTeacherCoursesResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetTeacherCoursesResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
     "/api/home/teacher_apply": {
       "post": {
         "tags": [
@@ -2681,12 +3095,12 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Search"
+                  "$ref": "#/components/schemas/SearchResponseModel"
                 }
               },
               "application/xml": {
                 "schema": {
-                  "$ref": "#/components/schemas/Search"
+                  "$ref": "#/components/schemas/SearchResponseModel"
                 }
               }
             }
@@ -3619,125 +4033,7 @@
           "message": "伺服器錯誤"
         }
       },
-      "GetTags": {
-        "type": "object",
-        "properties": {
-          "main_category": {
-            "type": "string"
-          },
-          "sub_category": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          }
-        },
-        "example": [
-          {
-            "main_category": "音樂",
-            "sub_category": [
-              "長笛",
-              "吉他"
-            ]
-          },
-          {
-            "main_category": "廚藝",
-            "sub_category": [
-              "蛋糕裝飾",
-              "中餐基礎"
-            ]
-          },
-          {
-            "main_category": "美術",
-            "sub_category": [
-              "油畫",
-              "水彩"
-            ]
-          }
-        ]
-      },
-      "getCity": {
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "boolean"
-          },
-          "data": {
-            "type": "object",
-            "properties": {
-              "TAIWAN_CITIES": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "city": {
-                      "type": "string"
-                    },
-                    "city_id": {
-                      "type": "string"
-                    }
-                  }
-                }
-              },
-              "TAIWAN_DISTRICTS": {
-                "type": "object",
-                "additionalProperties": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "dist": {
-                        "type": "string"
-                      },
-                      "dist_id": {
-                        "type": "string"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "example": {
-          "status": true,
-          "data": {
-            "TAIWAN_CITIES": [
-              {
-                "city": "台北市",
-                "city_id": "1"
-              },
-              {
-                "city": "新北市",
-                "city_id": "2"
-              }
-            ],
-            "TAIWAN_DISTRICTS": {
-              "1": [
-                {
-                  "dist": "中正區",
-                  "dist_id": "1"
-                },
-                {
-                  "dist": "大同區",
-                  "dist_id": "2"
-                }
-              ],
-              "2": [
-                {
-                  "dist": "板橋區",
-                  "dist_id": "1"
-                },
-                {
-                  "dist": "三重區",
-                  "dist_id": "2"
-                }
-              ]
-            }
-          }
-        }
-      },
-      "Search": {
+      "SearchResponseModel": {
         "type": "object",
         "properties": {
           "status": {
@@ -7102,6 +7398,500 @@
                 ]
               }
             ]
+          }
+        }
+      },
+      "PostTeacherCourseDraftRequestModel": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "課程名稱"
+          },
+          "main_image": {
+            "type": "string",
+            "description": "主要圖片URL"
+          },
+          "content": {
+            "type": "string",
+            "description": "課程內容"
+          },
+          "price_quantity": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "description": "價格數量的ID"
+                },
+                "price": {
+                  "type": "number",
+                  "description": "價格"
+                },
+                "quantity": {
+                  "type": "number",
+                  "description": "數量"
+                }
+              }
+            },
+            "description": "價格和數量"
+          },
+          "main_category": {
+            "type": "string",
+            "description": "主要類別"
+          },
+          "sub_category": {
+            "type": "string",
+            "description": "次要類別"
+          },
+          "city_id": {
+            "type": "string",
+            "description": "城市ID"
+          },
+          "dist_id": {
+            "type": "string",
+            "description": "地區ID"
+          },
+          "survey_url": {
+            "type": "string",
+            "description": "調查URL"
+          },
+          "status": {
+            "type": "number",
+            "description": "課程狀態",
+            "enum": [
+              0,
+              1,
+              2
+            ]
+          },
+          "teacher_id": {
+            "type": "string",
+            "description": "教師ID"
+          },
+          "purchase_message": {
+            "type": "string",
+            "description": "購買訊息"
+          },
+          "video_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "影片ID"
+          },
+          "file_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "文件ID"
+          },
+          "file_url_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "文件URL ID"
+          }
+        },
+        "example": {
+          "name": "string",
+          "main_image": "string",
+          "content": "string",
+          "price_quantity": [
+            {
+              "_id": "string",
+              "price": 1000,
+              "quantity": 10
+            }
+          ],
+          "main_category": "string",
+          "sub_category": "string",
+          "city_id": "string",
+          "dist_id": "string",
+          "survey_url": "string",
+          "status": 1,
+          "teacher_id": "string",
+          "purchase_message": "string",
+          "video_ids": [
+            "string"
+          ],
+          "file_ids": [
+            "string"
+          ],
+          "file_url_ids": [
+            "string"
+          ]
+        }
+      },
+      "PostTeacherCourseDraftResponseModel": {
+        "type": "object",
+        "required": [
+          "status",
+          "data"
+        ],
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "required": [
+              "message"
+            ],
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "example": {
+          "status": true,
+          "data": {
+            "message": "儲存草稿完成"
+          }
+        }
+      },
+      "PostTeacherCoursePublishResponseModel": {
+        "type": "object",
+        "required": [
+          "status",
+          "data"
+        ],
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "required": [
+              "message"
+            ],
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "example": {
+          "status": true,
+          "data": {
+            "message": "上架課程完成"
+          }
+        }
+      },
+      "PostTeacherCourseUnpublishResponseModel": {
+        "type": "object",
+        "required": [
+          "status",
+          "data"
+        ],
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "required": [
+              "message"
+            ],
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "example": {
+          "status": true,
+          "data": {
+            "message": "下架課程完成"
+          }
+        }
+      },
+      "GetTeacherCourseResponseModel": {
+        "type": "object",
+        "required": [
+          "status",
+          "data"
+        ],
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "required": [
+              "message"
+            ],
+            "properties": {
+              "_id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string",
+                "description": "課程名稱"
+              },
+              "main_image": {
+                "type": "string",
+                "description": "主要圖片URL"
+              },
+              "content": {
+                "type": "string",
+                "description": "課程內容"
+              },
+              "price_quantity": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string",
+                      "description": "價格數量的ID"
+                    },
+                    "price": {
+                      "type": "number",
+                      "description": "價格"
+                    },
+                    "quantity": {
+                      "type": "number",
+                      "description": "數量"
+                    }
+                  }
+                },
+                "description": "價格和數量"
+              },
+              "main_category": {
+                "type": "string",
+                "description": "主要類別"
+              },
+              "sub_category": {
+                "type": "string",
+                "description": "次要類別"
+              },
+              "city_id": {
+                "type": "string",
+                "description": "城市ID"
+              },
+              "dist_id": {
+                "type": "string",
+                "description": "地區ID"
+              },
+              "survey_url": {
+                "type": "string",
+                "description": "調查URL"
+              },
+              "status": {
+                "type": "number",
+                "description": "課程狀態",
+                "enum": [
+                  0,
+                  1,
+                  2
+                ]
+              },
+              "teacher_id": {
+                "type": "string",
+                "description": "教師ID"
+              },
+              "purchase_message": {
+                "type": "string",
+                "description": "購買訊息"
+              },
+              "video_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "影片ID"
+              },
+              "file_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "文件ID"
+              },
+              "file_url_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "文件URL ID"
+              },
+              "is_valid": {
+                "type": "boolean",
+                "description": "是否可上架"
+              }
+            }
+          }
+        },
+        "example": {
+          "status": true,
+          "data": {
+            "_id": "665bdfe65b0ab5aecfe5fdda",
+            "name": "田徑訓練基礎課程",
+            "main_image": "https://i.pinimg.com/564x/e9/4f/de/e94fde97a2219575e085cde18736cbb1.jpg",
+            "content": "這門課程專為希望提升田徑技能的初學者設計，涵蓋基本的田徑技術和訓練方法。",
+            "price_quantity": [
+              {
+                "price": 3000,
+                "quantity": 20
+              },
+              {
+                "price": 5000,
+                "quantity": 30
+              }
+            ],
+            "main_category": "運動",
+            "sub_category": "田徑",
+            "city_id": "2",
+            "dist_id": "5",
+            "survey_url": "https://example.com/survey/athletics_training_course",
+            "status": 1,
+            "teacher_id": {
+              "$oid": "665ae4ba971e705a4aa6a94a"
+            },
+            "purchase_message": "請穿著舒適的運動服裝並準備好水壺和毛巾。",
+            "video_ids": [
+              "vid138",
+              "vid139",
+              "vid140"
+            ],
+            "file_ids": [
+              "file138",
+              "file139",
+              "file140"
+            ],
+            "file_url_ids": [
+              "fileurl138",
+              "fileurl139",
+              "fileurl140"
+            ],
+            "createdAt": "2024-06-01T08:00:00.000Z",
+            "updatedAt": {
+              "$date": "2024-06-15T12:15:53.996Z"
+            }
+          }
+        }
+      },
+      "GetTeacherCoursesResponseModel": {
+        "type": "object",
+        "required": [
+          "status",
+          "data"
+        ],
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "_id",
+                "name",
+                "main_image",
+                "main_category",
+                "sub_category",
+                "status",
+                "is_valid",
+                "id"
+              ],
+              "properties": {
+                "_id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "課程名稱"
+                },
+                "main_image": {
+                  "type": "string",
+                  "description": "主要圖片URL"
+                },
+                "main_category": {
+                  "type": "string",
+                  "description": "主要類別"
+                },
+                "sub_category": {
+                  "type": "string",
+                  "description": "次要類別"
+                },
+                "status": {
+                  "type": "number",
+                  "description": "課程狀態",
+                  "enum": [
+                    0,
+                    1,
+                    2
+                  ]
+                },
+                "is_valid": {
+                  "type": "boolean",
+                  "description": "是否可上架"
+                },
+                "id": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "example": {
+          "status": true,
+          "data": [
+            {
+              "_id": "665bdfe65b0ab5aecfe5fdda",
+              "name": "田徑訓練基礎課程",
+              "main_image": "https://i.pinimg.com/564x/e9/4f/de/e94fde97a2219575e085cde18736cbb1.jpg",
+              "main_category": "運動",
+              "sub_category": "田徑",
+              "status": 1,
+              "is_valid": false,
+              "id": "665bdfe65b0ab5aecfe5fdda"
+            },
+            {
+              "_id": "666d33b1c622c496f8584197",
+              "name": "測試",
+              "status": 1,
+              "is_valid": false,
+              "id": "666d33b1c622c496f8584197"
+            }
+          ]
+        }
+      },
+      "DeleteTeacherCourseResponseModel": {
+        "type": "object",
+        "required": [
+          "status",
+          "data"
+        ],
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "required": [
+              "message"
+            ],
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "example": {
+          "status": true,
+          "data": {
+            "message": "刪除課程完成"
           }
         }
       }

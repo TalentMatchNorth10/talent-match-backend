@@ -7,6 +7,7 @@ export interface IPriceQuantity extends Document {
 }
 
 export interface ICourse extends Document {
+  _id: Types.ObjectId;
   name: string;
   main_image: string;
   rate: number;
@@ -23,4 +24,11 @@ export interface ICourse extends Document {
   video_ids: string[];
   file_ids: string[];
   file_url_ids: string[];
+  is_valid: boolean;
+}
+
+export enum CourseStatus {
+  DRAFT = 0,
+  PUBLISHED = 1,
+  UNPUBLISHED = 2
 }
