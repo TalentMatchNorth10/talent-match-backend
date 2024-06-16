@@ -20,19 +20,6 @@ const CommonComment = {
             */
         next();
     },
-    getCity: (req, res, next) => {
-        /**
-              * #swagger.tags = ['Common']
-              * #swagger.summary = '取得縣市地區id'
-              * #swagger.responses[200] = {
-                  schema: { $ref: "#/components/schemas/getCity" }
-              }
-              * #swagger.responses[500] = {
-                  schema: { $ref: "#/components/schemas/Error500ResponseModel" }
-              }
-            */
-        next();
-    },
     search: (req, res, next) => {
         /**
               * #swagger.tags = ['Common']
@@ -62,7 +49,7 @@ const CommonComment = {
                   description: "縣市id",
               }
               * #swagger.responses[200] = {
-                  schema: { $ref: "#/components/schemas/Search" }
+                  schema: { $ref: "#/components/schemas/SearchResponseModel" }
               }
               * #swagger.responses[500] = {
                   schema: { $ref: "#/components/schemas/Error500ResponseModel" }

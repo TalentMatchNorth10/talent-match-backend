@@ -20,6 +20,7 @@ import appError from '../services/appError';
 import Teacher from '../models/teacherModel';
 import { FilterQuery } from 'mongoose';
 import User from '../models/userModel';
+import { CourseStatus } from '../models/types/course.interface';
 
 const commonController = {
   getTags: handleErrorAsync(
@@ -212,111 +213,125 @@ const commonController = {
           ]);
           searchResult.teachers = teachers;
         }
-        const [courses, total] = await Promise.all([
-          Course.aggregate([
-            {
-              $lookup: {
-                from: 'teachers',
-                localField: 'teacher_id',
-                foreignField: '_id',
-                as: 'teacher'
-              }
-            },
-            {
-              $match: {
-                ...query,
-                status: { $eq: 1 }, // 課程上架中
-                'teacher.application_status': { $eq: 3 } // 老師通過審核
-              }
-            },
-            {
-              $addFields: {
-                avator_image: { $first: '$teacher.avator_image' }
-              }
-            },
-            // 計算單堂價格
-            {
-              $addFields: {
-                price_unit: {
-                  $min: {
-                    $map: {
-                      input: '$price_quantity',
-                      as: 'pq',
-                      in: {
-                        $cond: [
-                          { $eq: ['$$pq.quantity', 0] },
-                          Infinity, // 防止除以0
-                          { $divide: ['$$pq.price', '$$pq.quantity'] }
-                        ]
-                      }
+
+        const courses = await Course.aggregate([
+          {
+            $lookup: {
+              from: 'teachers',
+              localField: 'teacher_id',
+              foreignField: '_id',
+              as: 'teacher'
+            }
+          },
+          {
+            $match: {
+              ...query,
+              status: { $eq: CourseStatus.PUBLISHED }, // 課程上架中
+              'teacher.application_status': { $eq: 3 } // 老師通過審核
+            }
+          },
+          {
+            $addFields: {
+              avator_image: { $first: '$teacher.avator_image' }
+            }
+          },
+          // 計算單堂價格
+          {
+            $addFields: {
+              price_unit: {
+                $min: {
+                  $map: {
+                    input: '$price_quantity',
+                    as: 'pq',
+                    in: {
+                      $cond: [
+                        { $eq: ['$$pq.quantity', 0] },
+                        Infinity, // 防止除以0
+                        { $divide: ['$$pq.price', '$$pq.quantity'] }
+                      ]
                     }
                   }
                 }
               }
-            },
-            {
-              $lookup: {
-                from: 'reviews',
-                localField: '_id',
-                foreignField: 'course_id',
-                as: 'reviews'
-              }
-            },
-            {
-              $addFields: {
-                rate_avg: {
-                  $avg: '$reviews.rate' // 計算平均 rate
-                },
-                review_count: {
-                  $size: '$reviews' // 計算 review 的數量
-                }
-              }
-            },
-            {
-              $lookup: {
-                from: 'users',
-                localField: 'teacher.user_id',
-                foreignField: '_id',
-                as: 'teacherUser'
-              }
-            },
-            {
-              $unwind: '$teacherUser'
-            },
-            {
-              $addFields: {
-                teacher_name: '$teacherUser.name'
-              }
-            },
-            {
-              $project: {
-                main_image: 1,
-                name: 1,
-                content: 1,
-                price_quantity: 1,
-                main_category: 1,
-                sub_category: 1,
-                rate_avg: { $round: ['$rate_avg', 1] },
-                review_count: 1,
-                teacher_name: 1,
-                avator_image: 1,
-                price_unit: 1
-              }
-            },
-            {
-              $sort: sortParam
-            },
-            {
-              $skip: skip // 跳過文檔數量
-            },
-            {
-              $limit: size
             }
-          ]),
-          Course.countDocuments(query)
+          },
+          {
+            $lookup: {
+              from: 'reviews',
+              localField: '_id',
+              foreignField: 'course_id',
+              as: 'reviews'
+            }
+          },
+          {
+            $addFields: {
+              rate_avg: {
+                $avg: '$reviews.rate' // 計算平均 rate
+              },
+              review_count: {
+                $size: '$reviews' // 計算 review 的數量
+              }
+            }
+          },
+          {
+            $lookup: {
+              from: 'users',
+              localField: 'teacher.user_id',
+              foreignField: '_id',
+              as: 'teacherUser'
+            }
+          },
+          {
+            $unwind: '$teacherUser'
+          },
+          {
+            $addFields: {
+              teacher_name: '$teacherUser.name'
+            }
+          },
+          {
+            $project: {
+              main_image: 1,
+              name: 1,
+              content: 1,
+              price_quantity: 1,
+              main_category: 1,
+              sub_category: 1,
+              rate_avg: { $round: ['$rate_avg', 1] },
+              review_count: 1,
+              teacher_name: 1,
+              avator_image: 1,
+              price_unit: 1
+            }
+          },
+          {
+            $sort: sortParam
+          },
+          {
+            $facet: {
+              total: [{ $count: 'count' }],
+              results: [
+                {
+                  $skip: skip // 跳過文檔數量
+                },
+                {
+                  $limit: size
+                }
+              ]
+            }
+          },
+          {
+            $unwind: '$total'
+          },
+          {
+            $project: {
+              total: '$total.count',
+              results: 1
+            }
+          }
         ]);
-        searchResult.courses = courses;
-        searchResult.total = total;
+        searchResult.courses = courses[0].results;
+        searchResult.total = courses[0].total;
         handleSuccess(res, { ...searchResult });
       } catch (error) {
         return appError(500, `伺服器錯誤`, next);
