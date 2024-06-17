@@ -311,7 +311,7 @@ const shopController = {
       });
 
       const base_param = {
-        MerchantTradeNo: `TM_EC${new Date().getTime()}`,
+        MerchantTradeNo: `TM2EC${new Date().getTime()}`,
         MerchantTradeDate,
         TotalAmount: totalAmount.toString(),
         TradeDesc: 'TalentMatch 課程訂單',

@@ -10,6 +10,11 @@ export interface CoursePurchase {
   quantity_total: number;
 }
 
+export interface Preference {
+  preference_id: Types.ObjectId;
+  preference_tags: string[];
+}
+
 export interface User extends Document {
   _id: Types.ObjectId;
   google_id?: string;
@@ -25,6 +30,6 @@ export interface User extends Document {
   teacher_id?: Types.ObjectId | null;
   carts: CartItem[];
   course_purchases: CoursePurchase[];
-  preference: number[];
+  preferences: Preference[];
   favorites: Types.ObjectId[];
 }
