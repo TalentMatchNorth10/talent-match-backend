@@ -11,6 +11,11 @@ const coursePurchaseSchema = new Schema({
   quantity_total: { type: Number, default: 0 }
 });
 
+const preferenceSchema = new Schema({
+  preference_id: { type: Schema.Types.ObjectId, default: null },
+  preference_tags: { type: [String], default: [] }
+});
+
 const userSchema = new Schema<User>({
   google_id: { type: String, default: '' },
   name: { type: String, default: '' },
@@ -31,7 +36,7 @@ const userSchema = new Schema<User>({
   },
   carts: { type: [cartItemSchema], default: [] },
   course_purchases: { type: [coursePurchaseSchema], default: [] },
-  preference: { type: [Number], default: [] },
+  preferences: { type: [preferenceSchema], default: [] },
   favorites: { type: [Schema.Types.ObjectId], ref: 'Course', default: [] }
 });
 

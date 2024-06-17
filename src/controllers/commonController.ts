@@ -19,7 +19,6 @@ import { ParsedQs } from 'qs';
 import appError from '../services/appError';
 import Teacher from '../models/teacherModel';
 import { FilterQuery } from 'mongoose';
-import User from '../models/userModel';
 import { CourseStatus } from '../models/types/course.interface';
 
 const commonController = {
