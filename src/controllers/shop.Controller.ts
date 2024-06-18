@@ -344,13 +344,16 @@ const shopController = {
         await order.save();
         return appError(400, '交易失敗', next);
       } else {
-        req.user?.carts.filter(
-          (item) =>
-            !order.purchase_items.find(
-              (p) => p.purchase_item_id === item.purchase_item_id
-            )
-        );
-        await req.user?.save();
+        const user = await UserModel.findById(order.buyer_id);
+        if (user) {
+          user.carts = user?.carts.filter(
+            (item) =>
+              !order.purchase_items.find(
+                (p) => p.purchase_item_id === item.purchase_item_id
+              )
+          );
+          await user.save();
+        }
 
         order.status = Status.SUCCESS;
         await order.save();
