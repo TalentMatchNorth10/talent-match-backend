@@ -29,6 +29,7 @@ router.post(
   ShopComment.paymentCreate,
   shopController.paymentCreate
 );
+router.post('/payment_return', shopController.paymentReturn);
 router.get(
   '/order/:id',
   isAuth,
