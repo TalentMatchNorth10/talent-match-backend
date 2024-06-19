@@ -317,7 +317,7 @@ const shopController = {
         TradeDesc: 'TalentMatch 課程訂單',
         ItemName: items.map((item) => item.name).join(', '),
         ReturnURL: RETURN_URL,
-        OrderResultURL: `${CLIENT_RETURN_URL}?order=${newOrder._id}`,
+        ClientBackURL: `${CLIENT_RETURN_URL}?order=${newOrder._id}`,
         CustomField1: newOrder._id.toString()
       };
 
