@@ -42,7 +42,6 @@ export const teachingCertificateSchema = new Schema({
 const teacherSchema = new Schema({
   id: { type: Schema.Types.ObjectId },
   user_id: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-  avator_image: { type: String },
   main_categorys: {
     type: [String],
     validate: {
