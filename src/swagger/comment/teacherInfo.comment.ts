@@ -232,6 +232,35 @@ const TeacherInfoComment = {
           }
       */
     next();
+  },
+  patchTeacherVideo: (req: Request, res: Response, next: NextFunction) => {
+    /**
+         * #swagger.tags = ['Teacher_info']
+         * #swagger.summary = '更新老師自我介紹影片'
+         * #swagger.security = [{"bearerAuth": []}]
+         * #swagger.requestBody = {
+                required: true,
+                content: {
+                    "application/json": {
+                        schema: { $ref: "#/components/schemas/PatchTeacherInfoVideoRequestModel" }
+                    }
+                }
+            }
+          * #swagger.responses[200] = { 
+              schema: { $ref: "#/components/schemas/PatchTeacherInfoVideoResponseModel" }
+          }
+          * #swagger.responses[400] = { 
+              schema: {
+                $ref: "#/components/schemas/Error400ResponseModel"
+              }
+          }
+          * #swagger.responses[500] = { 
+              schema: {
+                  $ref: "#/components/schemas/Error500ResponseModel"
+              }
+          }
+      */
+    next();
   }
 };
 export default TeacherInfoComment;

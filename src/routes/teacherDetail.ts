@@ -1,6 +1,7 @@
 import teacherDetailController from '../controllers/teacherDetailController';
 import TeacherDetailComment from '../swagger/comment/teacherDetail.comment';
-import router from './user';
+import express from 'express';
+const router = express.Router();
 
 router.get(
   '/:teacherId',

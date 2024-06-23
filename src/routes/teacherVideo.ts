@@ -1,7 +1,8 @@
 import teacherVideoController from '../controllers/teacherVideoController';
 import { isAuth } from '../services/auth';
 import TeacherVideoComment from '../swagger/comment/teacherVideo.comment';
-import router from './user';
+import express from 'express';
+const router = express.Router();
 
 router.get(
   '/',

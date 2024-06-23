@@ -78,7 +78,7 @@ const teacherSchema = new Schema({
     required: true
   },
   teaching_certificate: [teachingCertificateSchema],
-  intro_video_id: { type: String }, // 自我介紹影片ID
+  intro_video_id: { type: Schema.Types.ObjectId, ref: 'Video' }, // 自我介紹影片ID
   courses: [{ type: Schema.Types.ObjectId, ref: 'Course' }],
   can_reserve_week: [
     {
