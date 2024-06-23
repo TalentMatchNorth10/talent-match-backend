@@ -160,6 +160,40 @@ const StudentReservationSchema = {
                 }
             }
         }
+    },
+    ReviewCourseRequestModel: {
+        type: 'object',
+        required: ['course_id', 'user_id', 'rate', 'comment'],
+        properties: {
+            course_id: {
+                type: 'string',
+                description: '課程ID'
+            },
+            user_id: {
+                type: 'string',
+                description: '使用者ID'
+            },
+            reserve_id: {
+                type: 'string',
+                description: '預約ID'
+            },
+            rate: {
+                type: 'string',
+                description: '評價分數',
+                minimum: 1,
+                maximum: 5
+            },
+            comment: {
+                type: 'string',
+                description: '評價內容'
+            }
+        },
+        example: {
+            course_id: '66462077589368f14e1bf98e',
+            user_id: '6644cdc6589368f14e4d50cb',
+            rate: 5,
+            comment: '這是一堂很棒的課程'
+        }
     }
 };
 exports.StudentReservationSchema = StudentReservationSchema;

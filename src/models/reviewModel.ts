@@ -2,7 +2,10 @@ import mongoose, { Schema } from 'mongoose';
 
 const reviewSchema = new Schema(
   {
-    course_id: { type: String, required: [true, '課程ID為必填項'] },
+    course_id: {
+      type: Schema.Types.ObjectId,
+      required: [true, '課程ID為必填項']
+    },
     user_id: { type: String, required: [true, '使用者ID為必填項'] },
     rate: {
       type: Number,

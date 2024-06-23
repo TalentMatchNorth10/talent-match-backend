@@ -91,10 +91,24 @@ const StudentController = {
           }
         },
         {
+          $lookup: {
+            from: 'reviews',
+            localField: 'course._id',
+            foreignField: 'course_id',
+            as: 'reviews'
+          }
+        },
+        {
+          $addFields: {
+            review_count: { $size: '$reviews' }
+          }
+        },
+        {
           $project: {
             _id: 0,
             course_id: '$_id',
             course_name: '$course.name',
+            course_rate: '$course.rate',
             teacher_id: '$teacher._id',
             teacher_name: '$teacher.user.name',
             main_category: '$course.main_category',
@@ -126,12 +140,15 @@ const StudentController = {
                 },
                 as: 'reservation',
                 in: {
+                  reserve_id: '$$reservation._id',
                   reserve_time: '$$reservation.reserve_time',
                   teacher_status: '$$reservation.teacher_status',
-                  student_status: '$$reservation.student_status'
+                  student_status: '$$reservation.student_status',
+                  review: '$$reservation.review'
                 }
               }
-            }
+            },
+            review_count: 1
           }
         },
         {

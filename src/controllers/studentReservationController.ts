@@ -8,6 +8,7 @@ import mongoose from 'mongoose';
 import { DateUtil } from '../utils/date-util';
 import Teacher from '../models/teacherModel';
 import { toObjectId } from '../utils/common-util';
+import Review from '../models/reviewModel';
 type WeekString = 'mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat' | 'sun';
 
 const StudentReservationController = {
@@ -29,8 +30,6 @@ const StudentReservationController = {
         teacher_id: objectId_teacher_id,
         reserve_time: date_reserve_time
       });
-
-      // console.log('existedReservation', existedReservation);
 
       if (!course_id || !teacher_id || !student_id || !reserve_time) {
         return appError(400, '請填寫所有欄位', next);
@@ -85,7 +84,6 @@ const StudentReservationController = {
       handleSuccess(res, {
         message: '課程預約狀態已更新'
       });
-      // console.log(objectId_reservation_id);
     }
   ),
   get_reserves_time: handleErrorAsync(
@@ -127,12 +125,13 @@ const StudentReservationController = {
       teacher?.can_reserve_week[0][dayOfWeek as WeekString]
         .filter((time: number) => !reservesTime.includes(`${time}:00`))
         .forEach((time: number) => {
+          const formatHour = time < 10 ? `0${time}` : time;
           if (time < 12) {
-            morningTimes.push(`${time}:00`);
+            morningTimes.push(`${formatHour}:00`);
           } else if (time < 18) {
-            afternoonTimes.push(`${time}:00`);
+            afternoonTimes.push(`${formatHour}:00`);
           } else {
-            eveningTimes.push(`${time}:00`);
+            eveningTimes.push(`${formatHour}:00`);
           }
         });
 
@@ -143,6 +142,35 @@ const StudentReservationController = {
           eveningTimes
         }
       });
+    }
+  ),
+  review_course: handleErrorAsync(
+    async (req: Request, res: Response, next: NextFunction) => {
+      const { course_id, user_id, reserve_id, rate, comment } = req.body;
+      if (!course_id || !user_id || !rate || !comment) {
+        return appError(400, '請填寫所有欄位', next);
+      } else if (!validator.isInt(rate, { min: 1, max: 5 })) {
+        return appError(400, '評價分數需介於1~5之間', next);
+      } else {
+        const newReview = await Review.create({
+          course_id,
+          user_id,
+          rate,
+          comment
+        });
+
+        if (newReview) {
+          console.log('reserve_id', reserve_id);
+          await Reservation.findByIdAndUpdate(reserve_id, {
+            review: newReview.id
+          });
+        }
+
+        handleSuccess(res, {
+          message: '新增評價成功',
+          reviewId: newReview.id // Assuming 'id' is the primary key field for the Review model
+        });
+      }
     }
   )
 };

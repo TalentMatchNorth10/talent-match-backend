@@ -29,6 +29,11 @@ const reservationSchema = new Schema(
       required: [true, '學生狀態為必填項'],
       enum: ['reserved', 'completed', 'cancelled'],
       default: 'reserved'
+    },
+    review: {
+      type: Schema.Types.ObjectId,
+      ref: 'Review',
+      default: null
     }
   },
   {

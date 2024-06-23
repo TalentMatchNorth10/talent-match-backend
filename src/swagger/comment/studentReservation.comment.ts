@@ -70,6 +70,30 @@ const StudentReservationComment = {
     }
     */
     next();
+  },
+  review_course: (req: Request, res: Response, next: NextFunction) => {
+    /**
+         * #swagger.tags = ['Student Reservation']
+         * #swagger.summary = '學生評價課程'
+         * #swagger.requestBody = {
+                required: true,
+                content: {
+                    "application/json": {
+                        schema: { $ref: "#/components/schemas/ReviewCourseRequestModel" }
+                    }
+                }
+            }
+        * #swagger.responses[200] = { 
+            schema: { $ref: "#/components/schemas/ReviewCourseResponseModel" }
+        }
+        * #swagger.responses[400] = { 
+            schema: { $ref: "#/components/schemas/Error400ResponseModel" }
+        }
+        * #swagger.responses[500] = { 
+            schema: { $ref: "#/components/schemas/Error500ResponseModel" }
+        }
+        */
+    next();
   }
 };
 

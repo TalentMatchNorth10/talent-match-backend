@@ -13,6 +13,7 @@ router.post(
 );
 router.patch(
   '/status_update',
+  StudentReservationComment.status_update,
   isAuth,
   StudentReservationController.status_update
 );
@@ -22,6 +23,13 @@ router.post(
   StudentReservationComment.get_reserves_time,
   isAuth,
   StudentReservationController.get_reserves_time
+);
+
+router.post(
+  '/review_course',
+  StudentReservationComment.review_course,
+  isAuth,
+  StudentReservationController.review_course
 );
 
 export default router;
