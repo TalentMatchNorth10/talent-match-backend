@@ -42,7 +42,8 @@ const teacherCourseController = {
           // add
           const course = await CourseModel.create(
             Object.assign(body, {
-              status: CourseStatus.DRAFT
+              status: CourseStatus.DRAFT,
+              teacher_id: user?.teacher_id
             })
           );
 

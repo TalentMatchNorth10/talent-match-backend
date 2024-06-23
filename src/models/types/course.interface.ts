@@ -21,7 +21,7 @@ export interface ICourse extends Document {
   status: number;
   teacher_id: Types.ObjectId;
   purchase_message: string;
-  video_ids: string[];
+  video_ids: Types.ObjectId[];
   file_ids: string[];
   file_url_ids: string[];
   is_valid: boolean;

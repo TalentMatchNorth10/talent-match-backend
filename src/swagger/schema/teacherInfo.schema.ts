@@ -837,6 +837,41 @@ const TeacherInfoSchema = {
         message: '更新成功'
       }
     }
+  },
+  PatchTeacherInfoVideoRequestModel: {
+    type: 'object',
+    required: ['intro_video_id'],
+    properties: {
+      intro_video_id: {
+        type: 'string',
+        description: '影片id'
+      }
+    },
+    example: [
+      {
+        intro_video_id: 'string'
+      }
+    ]
+  },
+  PatchTeacherInfoVideoResponseModel: {
+    type: 'object',
+    required: ['status', 'data'],
+    properties: {
+      status: { type: 'boolean' },
+      data: {
+        type: 'object',
+        required: ['message'],
+        properties: {
+          message: { type: 'string' }
+        }
+      }
+    },
+    example: {
+      status: true,
+      data: {
+        message: '更新自我介紹影片完成'
+      }
+    }
   }
 };
 

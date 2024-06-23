@@ -320,11 +320,20 @@ const commonController = {
             }
           },
           {
-            $unwind: '$total'
+            $addFields: {
+              total: { $ifNull: [{ $arrayElemAt: ['$total.count', 0] }, 0] },
+              results: {
+                $cond: {
+                  if: { $isArray: '$results' },
+                  then: '$results',
+                  else: []
+                }
+              }
+            }
           },
           {
             $project: {
-              total: '$total.count',
+              total: 1,
               results: 1
             }
           }
@@ -333,7 +342,8 @@ const commonController = {
         searchResult.total = courses[0].total;
         handleSuccess(res, { ...searchResult });
       } catch (error) {
-        return appError(500, `伺服器錯誤`, next);
+        // 出錯還是要有畫面
+        handleSuccess(res, { total: 0, results: [], isError: true });
       }
     }
   ),

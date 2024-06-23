@@ -1,12 +1,18 @@
 import mongoose, { Schema } from 'mongoose';
+import { IReview } from './types/review.interface';
 
-const reviewSchema = new Schema(
+const reviewSchema = new Schema<IReview>(
   {
     course_id: {
       type: Schema.Types.ObjectId,
+      ref: 'Course',
       required: [true, '課程ID為必填項']
     },
-    user_id: { type: String, required: [true, '使用者ID為必填項'] },
+    user_id: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+      required: [true, '使用者ID為必填項']
+    },
     rate: {
       type: Number,
       required: [true, '評價分數為必填項'],

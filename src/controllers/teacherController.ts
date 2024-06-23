@@ -7,6 +7,7 @@ import { User as UserInterface } from '../models/types/user.interface';
 import User from '../models/userModel';
 import mongoose from 'mongoose';
 import { Teacher as TeacherInterface } from './../models/types/teacher.interface';
+import Video from '../models/videoModel';
 
 const teacherController = {
   /** 申請老師 */
@@ -345,6 +346,37 @@ const teacherController = {
 
       handleSuccess(res, {
         message: '更新完成'
+      });
+    } catch (error) {
+      return appError(500, '伺服器錯誤', next);
+    }
+  }),
+  /** 修改老師自我介紹影片 */
+  patchTeacherVideo: handleErrorAsync(async (req, res, next) => {
+    const teacherId = (req.user as UserInterface).teacher_id;
+    const { intro_video_id } = req.body;
+
+    try {
+      const teacher = await Teacher.findById(teacherId);
+
+      if (!teacher) {
+        return appError(404, '找不到對應的教師', next);
+      }
+
+      // 驗證所有欄位
+
+      const video = await Video.findById(intro_video_id);
+      if (!video) {
+        return appError(404, '找不到對應的影片', next);
+      }
+
+      // 更新影片
+      teacher.intro_video_id = intro_video_id;
+      await teacher.save();
+
+      handleSuccess(res, {
+        message: '更新自我介紹影片完成',
+        teacher
       });
     } catch (error) {
       return appError(500, '伺服器錯誤', next);

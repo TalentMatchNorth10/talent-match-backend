@@ -15,7 +15,9 @@ import studentInfoRouter from './routes/studentInfo';
 
 import teacherInfoRouter from './routes/teacherInfo';
 import teacherCourseRouter from './routes/teacherCourse';
+import teacherVideoRouter from './routes/teacherVideo';
 import teacherDetailRouter from './routes/teacherDetail';
+import courseDetailRouter from './routes/courseDetail';
 import homeRouter from './routes/home';
 import favoriteRouter from './routes/favorites';
 
@@ -69,7 +71,9 @@ app.use('/api/student_reservation', studentReservationRouter);
 
 app.use('/api/teacher_info', teacherInfoRouter);
 app.use('/api/teacher_course', teacherCourseRouter);
+app.use('/api/teacher_video', teacherVideoRouter);
 app.use('/api/teacher_detail', teacherDetailRouter);
+app.use('/api/course_detail', courseDetailRouter);
 app.use('/api/home', homeRouter);
 app.use('/api/teacher_reserves', teacherReserveRouter);
 app.use('/api/favorites', favoriteRouter);
