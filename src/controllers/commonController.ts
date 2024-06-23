@@ -166,7 +166,6 @@ const commonController = {
               $group: {
                 _id: '$_id',
                 name: { $first: '$user.name' },
-                avator_image: { $first: '$avator_image' },
                 courses: { $push: '$courses' },
                 reviews: { $push: '$reviews' }
               }
@@ -285,7 +284,8 @@ const commonController = {
           },
           {
             $addFields: {
-              teacher_name: '$teacherUser.name'
+              teacher_name: '$teacherUser.name',
+              avator_image: '$teacherUser.avator_image'
             }
           },
           {
