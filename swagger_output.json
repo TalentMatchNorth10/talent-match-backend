@@ -1776,6 +1776,355 @@
         ]
       }
     },
+    "/api/teacher_video/": {
+      "get": {
+        "tags": [
+          "Teacher_video"
+        ],
+        "summary": "取得所有影片",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetTeacherVideoListResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetTeacherVideoListResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Teacher_video"
+        ],
+        "summary": "新增影片",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddTeacherVideoResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddTeacherVideoResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddTeacherVideoRequestModel"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/teacher_video/{video_id}": {
+      "get": {
+        "tags": [
+          "Teacher_video"
+        ],
+        "summary": "取得單一影片",
+        "description": "",
+        "parameters": [
+          {
+            "name": "video_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetTeacherVideoResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetTeacherVideoResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Teacher_video"
+        ],
+        "summary": "更新影片",
+        "description": "",
+        "parameters": [
+          {
+            "name": "video_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateTeacherVideoResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateTeacherVideoResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTeacherVideoRequestModel"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Teacher_video"
+        ],
+        "summary": "刪除指定影片",
+        "description": "",
+        "parameters": [
+          {
+            "name": "video_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteTeacherVideoResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteTeacherVideoResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
     "/api/teacher_detail/{teacherId}": {
       "get": {
         "tags": [
@@ -8164,6 +8513,302 @@
             "name": "陳老師",
             "introduction": "intro",
             "intro_video": "video.mp4"
+          }
+        }
+      },
+      "GetTeacherVideoListResponseModel": {
+        "type": "object",
+        "required": [
+          "status",
+          "data"
+        ],
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "category": {
+                  "type": "string"
+                },
+                "intro": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string"
+                },
+                "video_type": {
+                  "type": "string",
+                  "enum": [
+                    "storage",
+                    "youtube"
+                  ]
+                },
+                "course_id": {
+                  "type": "string"
+                },
+                "teacher_id": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "_id",
+                "name",
+                "category",
+                "intro",
+                "video_type",
+                "teacher_id",
+                "url"
+              ]
+            }
+          }
+        },
+        "example": {
+          "status": true,
+          "data": [
+            {
+              "_id": "60d21b4667d0d899234d0c83",
+              "name": "Sample Video 1",
+              "category": "Education",
+              "intro": "This is a sample video introduction.",
+              "url": "https://example.com/sample-video-1",
+              "video_type": "youtube",
+              "course_id": "60d21b4667d0d8992e610c85",
+              "teacher_id": "60d21b4667d0d8992e610c84"
+            }
+          ]
+        }
+      },
+      "GetTeacherVideoResponseModel": {
+        "type": "object",
+        "required": [
+          "name",
+          "category",
+          "intro",
+          "video_type",
+          "teacher_id",
+          "url"
+        ],
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          },
+          "intro": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "video_type": {
+            "type": "string",
+            "enum": [
+              "storage",
+              "youtube"
+            ]
+          },
+          "course_id": {
+            "type": "string"
+          },
+          "teacher_id": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "_id": "60d21b4667d0d899234d0c83",
+          "name": "Sample Video",
+          "category": "Education",
+          "intro": "This is a sample video introduction.",
+          "url": "https://example.com/sample-video",
+          "video_type": "youtube",
+          "course_id": "60d21b4667d0d8992e610c85",
+          "teacher_id": "60d21b4667d0d8992e610c84"
+        }
+      },
+      "AddTeacherVideoRequestModel": {
+        "type": "object",
+        "required": [
+          "name",
+          "category",
+          "intro",
+          "video_type",
+          "teacher_id",
+          "url"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          },
+          "intro": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "video_type": {
+            "type": "string"
+          },
+          "course_id": {
+            "type": "string"
+          },
+          "teacher_id": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "name": "Sample Video",
+          "category": "Education",
+          "intro": "This is a sample video introduction.",
+          "url": "https://example.com/sample-video",
+          "video_type": "youtube",
+          "course_id": "60d21b4667d0d8992e610c85",
+          "teacher_id": "60d21b4667d0d8992e610c84"
+        }
+      },
+      "AddTeacherVideoResponseModel": {
+        "type": "object",
+        "required": [
+          "status",
+          "data"
+        ],
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "required": [
+              "message"
+            ],
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "example": {
+          "status": true,
+          "data": {
+            "message": "新增影片完成"
+          }
+        }
+      },
+      "UpdateTeacherVideoRequestModel": {
+        "type": "object",
+        "required": [
+          "name",
+          "category",
+          "intro",
+          "video_type",
+          "teacher_id",
+          "url"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          },
+          "intro": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "video_type": {
+            "type": "string"
+          },
+          "course_id": {
+            "type": "string"
+          },
+          "teacher_id": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "name": "Sample Video",
+          "category": "Education",
+          "intro": "This is a sample video introduction.",
+          "url": "https://example.com/sample-video",
+          "video_type": "youtube",
+          "course_id": "60d21b4667d0d8992e610c85",
+          "teacher_id": "60d21b4667d0d8992e610c84"
+        }
+      },
+      "UpdateTeacherVideoResponseModel": {
+        "type": "object",
+        "required": [
+          "status",
+          "data"
+        ],
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "required": [
+              "message"
+            ],
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "example": {
+          "status": true,
+          "data": {
+            "message": "更新影片完成"
+          }
+        }
+      },
+      "DeleteTeacherVideoResponseModel": {
+        "type": "object",
+        "required": [
+          "status",
+          "data"
+        ],
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "required": [
+              "message"
+            ],
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "example": {
+          "status": true,
+          "data": {
+            "message": "刪除影片完成"
           }
         }
       }
