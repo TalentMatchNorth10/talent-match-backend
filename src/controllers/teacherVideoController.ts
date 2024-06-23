@@ -36,52 +36,76 @@ const teacherVideoController = {
       if (!teacher) {
         return appError(400, `使用者非老師`, next);
       }
-      const { name, category, intro, url, video_type, course_id, teacher_id } =
-        body;
 
-      if (!name || !category || !intro || !teacher_id || !url) {
-        return appError(400, `請填寫必填欄位`, next);
+      const updateData = req.body;
+
+      // 確認必填欄位存在
+      const requiredFields = [
+        'name',
+        'category',
+        'intro',
+        'video_type',
+        'teacher_id'
+      ];
+      for (const field of requiredFields) {
+        if (!updateData[field]) {
+          return appError(400, `請填寫必填欄位`, next);
+        }
       }
 
       try {
         if (videoId) {
-          const video = await VideoModel.findById(videoId);
-          if (!video) {
+          // 獲取舊的 video 資料
+          const oldVideo = await VideoModel.findById(videoId);
+          if (!oldVideo) {
             return appError(400, `找不到影片`, next);
           }
+          checkVideoAuth(user?.teacher_id, oldVideo, next);
 
-          checkVideoAuth(user?.teacher_id, video, next);
-
+          // 更新 video 資料
           const updatedVideo = await VideoModel.findByIdAndUpdate(
             videoId,
-            {
-              name,
-              category,
-              intro,
-              url,
-              video_type,
-              course_id,
-              teacher_id
-            },
-            { new: true, runValidators: true }
+            updateData,
+            { new: true }
           );
-          if (!updatedVideo) {
-            return appError(400, `找不到影片`, next);
+
+          // 處理 course_id 更新
+          if (updateData.course_id !== undefined) {
+            // 如果舊的 course_id 存在，並且 course_id 被設置為 null 或者不同於舊的 course_id
+            if (
+              oldVideo.course_id &&
+              (updateData.course_id === null ||
+                updateData.course_id.toString() !==
+                  oldVideo.course_id.toString())
+            ) {
+              // 從舊的 course 中移除 video_id
+              await CourseModel.findByIdAndUpdate(oldVideo.course_id, {
+                $pull: { video_ids: videoId }
+              });
+            }
+
+            // 如果新的 course_id 不為 null，添加 video_id 到新的 course
+            if (updateData.course_id) {
+              await CourseModel.findByIdAndUpdate(updateData.course_id, {
+                $push: { video_ids: videoId }
+              });
+            }
           }
           handleSuccess(res, {
             message: '更新影片完成'
           });
         } else {
           // add
-          const video = await VideoModel.create({
-            name,
-            category,
-            intro,
-            url,
-            video_type,
-            course_id,
-            teacher_id
-          });
+          const video = await VideoModel.create(updateData);
+
+          // 如果 course_id 被更新了
+          if (updateData.course_id) {
+            // 添加新 course 的 video_id
+            await CourseModel.findByIdAndUpdate(updateData.course_id, {
+              $push: { video_ids: video._id }
+            });
+          }
+
           handleSuccess(res, {
             message: '新增影片完成'
           });
