@@ -30,22 +30,35 @@ const FavoriteController = {
           from: 'teachers',
           localField: 'favorites.teacher_id',
           foreignField: '_id',
-          as: 'favorites.teacher_id'
+          as: 'favorites.teacher'
         }
       },
       {
-        $unwind: '$favorites.teacher_id'
+        $unwind: '$favorites.teacher'
       },
       {
         $lookup: {
           from: 'users',
-          localField: 'favorites.teacher_id.userId',
+          localField: 'favorites.teacher.user_id',
           foreignField: '_id',
-          as: 'favorites.teacher_id.userId'
+          as: 'favorites.teacher.user'
         }
       },
       {
-        $unwind: '$favorites.teacher_id.userId'
+        $unwind: '$favorites.teacher.user'
+      },
+      {
+        $lookup: {
+          from: 'reviews',
+          localField: 'favorites._id',
+          foreignField: 'course_id',
+          as: 'reviews'
+        }
+      },
+      {
+        $addFields: {
+          review_count: { $size: '$reviews' }
+        }
       },
       {
         $project: {
@@ -57,9 +70,10 @@ const FavoriteController = {
           main_image: '$favorites.main_image',
           main_category: '$favorites.main_category',
           sub_category: '$favorites.sub_category',
-          teacher_id: '$favorites.teacher_id._id',
-          teacher_name: '$favorites.teacher_id.userId.nick_name',
-          teacher_avator: '$favorites.teacher_id.userId.avator_image',
+          teacher_id: '$favorites.teacher._id',
+          teacher_name: '$favorites.teacher.user.nick_name',
+          teacher_avatar: '$favorites.teacher.user.avator_image',
+          review_count: 1,
           price_quantity: {
             $map: {
               input: {
@@ -79,6 +93,8 @@ const FavoriteController = {
         }
       }
     ]);
+
+    console.log(favorites);
 
     handleSuccess(res, { favorites });
   },
