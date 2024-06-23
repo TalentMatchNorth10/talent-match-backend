@@ -794,10 +794,66 @@
     },
     "/api/student_reservation/status_update": {
       "patch": {
+        "tags": [
+          "Student Reservation"
+        ],
+        "summary": "學生變更預約狀態為已完成",
         "description": "",
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusUpdateResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusUpdateResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StatusUpdateRequestModel"
+              }
+            }
           }
         }
       }
@@ -873,6 +929,72 @@
             "application/xml": {
               "schema": {
                 "$ref": "#/components/schemas/GetReservesTimeRequestModel"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/student_reservation/review_course": {
+      "post": {
+        "tags": [
+          "Student Reservation"
+        ],
+        "summary": "學生評價課程",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewCourseResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewCourseResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReviewCourseRequestModel"
               }
             }
           }
@@ -7952,6 +8074,45 @@
           }
         }
       },
+      "ReviewCourseRequestModel": {
+        "type": "object",
+        "required": [
+          "course_id",
+          "user_id",
+          "rate",
+          "comment"
+        ],
+        "properties": {
+          "course_id": {
+            "type": "string",
+            "description": "課程ID"
+          },
+          "user_id": {
+            "type": "string",
+            "description": "使用者ID"
+          },
+          "reserve_id": {
+            "type": "string",
+            "description": "預約ID"
+          },
+          "rate": {
+            "type": "string",
+            "description": "評價分數",
+            "minimum": 1,
+            "maximum": 5
+          },
+          "comment": {
+            "type": "string",
+            "description": "評價內容"
+          }
+        },
+        "example": {
+          "course_id": "66462077589368f14e1bf98e",
+          "user_id": "6644cdc6589368f14e4d50cb",
+          "rate": 5,
+          "comment": "這是一堂很棒的課程"
+        }
+      },
       "PurchasedCoursesResponseModel": {
         "type": "object",
         "properties": {
@@ -7969,11 +8130,17 @@
                     "quantity_total": {
                       "type": "number"
                     },
+                    "review_count": {
+                      "type": "number"
+                    },
                     "course_id": {
                       "type": "string"
                     },
                     "course_name": {
                       "type": "string"
+                    },
+                    "course_rate": {
+                      "type": "number"
                     },
                     "teacher_id": {
                       "type": "string"
@@ -7998,6 +8165,9 @@
                       "items": {
                         "type": "object",
                         "properties": {
+                          "reserve_id": {
+                            "type": "string"
+                          },
                           "reserve_time": {
                             "type": "string"
                           },
@@ -8005,6 +8175,9 @@
                             "type": "string"
                           },
                           "student_status": {
+                            "type": "string"
+                          },
+                          "review": {
                             "type": "string"
                           }
                         }
@@ -8022,8 +8195,10 @@
             "purchased_courses": [
               {
                 "quantity_total": 21,
+                "review_count": 1,
                 "course_id": "66462077589368f14e1bf98e",
                 "course_name": "吉他基礎入門課程",
+                "course_rate": 4.5,
                 "teacher_id": "66541517285a36fb1a197a0d",
                 "teacher_name": "柴可夫斯基",
                 "main_category": "音樂",
@@ -8032,24 +8207,32 @@
                 "remain_quantity": 17,
                 "reserved_course": [
                   {
+                    "reserve_id": "666622f2589368f14e1d712a",
                     "reserve_time": "2024-06-12T19:00:00.000Z",
                     "teacher_status": "reserved",
-                    "student_status": "reserved"
+                    "student_status": "reserved",
+                    "review": "666622f2589368f14e1d712a"
                   },
                   {
+                    "reserve_id": "666622f2589368f14e1d712a",
                     "reserve_time": "2024-06-13T19:00:00.000Z",
                     "teacher_status": "reserved",
-                    "student_status": "reserved"
+                    "student_status": "reserved",
+                    "review": "666622f2589368f14e1d712a"
                   },
                   {
+                    "reserve_id": "666622f2589368f14e1d712a",
                     "reserve_time": "2024-06-16T19:00:00.000Z",
                     "teacher_status": "reserved",
-                    "student_status": "reserved"
+                    "student_status": "reserved",
+                    "review": "666622f2589368f14e1d712a"
                   },
                   {
+                    "reserve_id": "666622f2589368f14e1d712a",
                     "reserve_time": "2024-06-19T19:00:00.000Z",
                     "teacher_status": "reserved",
-                    "student_status": "reserved"
+                    "student_status": "reserved",
+                    "review": "666622f2589368f14e1d712a"
                   }
                 ]
               },
@@ -8065,9 +8248,11 @@
                 "remain_quantity": 29,
                 "reserved_course": [
                   {
+                    "reserve_id": "666622f2589368f14e1d712a",
                     "reserve_time": "2024-06-16T19:00:00.000Z",
                     "teacher_status": "reserved",
-                    "student_status": "reserved"
+                    "student_status": "reserved",
+                    "review": "666622f2589368f14e1d712a"
                   }
                 ]
               }
