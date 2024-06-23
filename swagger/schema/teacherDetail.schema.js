@@ -9,6 +9,7 @@ const TeacherDetailSchema = {
             status: { type: 'boolean' },
             data: {
                 type: 'object',
+                required: ['_id', 'name', 'introduction', 'intro_video_url', 'courses'],
                 properties: {
                     _id: {
                         type: 'string'
@@ -26,8 +27,30 @@ const TeacherDetailSchema = {
                         description: '自我介紹'
                     },
                     intro_video: {
+                        type: 'object',
+                        description: '自我介紹影片',
+                        required: [
+                            'name',
+                            'category',
+                            'intro',
+                            'video_type',
+                            'teacher_id',
+                            'url'
+                        ],
+                        properties: {
+                            _id: { type: 'string' },
+                            name: { type: 'string' },
+                            category: { type: 'string' },
+                            intro: { type: 'string' },
+                            url: { type: 'string' },
+                            video_type: { type: 'string', enum: ['storage', 'youtube'] },
+                            course_id: { type: 'string' },
+                            teacher_id: { type: 'string' }
+                        }
+                    },
+                    intro_video_url: {
                         type: 'string',
-                        description: '自我介紹影片'
+                        description: '自我介紹網址'
                     },
                     courses: {
                         type: 'object',
@@ -78,6 +101,20 @@ const TeacherDetailSchema = {
             status: true,
             data: {
                 _id: '665ae4ba971e705a4aa6a94a',
+                name: '陳老師',
+                avator_image: 'https://i.pinimg.com/564x/d1/89/5c/d1895c6f98261b52863c9552bb844f68.jpg',
+                introduction: '這是一位擁有豐富教學經驗的老師，他在各種田徑訓練中都有出色的表現。',
+                intro_video: {
+                    _id: '665f9b9c4fcb4d3a8d9b8e3a',
+                    name: '陳老師自我介紹',
+                    category: '自我介紹',
+                    intro: '陳老師的自我介紹影片，涵蓋他的教學理念和方法。',
+                    url: 'https://example.com/videos/intro_video.mp4',
+                    video_type: 'storage',
+                    course_id: '665ae4ba971e705a4aa6a94a',
+                    teacher_id: '665ae4ba971e705a4aa6a94a'
+                },
+                intro_video_url: 'https://example.com/videos/intro_video.mp4',
                 courses: [
                     {
                         _id: '665bdfe65b0ab5aecfe5fdda',
@@ -86,29 +123,36 @@ const TeacherDetailSchema = {
                         content: '這門課程專為希望提升田徑技能的初學者設計，涵蓋基本的田徑技術和訓練方法。',
                         price_quantity: [
                             {
+                                _id: '665bdfe65b0ab5aecfe5fdda1',
                                 price: 3000,
                                 quantity: 20
                             },
                             {
+                                _id: '665bdfe65b0ab5aecfe5fdda2',
                                 price: 5000,
                                 quantity: 30
                             }
-                        ],
-                        status: 1,
-                        id: '665bdfe65b0ab5aecfe5fdda'
+                        ]
                     },
                     {
                         _id: '666d33b1c622c496f8584197',
-                        status: 1,
-                        price_quantity: [],
-                        name: '測試',
-                        id: '666d33b1c622c496f8584197'
+                        name: '進階田徑技術',
+                        main_image: 'https://i.pinimg.com/564x/1a/2b/3c/1a2b3c4d5e6f789abc12345.jpg',
+                        content: '本課程針對已有基礎技能的學生，深入講解田徑技術。',
+                        price_quantity: [
+                            {
+                                _id: '666d33b1c622c496f85841971',
+                                price: 4000,
+                                quantity: 15
+                            },
+                            {
+                                _id: '666d33b1c622c496f85841972',
+                                price: 6000,
+                                quantity: 25
+                            }
+                        ]
                     }
-                ],
-                avator_image: 'https://i.pinimg.com/564x/d1/89/5c/d1895c6f98261b52863c9552bb844f68.jpg',
-                name: '陳老師',
-                introduction: 'intro',
-                intro_video: 'video.mp4'
+                ]
             }
         }
     }

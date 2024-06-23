@@ -90,7 +90,8 @@ const courseSchema = new Schema<ICourse>(
       }
     },
     video_ids: {
-      type: [String],
+      type: [Schema.Types.ObjectId],
+      ref: 'Video',
       required: function (this: ICourse) {
         return this.status === 1;
       }

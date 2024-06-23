@@ -46,5 +46,11 @@ router.patch(
   TeacherInfoComment.patchTeacherInfoCertificate,
   teacherController.patchTeacherCertificate
 );
+router.patch(
+  '/video',
+  isAuth,
+  TeacherInfoComment.patchTeacherVideo,
+  teacherController.patchTeacherVideo
+);
 
 export default router;

@@ -1,7 +1,8 @@
 import teacherCourseController from '../controllers/teacherCourseController';
 import { isAuth } from '../services/auth';
 import TeacherCourseComment from '../swagger/comment/teacherCourse.comment';
-import router from './user';
+import express from 'express';
+const router = express.Router();
 
 router.post(
   '/courses/draft',
