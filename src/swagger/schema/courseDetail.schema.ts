@@ -25,11 +25,13 @@ const courseDetailSchema = {
           'video_urls',
           'city_name',
           'dist_name',
-          'reviews'
+          'reviews',
+          'completed_count'
         ],
         properties: {
           _id: { type: 'string' },
           name: { type: 'string' },
+          rate: { type: 'number' },
           main_image: { type: 'string' },
           content: { type: 'string' },
           price_quantity: {
@@ -66,78 +68,84 @@ const courseDetailSchema = {
             type: 'object',
             properties: {
               _id: { type: 'string' },
-              user_id: { type: 'string' },
-              main_categorys: {
-                type: 'array',
-                items: { type: 'string' }
-              },
-              sub_categorys: {
-                type: 'array',
-                items: { type: 'string' }
-              },
-              application_status: { type: 'number' },
               nationality: { type: 'string' },
+              expertise: { type: 'string' },
+              introduction: { type: 'string' },
               work_experiences: {
                 type: 'array',
                 items: {
                   type: 'object',
                   properties: {
-                    is_working: { type: 'boolean' },
-                    workplace: { type: 'string' },
-                    job_category: { type: 'string' },
-                    start_year: { type: 'number' },
-                    start_month: { type: 'number' },
-                    end_year: { type: 'number' },
-                    end_month: { type: 'number' },
+                    company: { type: 'string' },
                     position: { type: 'string' },
-                    place: { type: 'string' },
-                    _id: { type: 'string' }
+                    duration: { type: 'string' },
+                    description: { type: 'string' }
                   }
                 }
               },
               learning_experience: {
                 type: 'object',
                 properties: {
-                  is_in_school: { type: 'boolean' },
+                  institution: { type: 'string' },
                   degree: { type: 'string' },
-                  department: { type: 'string' },
-                  start_year: { type: 'number' },
-                  start_month: { type: 'number' },
-                  end_year: { type: 'number' },
-                  end_month: { type: 'number' },
-                  name: { type: 'string' },
-                  place: { type: 'string' },
-                  file: { type: 'string' },
-                  _id: { type: 'string' }
+                  years: { type: 'string' },
+                  description: { type: 'string' }
                 }
               },
               teaching_certificate: {
-                type: 'array',
-                items: { type: 'string' }
+                type: 'object',
+                properties: {
+                  certificate_name: { type: 'string' },
+                  issued_by: { type: 'string' },
+                  issue_date: { type: 'string' }
+                }
               },
+              intro_video: { type: 'string' },
               can_reserve_week: {
                 type: 'array',
-                items: { type: 'string' }
-              }
+                items: {
+                  type: 'object',
+                  properties: {
+                    mon: {
+                      type: 'array',
+                      items: { type: 'number' }
+                    },
+                    tue: {
+                      type: 'array',
+                      items: { type: 'number' }
+                    },
+                    wed: {
+                      type: 'array',
+                      items: { type: 'number' }
+                    },
+                    thu: {
+                      type: 'array',
+                      items: { type: 'number' }
+                    },
+                    fri: {
+                      type: 'array',
+                      items: { type: 'number' }
+                    },
+                    sat: {
+                      type: 'array',
+                      items: { type: 'number' }
+                    },
+                    sun: {
+                      type: 'array',
+                      items: { type: 'number' }
+                    }
+                  }
+                }
+              },
+              user_id: { type: 'string' },
+              application_status: { type: 'number' },
+              name: { type: 'string' },
+              avatar: { type: 'string' }
             }
           },
           videos: {
             type: 'array',
-            items: {
-              type: 'object',
-              properties: {
-                _id: { type: 'string' },
-                name: { type: 'string' },
-                category: { type: 'string' },
-                intro: { type: 'string' },
-                url: { type: 'string' },
-                video_type: { type: 'string' },
-                teacher_id: { type: 'string' },
-                createdAt: { type: 'string', format: 'date-time' },
-                updatedAt: { type: 'string', format: 'date-time' },
-                course_id: { type: 'string' }
-              }
-            }
+            items: { type: 'object' }
           },
           video_urls: {
             type: 'array',
@@ -151,19 +159,49 @@ const courseDetailSchema = {
               type: 'object',
               required: [
                 '_id',
-                'course_id',
-                'user_id',
                 'rate',
-                'user_nick_name',
-                'comment'
+                'comment',
+                'createdAt',
+                'nick_name',
+                'avator_image'
               ],
               properties: {
                 _id: { type: 'string' },
-                course_id: { type: 'string' },
-                user_id: { type: 'string' },
                 rate: { type: 'number' },
                 comment: { type: 'string' },
-                user_nick_name: { type: 'string' }
+                createdAt: { type: 'string', format: 'date-time' },
+                nick_name: { type: 'string' },
+                avator_image: { type: 'string' }
+              }
+            }
+          },
+          completed_count: { type: 'number' }
+        }
+      }
+    }
+  },
+  GetWeeklyCanlendarResponseModel: {
+    type: 'object',
+    required: ['data', 'status'],
+    properties: {
+      status: { type: 'boolean' },
+      data: {
+        type: 'array',
+        items: {
+          type: 'object',
+          required: ['week', 'date', 'slots'],
+          properties: {
+            week: { type: 'string' },
+            date: { type: 'string' },
+            slots: {
+              type: 'array',
+              items: {
+                type: 'object',
+                required: ['time', 'status'],
+                properties: {
+                  time: { type: 'string' },
+                  status: { type: 'boolean' }
+                }
               }
             }
           }
@@ -172,105 +210,330 @@ const courseDetailSchema = {
     },
     example: {
       status: true,
-      data: {
-        _id: '6677cd99a9022c92b2a3e657',
-        name: '熱帶天堂果汁',
-        main_image: 'https://unsplash.com/photos/zGlifHABaL0',
-        content:
-          '這款飲料將帶您進入熱帶天堂的美味世界。新鮮的鳳梨、芒果和椰子水，完美融合在一起，為您帶來無與倫比的清爽體驗。無論是夏日消暑還是派對佳品，都是您的最佳選擇。',
-        price_quantity: [
-          {
-            _id: 'price1',
-            price: 150,
-            quantity: 1
-          },
-          {
-            _id: 'price2',
-            price: 1200,
-            quantity: 10
-          }
-        ],
-        main_category: '烹飪料理',
-        sub_category: '飲料調製',
-        city_id: '1',
-        dist_id: '1',
-        survey_url: 'https://example.com/survey/tropical_paradise_juice',
-        status: 1,
-        video_ids: ['6677c567b58867e84e1d4468'],
-        file_ids: ['file_id1'],
-        file_url_ids: ['file_url_id1'],
-        teacher: {
-          _id: '6677c241b58867e84e1d444f',
-          user_id: '6677c203b58867e84e1d4442',
-          main_categorys: ['運動'],
-          sub_categorys: ['田徑'],
-          application_status: 3,
-          nationality: '台灣',
-          work_experiences: [
+      data: [
+        {
+          week: 'tue',
+          date: '2024-06-25',
+          slots: [
             {
-              is_working: false,
-              workplace: '新竹田徑訓練中心',
-              job_category: '田徑',
-              start_year: 2023,
-              start_month: 3,
-              end_year: 2024,
-              end_month: 3,
-              position: '田徑教練',
-              place: '台北',
-              _id: '6677c241b58867e84e1d4450'
+              time: '09:00',
+              status: false
+            },
+            {
+              time: '10:00',
+              status: true
+            },
+            {
+              time: '11:00',
+              status: true
+            },
+            {
+              time: '13:00',
+              status: true
+            },
+            {
+              time: '14:00',
+              status: true
+            },
+            {
+              time: '15:00',
+              status: false
+            },
+            {
+              time: '16:00',
+              status: false
+            },
+            {
+              time: '17:00',
+              status: false
+            },
+            {
+              time: '19:00',
+              status: false
+            },
+            {
+              time: '20:00',
+              status: false
             }
-          ],
-          learning_experience: {
-            is_in_school: true,
-            degree: '學士',
-            department: '體育學系',
-            start_year: 2019,
-            start_month: 9,
-            end_year: 2023,
-            end_month: 6,
-            name: '國立體育大學',
-            place: '桃園',
-            file: 'path/to/track_file.txt',
-            _id: '6677c241b58867e84e1d4451'
-          },
-          teaching_certificate: [],
-          can_reserve_week: [],
-          __v: 3
+          ]
         },
-        videos: [
-          {
-            _id: '6677c567b58867e84e1d4468',
-            name: '處理椰子果肉',
-            category: '烹飪料理',
-            intro: 'This is a second sample video.',
-            url: 'http://example.com/video.mp4',
-            video_type: 'youtube',
-            teacher_id: '6677c241b58867e84e1d444f',
-            createdAt: '2024-06-23T06:49:11.288Z',
-            updatedAt: '2024-06-23T07:26:07.717Z',
-            course_id: '6677cd99a9022c92b2a3e657'
-          }
-        ],
-        video_urls: ['http://example.com/video.mp4'],
-        city_name: '台北市',
-        dist_name: '中正區',
-        reviews: [
-          {
-            _id: '66667e5e6d3df1fb9a4a272e',
-            course_id: '6677cd99a9022c92b2a3e657',
-            user_id: '665be34f957563f9c26ac715',
-            rate: 4.7,
-            comment: '不錯！'
-          },
-          {
-            _id: '6677d3996d3df1fb9a4a2755',
-            course_id: '6677cd99a9022c92b2a3e657',
-            user_id: '6677cd99a9022c92b2a3e657',
-            rate: 4.7,
-            comment: '不錯！'
-          }
-        ]
-      }
+        {
+          week: 'wed',
+          date: '2024-06-26',
+          slots: [
+            {
+              time: '09:00',
+              status: true
+            },
+            {
+              time: '10:00',
+              status: true
+            },
+            {
+              time: '11:00',
+              status: true
+            },
+            {
+              time: '13:00',
+              status: true
+            },
+            {
+              time: '14:00',
+              status: false
+            },
+            {
+              time: '15:00',
+              status: false
+            },
+            {
+              time: '16:00',
+              status: false
+            },
+            {
+              time: '17:00',
+              status: false
+            },
+            {
+              time: '19:00',
+              status: false
+            },
+            {
+              time: '20:00',
+              status: false
+            }
+          ]
+        },
+        {
+          week: 'thu',
+          date: '2024-06-27',
+          slots: [
+            {
+              time: '09:00',
+              status: false
+            },
+            {
+              time: '10:00',
+              status: false
+            },
+            {
+              time: '11:00',
+              status: false
+            },
+            {
+              time: '13:00',
+              status: false
+            },
+            {
+              time: '14:00',
+              status: true
+            },
+            {
+              time: '15:00',
+              status: true
+            },
+            {
+              time: '16:00',
+              status: true
+            },
+            {
+              time: '17:00',
+              status: true
+            },
+            {
+              time: '19:00',
+              status: false
+            },
+            {
+              time: '20:00',
+              status: false
+            }
+          ]
+        },
+        {
+          week: 'fri',
+          date: '2024-06-28',
+          slots: [
+            {
+              time: '09:00',
+              status: false
+            },
+            {
+              time: '10:00',
+              status: true
+            },
+            {
+              time: '11:00',
+              status: true
+            },
+            {
+              time: '13:00',
+              status: true
+            },
+            {
+              time: '14:00',
+              status: true
+            },
+            {
+              time: '15:00',
+              status: false
+            },
+            {
+              time: '16:00',
+              status: false
+            },
+            {
+              time: '17:00',
+              status: false
+            },
+            {
+              time: '19:00',
+              status: false
+            },
+            {
+              time: '20:00',
+              status: false
+            }
+          ]
+        },
+        {
+          week: 'sat',
+          date: '2024-06-29',
+          slots: [
+            {
+              time: '09:00',
+              status: false
+            },
+            {
+              time: '10:00',
+              status: true
+            },
+            {
+              time: '11:00',
+              status: true
+            },
+            {
+              time: '13:00',
+              status: true
+            },
+            {
+              time: '14:00',
+              status: true
+            },
+            {
+              time: '15:00',
+              status: false
+            },
+            {
+              time: '16:00',
+              status: false
+            },
+            {
+              time: '17:00',
+              status: false
+            },
+            {
+              time: '19:00',
+              status: false
+            },
+            {
+              time: '20:00',
+              status: false
+            }
+          ]
+        },
+        {
+          week: 'sun',
+          date: '2024-06-30',
+          slots: [
+            {
+              time: '09:00',
+              status: false
+            },
+            {
+              time: '10:00',
+              status: true
+            },
+            {
+              time: '11:00',
+              status: true
+            },
+            {
+              time: '13:00',
+              status: true
+            },
+            {
+              time: '14:00',
+              status: true
+            },
+            {
+              time: '15:00',
+              status: true
+            },
+            {
+              time: '16:00',
+              status: false
+            },
+            {
+              time: '17:00',
+              status: false
+            },
+            {
+              time: '19:00',
+              status: false
+            },
+            {
+              time: '20:00',
+              status: false
+            }
+          ]
+        },
+        {
+          week: 'mon',
+          date: '2024-07-01',
+          slots: [
+            {
+              time: '09:00',
+              status: true
+            },
+            {
+              time: '10:00',
+              status: true
+            },
+            {
+              time: '11:00',
+              status: true
+            },
+            {
+              time: '13:00',
+              status: false
+            },
+            {
+              time: '14:00',
+              status: true
+            },
+            {
+              time: '15:00',
+              status: true
+            },
+            {
+              time: '16:00',
+              status: false
+            },
+            {
+              time: '17:00',
+              status: false
+            },
+            {
+              time: '19:00',
+              status: false
+            },
+            {
+              time: '20:00',
+              status: false
+            }
+          ]
+        }
+      ]
     }
   }
 };
