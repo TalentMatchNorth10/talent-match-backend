@@ -42,6 +42,8 @@ const commonController = {
       } = req.query;
 
       let { size = defaultSize, page = defaultPage } = req.query;
+      /** 關鍵字搜尋用 query */
+      let keywordQuery;
 
       /** 是否是關鍵字搜尋，否則分類搜尋 */
       const isKeywordSearch = keyword ? true : false;
@@ -72,7 +74,12 @@ const commonController = {
 
       if (isKeywordSearch) {
         // 關鍵字搜尋
-        query.name = { $regex: keyword, $options: 'i' };
+        keywordQuery = [
+          { name: { $regex: keyword, $options: 'i' } },
+          { 'teacherUser.name': { $regex: keyword, $options: 'i' } },
+          { main_category: { $regex: keyword, $options: 'i' } },
+          { sub_category: { $regex: keyword, $options: 'i' } }
+        ];
       } else {
         // 分類搜尋
         if (main_category) {
@@ -166,6 +173,7 @@ const commonController = {
               $group: {
                 _id: '$_id',
                 name: { $first: '$user.name' },
+                avator_image: { $first: '$user.avator_image' },
                 courses: { $push: '$courses' },
                 reviews: { $push: '$reviews' }
               }
@@ -222,15 +230,29 @@ const commonController = {
             }
           },
           {
-            $match: {
-              ...query,
-              status: { $eq: CourseStatus.PUBLISHED }, // 課程上架中
-              'teacher.application_status': { $eq: 3 } // 老師通過審核
+            $lookup: {
+              from: 'users',
+              localField: 'teacher.user_id',
+              foreignField: '_id',
+              as: 'teacherUser'
             }
           },
           {
+            $unwind: '$teacherUser'
+          },
+          {
             $addFields: {
-              avator_image: { $first: '$teacher.avator_image' }
+              teacher_name: '$teacherUser.name',
+              avator_image: '$teacherUser.avator_image'
+            }
+          },
+          {
+            $match: {
+              $or: isKeywordSearch ? keywordQuery : [query],
+              $and: [
+                { status: { $eq: CourseStatus.PUBLISHED } }, // 課程上架中
+                { 'teacher.application_status': { $eq: 3 } } // 老師通過審核
+              ]
             }
           },
           // 計算單堂價格
@@ -269,23 +291,6 @@ const commonController = {
               review_count: {
                 $size: '$reviews' // 計算 review 的數量
               }
-            }
-          },
-          {
-            $lookup: {
-              from: 'users',
-              localField: 'teacher.user_id',
-              foreignField: '_id',
-              as: 'teacherUser'
-            }
-          },
-          {
-            $unwind: '$teacherUser'
-          },
-          {
-            $addFields: {
-              teacher_name: '$teacherUser.name',
-              avator_image: '$teacherUser.avator_image'
             }
           },
           {
