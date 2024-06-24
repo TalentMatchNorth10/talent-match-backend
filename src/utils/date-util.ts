@@ -110,5 +110,42 @@ export const DateUtil = {
         )
       )
     };
+  },
+  getWeekStartAndEnd(): { startDate: Date; endDate: Date } {
+    // tomorrow
+    const now = this.formatLocalDate(new Date());
+    const tommorow = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+    // next week
+    const weekEnd = new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate() + 6
+    );
+
+    return {
+      startDate: this.formatLocalDate(
+        new Date(
+          tommorow.getFullYear(),
+          tommorow.getMonth(),
+          tommorow.getDate(),
+          0,
+          0,
+          0,
+          0
+        )
+      ),
+      endDate: this.formatLocalDate(
+        new Date(
+          weekEnd.getFullYear(),
+          weekEnd.getMonth(),
+          weekEnd.getDate(),
+          23,
+          59,
+          59,
+          999
+        )
+      )
+    };
   }
 };

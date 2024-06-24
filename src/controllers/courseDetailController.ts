@@ -7,6 +7,8 @@ import handleSuccess from '../services/handleSuccess';
 import { TAIWAN_CITIES, TAIWAN_DISTRICTS } from '../utils/const';
 import Review from '../models/reviewModel';
 import { User } from '../models/types/user.interface';
+import Reservation from '../models/reservationModel';
+import { DateUtil } from '../utils/date-util';
 
 // Utility function to get city name
 const getCityName = (city_id: string) => {
@@ -21,6 +23,19 @@ const getDistrictName = (city_id: string | number, dist_id: string) => {
   return district ? district.dist : null;
 };
 
+type Week = 'sun' | 'mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat';
+
+type CanReserveWeek = [
+  {
+    mon: Array<number>;
+    tue: Array<number>;
+    wed: Array<number>;
+    thu: Array<number>;
+    fri: Array<number>;
+    sat: Array<number>;
+    sun: Array<number>;
+  }
+];
 const courseDetailController = {
   /** 取得指定課程 */
   getCourseDetail: handleErrorAsync(async (req, res, next) => {
@@ -58,6 +73,7 @@ const courseDetailController = {
         {
           $addFields: {
             'teacher.name': '$teacher_user.name',
+            'teacher.avatar': '$teacher_user.avator_image',
             video_urls: {
               $map: { input: '$videos', as: 'video', in: '$$video.url' }
             }
@@ -97,25 +113,108 @@ const courseDetailController = {
             as: 'user'
           }
         },
+        { $unwind: '$user' },
         {
-          $addFields: {
-            user_nick_name: { $arrayElemAt: ['$user.nick_name', 0] } // 提取 user.name 作為 user_name
+          $project: {
+            nick_name: '$user.nick_name',
+            avator_image: '$user.avator_image',
+            rate: 1,
+            comment: 1,
+            createdAt: 1
+          }
+        }
+      ]);
+
+      const [{ completed_count }] = await Reservation.aggregate([
+        {
+          $match: {
+            course_id: course._id,
+            teacher_status: 'completed',
+            student_status: 'completed'
           }
         },
         {
-          $project: {
-            user: 0 // 如果不需要完整的 user 資訊，可以將其排除
-          }
+          $count: 'completed_count'
         }
       ]);
 
       const city_name = getCityName(course.city_id);
       const dist_name = getDistrictName(course.dist_id, course.city_id);
 
-      handleSuccess(res, { ...course, city_name, dist_name, reviews });
+      handleSuccess(res, {
+        ...course,
+        city_name,
+        dist_name,
+        reviews,
+        completed_count
+      });
     } catch (error) {
       return appError(500, `伺服器錯誤`, next);
     }
+  }),
+
+  /** 取得老師當週預約狀態 */
+  getWeeklyCanlendar: handleErrorAsync(async (req, res, next) => {
+    const times = [9, 10, 11, 13, 14, 15, 16, 17, 19, 20];
+    const courseId = req.params.courseId;
+    /** 查詢課程並關聯到老師 */
+    const course = await Course.findById(courseId)
+      .populate({
+        path: 'teacher_id',
+        select: 'can_reserve_week _id'
+      })
+      .select('teacher_id');
+
+    if (!course) {
+      return appError(404, '找不到該課程的資料', next);
+    }
+
+    const can_reserve_week: CanReserveWeek = (course.teacher_id as any)
+      .can_reserve_week;
+
+    const teacher_id = (course.teacher_id as any)._id;
+
+    const week_range = getNextSevenDays();
+    const { startDate, endDate } = DateUtil.getWeekStartAndEnd();
+
+    const reserves = await Reservation.find({
+      teacher_id,
+      reserve_time: { $gte: startDate, $lte: endDate }
+    });
+
+    const week_calandar = week_range.map((day) => {
+      return {
+        week: day.week,
+        date: day.date,
+        slots: times.map((time, index) => {
+          const status = can_reserve_week[0][day.week as Week].includes(time);
+          return {
+            time: `${time < 10 ? '0' + time : time}:00`,
+            status: status ? 'available' : 'unavailable'
+          };
+        })
+      };
+    });
+
+    handleSuccess(res, week_calandar);
   })
 };
 export default courseDetailController;
+
+function getNextSevenDays() {
+  const daysOfWeek = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+  const result = [];
+  const today = new Date();
+
+  for (let i = 1; i <= 7; i++) {
+    const nextDay = new Date(today);
+    nextDay.setDate(today.getDate() + i);
+
+    const dateStr = nextDay.toISOString().split('T')[0];
+    const dayStr = daysOfWeek[nextDay.getDay()];
+
+    result.push({ date: dateStr, week: dayStr });
+  }
+
+  return result;
+}

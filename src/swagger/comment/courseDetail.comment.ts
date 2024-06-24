@@ -13,6 +13,19 @@ const CourseDetailComment = {
               }
             */
     next();
+  },
+  getWeeklyCanlendar: (req: Request, res: Response, next: NextFunction) => {
+    /**
+              * #swagger.tags = ['Course_detail']
+              * #swagger.summary = '取得老師當週預約狀態'
+              * #swagger.responses[200] = { 
+                  schema: { $ref: "#/components/schemas/GetWeeklyCanlendarResponseModel" }
+              }
+              * #swagger.responses[500] = { 
+                  schema: { $ref: "#/components/schemas/Error500ResponseModel" }
+              }
+            */
+    next();
   }
 };
 export default CourseDetailComment;

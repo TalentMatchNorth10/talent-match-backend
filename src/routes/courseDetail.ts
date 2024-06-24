@@ -8,4 +8,10 @@ router.get(
   CourseDetailComment.getCourseDetail,
   courseDetailController.getCourseDetail
 );
+
+router.get(
+  '/weeklyCanlendar/:courseId',
+  CourseDetailComment.getWeeklyCanlendar,
+  courseDetailController.getWeeklyCanlendar
+);
 export default router;
