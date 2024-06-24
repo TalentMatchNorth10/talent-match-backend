@@ -73,7 +73,9 @@ const shopController = {
 
       if (
         req.user?.carts.find(
-          (item) => item.purchase_item_id.toString() === purchase_item_id
+          (item) =>
+            item.purchase_item_id.toString() === purchase_item_id &&
+            item.course_id.toString() === course_id
         )
       ) {
         return appError(400, '該項目已在購物車中', next);
@@ -113,7 +115,9 @@ const shopController = {
       }
 
       req.user!.carts = req.user!.carts.filter(
-        (item) => item.purchase_item_id.toString() !== purchase_item_id
+        (item) =>
+          item.purchase_item_id.toString() !== purchase_item_id &&
+          item.course_id.toString() !== purchase_item_id
       );
 
       await req.user!.save();
