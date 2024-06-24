@@ -26,7 +26,7 @@ const HomeComment = {
     getCourses: (req, res, next) => {
         /**
               * #swagger.tags = ['Home']
-              * #swagger.summary = '取得課程影音'
+              * #swagger.summary = '取得課程'
               * #swagger.parameters['main_category'] = {
                   description: "課程主類別",
               }

@@ -6,7 +6,16 @@ const TeacherDetailSchema = {
       status: { type: 'boolean' },
       data: {
         type: 'object',
-        required: ['_id', 'name', 'introduction', 'intro_video_url', 'courses'],
+        required: [
+          '_id',
+          'name',
+          'introduction',
+          'intro_video_url',
+          'courses',
+          'work_experiences',
+          'learning_experience',
+          'teaching_certificate'
+        ],
         properties: {
           _id: {
             type: 'string'
@@ -50,46 +59,227 @@ const TeacherDetailSchema = {
             description: '自我介紹網址'
           },
           courses: {
+            type: 'array',
+            items: {
+              type: 'object',
+              description: '課程',
+              required: [
+                '_id',
+                'name',
+                'main_image',
+                'price_quantity',
+                'content',
+                'main_category',
+                'sub_category'
+              ],
+              properties: {
+                _id: {
+                  type: 'string'
+                },
+                name: {
+                  type: 'string',
+                  description: '課程名稱'
+                },
+                main_image: {
+                  type: 'string',
+                  description: '課程圖片'
+                },
+                price_quantity: {
+                  type: 'array',
+                  items: {
+                    type: 'object',
+                    required: ['price', 'quantity', '_id'],
+                    properties: {
+                      _id: {
+                        type: 'string',
+                        description: '價格數量的ID'
+                      },
+                      price: {
+                        type: 'number',
+                        description: '價格'
+                      },
+                      quantity: {
+                        type: 'number',
+                        description: '數量'
+                      }
+                    }
+                  },
+                  description: '價格和數量'
+                },
+                content: {
+                  type: 'string',
+                  description: '課程介紹'
+                },
+                main_category: {
+                  type: 'string',
+                  description: '主分類'
+                },
+                sub_category: {
+                  type: 'string',
+                  description: '次分類'
+                }
+              }
+            }
+          },
+          work_experiences: {
+            type: 'array',
+            items: {
+              type: 'object',
+              required: [
+                'is_working',
+                'workplace',
+                'job_category',
+                'start_year',
+                'start_month',
+                'end_year',
+                'end_month',
+                'position',
+                'place'
+              ],
+              properties: {
+                is_working: {
+                  type: 'boolean',
+                  description: '是否在職中'
+                },
+                workplace: {
+                  type: 'string',
+                  description: '單位名稱'
+                },
+                job_category: {
+                  type: 'string',
+                  description: '職務類別'
+                },
+                start_year: {
+                  type: 'number',
+                  description: '開始年份'
+                },
+                start_month: {
+                  type: 'number',
+                  description: '開始月份'
+                },
+                end_year: {
+                  type: 'number',
+                  description: '結束年份'
+                },
+                end_month: {
+                  type: 'number',
+                  description: '結束月份'
+                },
+                position: {
+                  type: 'string',
+                  description: '職務名稱'
+                },
+                place: {
+                  type: 'string',
+                  description: '地點'
+                }
+              }
+            },
+            description: '工作經歷'
+          },
+          learning_experience: {
             type: 'object',
-            description: '課程',
+            required: [
+              'is_in_school',
+              'degree',
+              'department',
+              'start_year',
+              'start_month',
+              'end_year',
+              'end_month',
+              'name',
+              'place',
+              'file'
+            ],
             properties: {
-              _id: {
-                type: 'string'
+              is_in_school: {
+                type: 'boolean',
+                description: '是否在學中'
+              },
+              degree: {
+                type: 'string',
+                description: '學歷'
+              },
+              department: {
+                type: 'string',
+                description: '科系名稱'
+              },
+              start_year: {
+                type: 'number',
+                description: '開始年份'
+              },
+              start_month: {
+                type: 'number',
+                description: '開始月份'
+              },
+              end_year: {
+                type: 'number',
+                description: '結束年份'
+              },
+              end_month: {
+                type: 'number',
+                description: '結束月份'
               },
               name: {
                 type: 'string',
-                description: '課程名稱'
+                description: '學校名稱'
               },
-              main_image: {
+              place: {
                 type: 'string',
-                description: '課程圖片'
+                description: '地點'
               },
-              price_quantity: {
-                type: 'array',
-                items: {
-                  type: 'object',
-                  properties: {
-                    _id: {
-                      type: 'string',
-                      description: '價格數量的ID'
-                    },
-                    price: {
-                      type: 'number',
-                      description: '價格'
-                    },
-                    quantity: {
-                      type: 'number',
-                      description: '數量'
-                    }
-                  }
-                },
-                description: '價格和數量'
-              },
-              content: {
+              file: {
                 type: 'string',
-                description: '課程介紹'
+                description: '文件路徑或參考'
               }
-            }
+            },
+            description: '學習經歷'
+          },
+          teaching_certificate: {
+            type: 'array',
+            required: [
+              'verifying_institution',
+              'license_name',
+              'name',
+              'license_number',
+              'file',
+              'category',
+              'subject'
+            ],
+            items: {
+              type: 'object',
+              properties: {
+                verifying_institution: {
+                  type: 'string',
+                  description: '認證機構'
+                },
+                license_name: {
+                  type: 'string',
+                  description: '證書名稱'
+                },
+                name: {
+                  type: 'string',
+                  description: '持證人姓名'
+                },
+                license_number: {
+                  type: 'string',
+                  description: '證書編號'
+                },
+                file: {
+                  type: 'string',
+                  description: '文件路徑或參考'
+                },
+                category: {
+                  type: 'string',
+                  description: '類別'
+                },
+                subject: {
+                  type: 'string',
+                  description: '科目'
+                }
+              }
+            },
+            description: '教學證書'
           }
         }
       }

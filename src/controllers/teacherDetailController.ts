@@ -18,12 +18,13 @@ const teacherDetailController = {
         .populate([
           {
             path: 'courses',
-            select: 'name main_image price_quantity content',
+            select:
+              'name main_image price_quantity content main_category sub_category',
             match: { status: CourseStatus.PUBLISHED }
           },
           {
             path: 'user_id',
-            select: 'name'
+            select: 'name avator_image'
           },
           {
             path: 'intro_video_id',
@@ -37,7 +38,7 @@ const teacherDetailController = {
       handleSuccess(res, {
         _id: teacher._id,
         courses: teacher.courses,
-        avator_image: teacher.avator_image,
+        avator_image: teacher.user_id.avator_image,
         name: teacher.user_id.name,
         introduction: teacher.introduction,
         intro_video: teacher.intro_video_id,
