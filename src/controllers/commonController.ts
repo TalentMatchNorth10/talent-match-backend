@@ -63,7 +63,7 @@ const commonController = {
       const sortMap = new Map<string, { [key: string]: 1 | -1 }>([
         ['new', { createdAt: -1, _id: 1 }], // TODO 先按造課程創建時間排序，不確定是否按造上架時間更好
         ['hit', { review_count: -1, _id: 1 }], // 按造評價數
-        ['cheap', { price_unit: 1, _id: 1 }] // TODO 按造單堂價格, 待改成非單堂
+        ['cheap', { 'price_quantity.0.price': 1, _id: 1 }]
       ]);
 
       if (typeof sort === 'string') {
@@ -253,6 +253,12 @@ const commonController = {
                 { status: { $eq: CourseStatus.PUBLISHED } }, // 課程上架中
                 { 'teacher.application_status': { $eq: 3 } } // 老師通過審核
               ]
+            }
+          },
+          // 排序價格欄位
+          {
+            $sort: {
+              'price_quantity.price': 1
             }
           },
           // 計算單堂價格
