@@ -26,6 +26,19 @@ const CourseDetailComment = {
                   }
                 */
         next();
+    },
+    getRecommendCourses: (req, res, next) => {
+        /**
+                  * #swagger.tags = ['Course_detail']
+                  * #swagger.summary = '取得推薦課程'
+                  * #swagger.responses[200] = {
+                      schema: { $ref: "#/components/schemas/GetRecommendCoursesResponseModel" }
+                  }
+                  * #swagger.responses[500] = {
+                      schema: { $ref: "#/components/schemas/Error500ResponseModel" }
+                  }
+                */
+        next();
     }
 };
 exports.default = CourseDetailComment;
