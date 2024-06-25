@@ -14,4 +14,10 @@ router.get(
   CourseDetailComment.getWeeklyCanlendar,
   courseDetailController.getWeeklyCanlendar
 );
+
+router.get(
+  '/recommendCourses/:courseId',
+  CourseDetailComment.getRecommendCourses,
+  courseDetailController.getRecommendCourses
+);
 export default router;

@@ -41,7 +41,6 @@ const courseDetailController = {
   getCourseDetail: handleErrorAsync(async (req, res, next) => {
     try {
       const courseId = req.params.courseId;
-
       const courses = await Course.aggregate([
         { $match: { _id: new Types.ObjectId(courseId) } },
         {
@@ -125,7 +124,7 @@ const courseDetailController = {
         }
       ]);
 
-      const [{ completed_count }] = await Reservation.aggregate([
+      const completed_count = await Reservation.aggregate([
         {
           $match: {
             course_id: course._id,
@@ -146,7 +145,9 @@ const courseDetailController = {
         city_name,
         dist_name,
         reviews,
-        completed_count
+        completed_count: completed_count.length
+          ? completed_count[0].completed_count
+          : 0
       });
     } catch (error) {
       return appError(500, `伺服器錯誤`, next);
@@ -197,6 +198,83 @@ const courseDetailController = {
     });
 
     handleSuccess(res, week_calandar);
+  }),
+  getRecommendCourses: handleErrorAsync(async (req, res, next) => {
+    const courseId = req.params.courseId;
+    const course = await Course.findById(courseId);
+    if (!course) {
+      return appError(404, '找不到該課程的資料', next);
+    }
+
+    const { main_category } = course;
+
+    const recommendCourses = await Course.aggregate([
+      {
+        $match: {
+          main_category: { $ne: main_category },
+          status: CourseStatus.PUBLISHED
+        }
+      },
+      {
+        $lookup: {
+          from: 'teachers',
+          localField: 'teacher_id',
+          foreignField: '_id',
+          as: 'teacher'
+        }
+      },
+      { $unwind: '$teacher' },
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'teacher.user_id',
+          foreignField: '_id',
+          as: 'teacher_user'
+        }
+      },
+      { $unwind: '$teacher_user' },
+      {
+        $addFields: {
+          'teacher.name': '$teacher_user.name',
+          'teacher.avatar': '$teacher_user.avator_image'
+        }
+      },
+      {
+        $lookup: {
+          from: 'reviews',
+          localField: '_id',
+          foreignField: 'course_id',
+          as: 'reviews'
+        }
+      },
+      {
+        $addFields: {
+          total_reviews_count: { $size: '$reviews' }
+        }
+      },
+      {
+        $project: {
+          course_id: '$_id',
+          course_name: '$name',
+          main_image: 1,
+          main_category: 1,
+          sub_category: 1,
+          teacher_name: '$teacher.name',
+          teacher_avatar: '$teacher_user.avator_image',
+          price_quantity: {
+            $arrayElemAt: ['$price_quantity', 0]
+          },
+          rate: 1,
+          total_reviews_count: 1,
+          content: 1
+        }
+      },
+      { $sample: { size: 4 } }
+    ]);
+
+    handleSuccess(res, {
+      recommendCourses
+    });
   })
 };
 export default courseDetailController;
