@@ -33,6 +33,9 @@ const HomeComment = {
           * #swagger.parameters['city_id'] = {
               description: "課程地區",                   
           } 
+        * #swagger.parameters['teacher_id'] = {
+              description: "老師",                   
+          } 
           * #swagger.responses[200] = { 
               schema: { $ref: "#/components/schemas/CoursesResponseModel" }
           }
