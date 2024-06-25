@@ -22,6 +22,15 @@ const HomeController = {
         // videos = await Video.find(query).limit(10);
         videos = await Video.aggregate([
           {
+            $match: {
+              $and: [
+                query
+                // { status: { $eq: CourseStatus.PUBLISHED } },
+                // { 'teacher.application_status': { $eq: 3 } }
+              ]
+            }
+          },
+          {
             $lookup: {
               from: 'users', // users 是 User 模型的集合名稱
               localField: 'teacher_id',
