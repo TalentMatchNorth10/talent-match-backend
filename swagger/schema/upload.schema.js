@@ -4,6 +4,7 @@ exports.UploadSchema = void 0;
 const UploadSchema = {
     UploadRequestModel: {
         type: 'object',
+        required: ['fileType', 'path', 'file'],
         properties: {
             fileType: {
                 type: 'string',
@@ -17,6 +18,11 @@ const UploadSchema = {
                 type: 'string',
                 format: 'binary'
             }
+        },
+        example: {
+            fileType: 'image',
+            path: 'user',
+            file: 'binary file'
         }
     },
     UploadResponseModel: {
