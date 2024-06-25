@@ -32,6 +32,12 @@ const courseSchema = new Schema<ICourse>(
         return this.status === 1;
       }
     },
+    rate: {
+      type: Number,
+      required: function (this: ICourse) {
+        return this.status === 1;
+      }
+    },
     content: {
       type: String,
       required: function (this: ICourse) {
