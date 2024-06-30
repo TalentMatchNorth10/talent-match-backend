@@ -13,7 +13,7 @@ const teacherDetailController = {
 
       const teacher: any = await TeacherModel.findById(teacherId)
         .select(
-          'courses avator_image user_id intro_video_id introduction work_experiences learning_experience teaching_certificate'
+          'courses avator_image user_id intro_video advantage_video introduction work_experiences learning_experience teaching_certificate'
         )
         .populate([
           {
@@ -27,7 +27,11 @@ const teacherDetailController = {
             select: 'name avator_image'
           },
           {
-            path: 'intro_video_id',
+            path: 'intro_video',
+            select: '-createdAt -updatedAt'
+          },
+          {
+            path: 'advantage_video',
             select: '-createdAt -updatedAt'
           }
         ]);
@@ -41,13 +45,15 @@ const teacherDetailController = {
         avator_image: teacher.user_id.avator_image,
         name: teacher.user_id.name,
         introduction: teacher.introduction,
-        intro_video: teacher.intro_video_id,
-        intro_video_url: teacher.intro_video_id?.url,
+        intro_video: teacher.intro_video,
+        advantage_video: teacher.advantage_video,
+        // intro_video_url: teacher.intro_video_id?.url,
         work_experiences: teacher.work_experiences,
         learning_experience: teacher.learning_experience,
         teaching_certificate: teacher.teaching_certificate
       });
     } catch (error) {
+      console.log(error);
       return appError(500, `伺服器錯誤`, next);
     }
   })

@@ -10,7 +10,7 @@ const TeacherDetailSchema = {
           '_id',
           'name',
           'introduction',
-          'intro_video_url',
+          'intro_video',
           'courses',
           'work_experiences',
           'learning_experience',
@@ -36,12 +36,13 @@ const TeacherDetailSchema = {
             type: 'object',
             description: '自我介紹影片',
             required: [
+              '_id',
               'name',
               'category',
               'intro',
+              'url',
               'video_type',
-              'teacher_id',
-              'url'
+              'teacher_id'
             ],
             properties: {
               _id: { type: 'string' },
@@ -50,13 +51,30 @@ const TeacherDetailSchema = {
               intro: { type: 'string' },
               url: { type: 'string' },
               video_type: { type: 'string', enum: ['storage', 'youtube'] },
-              course_id: { type: 'string' },
               teacher_id: { type: 'string' }
             }
           },
-          intro_video_url: {
-            type: 'string',
-            description: '自我介紹網址'
+          advantage_video: {
+            type: 'object',
+            description: '教學優勢影片',
+            required: [
+              '_id',
+              'name',
+              'category',
+              'intro',
+              'url',
+              'video_type',
+              'teacher_id'
+            ],
+            properties: {
+              _id: { type: 'string' },
+              name: { type: 'string' },
+              category: { type: 'string' },
+              intro: { type: 'string' },
+              url: { type: 'string' },
+              video_type: { type: 'string', enum: ['storage', 'youtube'] },
+              teacher_id: { type: 'string' }
+            }
           },
           courses: {
             type: 'array',
@@ -88,7 +106,7 @@ const TeacherDetailSchema = {
                   type: 'array',
                   items: {
                     type: 'object',
-                    required: ['price', 'quantity', '_id'],
+                    required: ['_id', 'price', 'quantity'],
                     properties: {
                       _id: {
                         type: 'string',
@@ -127,51 +145,31 @@ const TeacherDetailSchema = {
               type: 'object',
               required: [
                 'is_working',
-                'workplace',
-                'job_category',
-                'start_year',
-                'start_month',
-                'end_year',
-                'end_month',
+                'company',
                 'position',
-                'place'
+                'duration',
+                'description'
               ],
               properties: {
                 is_working: {
                   type: 'boolean',
                   description: '是否在職中'
                 },
-                workplace: {
+                company: {
                   type: 'string',
-                  description: '單位名稱'
-                },
-                job_category: {
-                  type: 'string',
-                  description: '職務類別'
-                },
-                start_year: {
-                  type: 'number',
-                  description: '開始年份'
-                },
-                start_month: {
-                  type: 'number',
-                  description: '開始月份'
-                },
-                end_year: {
-                  type: 'number',
-                  description: '結束年份'
-                },
-                end_month: {
-                  type: 'number',
-                  description: '結束月份'
+                  description: '公司名稱'
                 },
                 position: {
                   type: 'string',
-                  description: '職務名稱'
+                  description: '職位'
                 },
-                place: {
+                duration: {
                   type: 'string',
-                  description: '地點'
+                  description: '任職期間'
+                },
+                description: {
+                  type: 'string',
+                  description: '工作描述'
                 }
               }
             },
@@ -179,103 +177,48 @@ const TeacherDetailSchema = {
           },
           learning_experience: {
             type: 'object',
-            required: [
-              'is_in_school',
-              'degree',
-              'department',
-              'start_year',
-              'start_month',
-              'end_year',
-              'end_month',
-              'name',
-              'place',
-              'file'
-            ],
+            required: ['institution', 'degree', 'years', 'description'],
             properties: {
-              is_in_school: {
-                type: 'boolean',
-                description: '是否在學中'
+              institution: {
+                type: 'string',
+                description: '學校名稱'
               },
               degree: {
                 type: 'string',
                 description: '學歷'
               },
-              department: {
+              years: {
                 type: 'string',
-                description: '科系名稱'
+                description: '就讀年份'
               },
-              start_year: {
-                type: 'number',
-                description: '開始年份'
-              },
-              start_month: {
-                type: 'number',
-                description: '開始月份'
-              },
-              end_year: {
-                type: 'number',
-                description: '結束年份'
-              },
-              end_month: {
-                type: 'number',
-                description: '結束月份'
-              },
-              name: {
+              description: {
                 type: 'string',
-                description: '學校名稱'
+                description: '學習描述'
               },
-              place: {
-                type: 'string',
-                description: '地點'
-              },
-              file: {
-                type: 'string',
-                description: '文件路徑或參考'
+              is_in_school: {
+                type: 'boolean',
+                description: '是否在學中'
               }
             },
             description: '學習經歷'
           },
           teaching_certificate: {
             type: 'array',
-            required: [
-              'verifying_institution',
-              'license_name',
-              'name',
-              'license_number',
-              'file',
-              'category',
-              'subject'
-            ],
             items: {
               type: 'object',
+              required: ['certificate_name', 'issued_by', 'issue_date'],
               properties: {
-                verifying_institution: {
-                  type: 'string',
-                  description: '認證機構'
-                },
-                license_name: {
+                certificate_name: {
                   type: 'string',
                   description: '證書名稱'
                 },
-                name: {
+                issued_by: {
                   type: 'string',
-                  description: '持證人姓名'
+                  description: '頒發機構'
                 },
-                license_number: {
+                issue_date: {
                   type: 'string',
-                  description: '證書編號'
-                },
-                file: {
-                  type: 'string',
-                  description: '文件路徑或參考'
-                },
-                category: {
-                  type: 'string',
-                  description: '類別'
-                },
-                subject: {
-                  type: 'string',
-                  description: '科目'
+                  description: '頒發日期'
                 }
               }
             },

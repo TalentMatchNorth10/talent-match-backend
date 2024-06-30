@@ -354,7 +354,7 @@ const teacherController = {
   /** 修改老師自我介紹影片 */
   patchTeacherVideo: handleErrorAsync(async (req, res, next) => {
     const teacherId = (req.user as UserInterface).teacher_id;
-    const { intro_video_id } = req.body;
+    const { intro_video } = req.body;
 
     try {
       const teacher = await Teacher.findById(teacherId);
@@ -365,13 +365,13 @@ const teacherController = {
 
       // 驗證所有欄位
 
-      const video = await Video.findById(intro_video_id);
+      const video = await Video.findById(intro_video);
       if (!video) {
         return appError(404, '找不到對應的影片', next);
       }
 
       // 更新影片
-      teacher.intro_video_id = intro_video_id;
+      teacher.intro_video = intro_video;
       await teacher.save();
 
       handleSuccess(res, {
