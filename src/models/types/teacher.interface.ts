@@ -50,7 +50,10 @@ export interface Teacher extends Document {
   work_experiences: WorkExperience[];
   learning_experience: LearningExperience;
   teaching_certificate: TeachingCertificate[];
-  intro_video_id?: string;
+  intro_video: {
+    video_id: string;
+    title: string;
+  }[];
   courses: Types.ObjectId[];
   can_reserve_week: {
     mon: number[];
