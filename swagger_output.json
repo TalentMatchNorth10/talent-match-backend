@@ -9077,82 +9077,57 @@
                 "description": "自我介紹"
               },
               "intro_video": {
-                "type": "object",
-                "description": "自我介紹影片",
-                "required": [
-                  "_id",
-                  "name",
-                  "category",
-                  "intro",
-                  "url",
-                  "video_type",
-                  "teacher_id"
-                ],
-                "properties": {
-                  "_id": {
-                    "type": "string"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "category": {
-                    "type": "string"
-                  },
-                  "intro": {
-                    "type": "string"
-                  },
-                  "url": {
-                    "type": "string"
-                  },
-                  "video_type": {
-                    "type": "string",
-                    "enum": [
-                      "storage",
-                      "youtube"
-                    ]
-                  },
-                  "teacher_id": {
-                    "type": "string"
-                  }
-                }
-              },
-              "advantage_video": {
-                "type": "object",
-                "description": "教學優勢影片",
-                "required": [
-                  "_id",
-                  "name",
-                  "category",
-                  "intro",
-                  "url",
-                  "video_type",
-                  "teacher_id"
-                ],
-                "properties": {
-                  "_id": {
-                    "type": "string"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "category": {
-                    "type": "string"
-                  },
-                  "intro": {
-                    "type": "string"
-                  },
-                  "url": {
-                    "type": "string"
-                  },
-                  "video_type": {
-                    "type": "string",
-                    "enum": [
-                      "storage",
-                      "youtube"
-                    ]
-                  },
-                  "teacher_id": {
-                    "type": "string"
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "description": "老師影片",
+                  "required": [
+                    "title",
+                    "video_id"
+                  ],
+                  "properties": {
+                    "title": {
+                      "type": "string"
+                    },
+                    "video_id": {
+                      "type": "object",
+                      "required": [
+                        "_id",
+                        "name",
+                        "category",
+                        "intro",
+                        "url",
+                        "video_type",
+                        "teacher_id"
+                      ],
+                      "properties": {
+                        "_id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "category": {
+                          "type": "string"
+                        },
+                        "intro": {
+                          "type": "string"
+                        },
+                        "url": {
+                          "type": "string"
+                        },
+                        "video_type": {
+                          "type": "string",
+                          "enum": [
+                            "storage",
+                            "youtube"
+                          ]
+                        },
+                        "teacher_id": {
+                          "type": "string"
+                        }
+                      }
+                    }
                   }
                 }
               },

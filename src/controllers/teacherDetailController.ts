@@ -28,11 +28,11 @@ const teacherDetailController = {
           },
           {
             path: 'intro_video',
-            select: '-createdAt -updatedAt'
-          },
-          {
-            path: 'advantage_video',
-            select: '-createdAt -updatedAt'
+            select: '-createdAt -updatedAt',
+            populate: {
+              path: 'video_id',
+              select: '_id name category intro video_type url teacher_id'
+            }
           }
         ]);
 
