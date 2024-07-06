@@ -172,10 +172,6 @@ const TeacherInfoSchema = {
         },
         description: '教學證書'
       },
-      intro_video_id: {
-        type: 'string',
-        description: '自我介紹影片ID'
-      },
       courses: {
         type: 'array',
         items: {
@@ -300,10 +296,22 @@ const TeacherInfoSchema = {
   },
   GetTeacherInfoResponseModel: {
     type: 'object',
+    required: ['status', 'data'],
     properties: {
       status: { type: 'boolean' },
       data: {
         type: 'object',
+        required: [
+          'avator_image',
+          'main_categorys',
+          'sub_categorys',
+          'nationality',
+          'introduction',
+          'work_experiences',
+          'learning_experience',
+          'teaching_certificate',
+          'intro_video'
+        ],
         properties: {
           avator_image: { type: 'string' },
           main_categorys: {
@@ -320,6 +328,17 @@ const TeacherInfoSchema = {
             type: 'array',
             items: {
               type: 'object',
+              required: [
+                'is_working',
+                'workplace',
+                'job_category',
+                'start_year',
+                'start_month',
+                'end_year',
+                'end_month',
+                'position',
+                'place'
+              ],
               properties: {
                 is_working: { type: 'boolean' },
                 workplace: { type: 'string' },
@@ -335,6 +354,18 @@ const TeacherInfoSchema = {
           },
           learning_experience: {
             type: 'object',
+            required: [
+              'is_in_school',
+              'degree',
+              'department',
+              'start_year',
+              'start_month',
+              'end_year',
+              'end_month',
+              'name',
+              'place',
+              'file'
+            ],
             properties: {
               is_in_school: { type: 'boolean' },
               degree: { type: 'string' },
@@ -352,6 +383,15 @@ const TeacherInfoSchema = {
             type: 'array',
             items: {
               type: 'object',
+              required: [
+                'verifying_institution',
+                'license_name',
+                'name',
+                'license_number',
+                'file',
+                'category',
+                'subject'
+              ],
               properties: {
                 verifying_institution: { type: 'string' },
                 license_name: { type: 'string' },
@@ -363,7 +403,17 @@ const TeacherInfoSchema = {
               }
             }
           },
-          intro_video_id: { type: 'string' }
+          intro_video: {
+            type: 'array',
+            items: {
+              type: 'object',
+              required: ['video_id', 'title'],
+              properties: {
+                video_id: { type: 'string' },
+                title: { type: 'string' }
+              }
+            }
+          }
         }
       }
     },
@@ -411,7 +461,7 @@ const TeacherInfoSchema = {
             subject: 'string'
           }
         ],
-        intro_video_id: 'string'
+        intro_video: [{ video_id: 'string', title: 'string' }]
       }
     }
   },
@@ -839,17 +889,25 @@ const TeacherInfoSchema = {
     }
   },
   PatchTeacherInfoVideoRequestModel: {
-    type: 'object',
-    required: ['intro_video_id'],
-    properties: {
-      intro_video_id: {
-        type: 'string',
-        description: '影片id'
+    type: 'array',
+    required: ['intro_video'],
+    items: {
+      type: 'object',
+      properties: {
+        video_id: {
+          type: 'string',
+          description: '影片id'
+        },
+        title: {
+          type: 'string',
+          description: '標題'
+        }
       }
     },
     example: [
       {
-        intro_video_id: 'string'
+        video_id: 'string',
+        title: 'string'
       }
     ]
   },

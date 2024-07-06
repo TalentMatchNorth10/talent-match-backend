@@ -6082,10 +6082,6 @@
             },
             "description": "教學證書"
           },
-          "intro_video_id": {
-            "type": "string",
-            "description": "自我介紹影片ID"
-          },
           "courses": {
             "type": "array",
             "items": {
@@ -6223,12 +6219,27 @@
       },
       "GetTeacherInfoResponseModel": {
         "type": "object",
+        "required": [
+          "status",
+          "data"
+        ],
         "properties": {
           "status": {
             "type": "boolean"
           },
           "data": {
             "type": "object",
+            "required": [
+              "avator_image",
+              "main_categorys",
+              "sub_categorys",
+              "nationality",
+              "introduction",
+              "work_experiences",
+              "learning_experience",
+              "teaching_certificate",
+              "intro_video"
+            ],
             "properties": {
               "avator_image": {
                 "type": "string"
@@ -6255,6 +6266,17 @@
                 "type": "array",
                 "items": {
                   "type": "object",
+                  "required": [
+                    "is_working",
+                    "workplace",
+                    "job_category",
+                    "start_year",
+                    "start_month",
+                    "end_year",
+                    "end_month",
+                    "position",
+                    "place"
+                  ],
                   "properties": {
                     "is_working": {
                       "type": "boolean"
@@ -6288,6 +6310,18 @@
               },
               "learning_experience": {
                 "type": "object",
+                "required": [
+                  "is_in_school",
+                  "degree",
+                  "department",
+                  "start_year",
+                  "start_month",
+                  "end_year",
+                  "end_month",
+                  "name",
+                  "place",
+                  "file"
+                ],
                 "properties": {
                   "is_in_school": {
                     "type": "boolean"
@@ -6325,6 +6359,15 @@
                 "type": "array",
                 "items": {
                   "type": "object",
+                  "required": [
+                    "verifying_institution",
+                    "license_name",
+                    "name",
+                    "license_number",
+                    "file",
+                    "category",
+                    "subject"
+                  ],
                   "properties": {
                     "verifying_institution": {
                       "type": "string"
@@ -6350,8 +6393,23 @@
                   }
                 }
               },
-              "intro_video_id": {
-                "type": "string"
+              "intro_video": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "video_id",
+                    "title"
+                  ],
+                  "properties": {
+                    "video_id": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    }
+                  }
+                }
               }
             }
           }
@@ -6404,7 +6462,12 @@
                 "subject": "string"
               }
             ],
-            "intro_video_id": "string"
+            "intro_video": [
+              {
+                "video_id": "string",
+                "title": "string"
+              }
+            ]
           }
         }
       },
@@ -6881,19 +6944,27 @@
         }
       },
       "PatchTeacherInfoVideoRequestModel": {
-        "type": "object",
+        "type": "array",
         "required": [
-          "intro_video_id"
+          "intro_video"
         ],
-        "properties": {
-          "intro_video_id": {
-            "type": "string",
-            "description": "影片id"
+        "items": {
+          "type": "object",
+          "properties": {
+            "video_id": {
+              "type": "string",
+              "description": "影片id"
+            },
+            "title": {
+              "type": "string",
+              "description": "標題"
+            }
           }
         },
         "example": [
           {
-            "intro_video_id": "string"
+            "video_id": "string",
+            "title": "string"
           }
         ]
       },
@@ -9006,82 +9077,57 @@
                 "description": "自我介紹"
               },
               "intro_video": {
-                "type": "object",
-                "description": "自我介紹影片",
-                "required": [
-                  "_id",
-                  "name",
-                  "category",
-                  "intro",
-                  "url",
-                  "video_type",
-                  "teacher_id"
-                ],
-                "properties": {
-                  "_id": {
-                    "type": "string"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "category": {
-                    "type": "string"
-                  },
-                  "intro": {
-                    "type": "string"
-                  },
-                  "url": {
-                    "type": "string"
-                  },
-                  "video_type": {
-                    "type": "string",
-                    "enum": [
-                      "storage",
-                      "youtube"
-                    ]
-                  },
-                  "teacher_id": {
-                    "type": "string"
-                  }
-                }
-              },
-              "advantage_video": {
-                "type": "object",
-                "description": "教學優勢影片",
-                "required": [
-                  "_id",
-                  "name",
-                  "category",
-                  "intro",
-                  "url",
-                  "video_type",
-                  "teacher_id"
-                ],
-                "properties": {
-                  "_id": {
-                    "type": "string"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "category": {
-                    "type": "string"
-                  },
-                  "intro": {
-                    "type": "string"
-                  },
-                  "url": {
-                    "type": "string"
-                  },
-                  "video_type": {
-                    "type": "string",
-                    "enum": [
-                      "storage",
-                      "youtube"
-                    ]
-                  },
-                  "teacher_id": {
-                    "type": "string"
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "description": "老師影片",
+                  "required": [
+                    "title",
+                    "video_id"
+                  ],
+                  "properties": {
+                    "title": {
+                      "type": "string"
+                    },
+                    "video_id": {
+                      "type": "object",
+                      "required": [
+                        "_id",
+                        "name",
+                        "category",
+                        "intro",
+                        "url",
+                        "video_type",
+                        "teacher_id"
+                      ],
+                      "properties": {
+                        "_id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "category": {
+                          "type": "string"
+                        },
+                        "intro": {
+                          "type": "string"
+                        },
+                        "url": {
+                          "type": "string"
+                        },
+                        "video_type": {
+                          "type": "string",
+                          "enum": [
+                            "storage",
+                            "youtube"
+                          ]
+                        },
+                        "teacher_id": {
+                          "type": "string"
+                        }
+                      }
+                    }
                   }
                 }
               },

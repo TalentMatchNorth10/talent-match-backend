@@ -71,7 +71,7 @@ const teacherController = {
 
       // 投影欄位
       const projection =
-        'avator_image main_categorys sub_categorys nationality introduction work_experiences learning_experience teaching_certificate intro_video_id';
+        'avator_image main_categorys sub_categorys nationality introduction work_experiences learning_experience teaching_certificate intro_video';
 
       const teacher = await Teacher.findById(teacherId, projection).lean();
 
@@ -354,20 +354,12 @@ const teacherController = {
   /** 修改老師自我介紹影片 */
   patchTeacherVideo: handleErrorAsync(async (req, res, next) => {
     const teacherId = (req.user as UserInterface).teacher_id;
-    const { intro_video } = req.body;
-
+    const intro_video = req.body;
     try {
       const teacher = await Teacher.findById(teacherId);
 
       if (!teacher) {
         return appError(404, '找不到對應的教師', next);
-      }
-
-      // 驗證所有欄位
-
-      const video = await Video.findById(intro_video);
-      if (!video) {
-        return appError(404, '找不到對應的影片', next);
       }
 
       // 更新影片

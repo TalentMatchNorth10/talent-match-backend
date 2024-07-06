@@ -39,6 +39,14 @@ export const teachingCertificateSchema = new Schema({
   subject: { type: String, required: true }
 });
 
+export const teacherIntroVideoSchema = new Schema(
+  {
+    video_id: { type: Schema.Types.ObjectId, ref: 'Video' },
+    title: String
+  },
+  { versionKey: false, _id: false }
+);
+
 const teacherSchema = new Schema({
   id: { type: Schema.Types.ObjectId },
   user_id: { type: Schema.Types.ObjectId, ref: 'User', required: true },
@@ -77,8 +85,7 @@ const teacherSchema = new Schema({
     required: true
   },
   teaching_certificate: [teachingCertificateSchema],
-  intro_video: { type: Schema.Types.ObjectId, ref: 'Video' }, // 自我介紹影片ID
-  advantage_video: { type: Schema.Types.ObjectId, ref: 'Video' }, // 自我介紹影片ID
+  intro_video: [teacherIntroVideoSchema],
   courses: [{ type: Schema.Types.ObjectId, ref: 'Course' }],
   can_reserve_week: [
     {
