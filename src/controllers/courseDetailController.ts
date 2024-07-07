@@ -1,4 +1,4 @@
-import mongoose, { ObjectId, Types } from 'mongoose';
+import { Types } from 'mongoose';
 import Course from '../models/courseModel';
 import { CourseStatus } from '../models/types/course.interface';
 import appError from '../services/appError';
@@ -6,7 +6,6 @@ import handleErrorAsync from '../services/handleErrorAsync';
 import handleSuccess from '../services/handleSuccess';
 import { TAIWAN_CITIES, TAIWAN_DISTRICTS } from '../utils/const';
 import Review from '../models/reviewModel';
-import { User } from '../models/types/user.interface';
 import Reservation from '../models/reservationModel';
 import { DateUtil } from '../utils/date-util';
 
@@ -183,15 +182,32 @@ const courseDetailController = {
       reserve_time: { $gte: startDate, $lte: endDate }
     });
 
+    const reserveMap = new Map();
+    reserves.forEach((reserve) => {
+      const reserveDate = reserve.reserve_time.toISOString().split('T')[0];
+      const reserveHour = new Date(reserve.reserve_time).getUTCHours();
+      if (!reserveMap.has(reserveDate)) {
+        reserveMap.set(reserveDate, new Set());
+      }
+      reserveMap.get(reserveDate).add(reserveHour);
+    });
+
     const week_calandar = week_range.map((day) => {
       return {
         week: day.week,
         date: day.date,
-        slots: times.map((time, index) => {
-          const status = can_reserve_week[0][day.week as Week].includes(time);
+        slots: times.map((time) => {
+          const slotDate = day.date;
+          const isReserved =
+            reserveMap.has(slotDate) && reserveMap.get(slotDate).has(time);
+          const status = isReserved
+            ? 'reserved'
+            : can_reserve_week[0][day.week as Week].includes(time)
+              ? 'available'
+              : 'unavailable';
           return {
             time: `${time < 10 ? '0' + time : time}:00`,
-            status: status ? 'available' : 'unavailable'
+            status: status
           };
         })
       };

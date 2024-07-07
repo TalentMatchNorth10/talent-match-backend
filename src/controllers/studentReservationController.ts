@@ -160,7 +160,6 @@ const StudentReservationController = {
         });
 
         if (newReview) {
-          console.log('reserve_id', reserve_id);
           await Reservation.findByIdAndUpdate(reserve_id, {
             review: newReview.id
           });

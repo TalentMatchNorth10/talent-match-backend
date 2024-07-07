@@ -29,13 +29,18 @@ const TeacherReserveComment = {
      * #swagger.security = [{"bearerAuth": []}]
      * #swagger.parameters['range'] = [{
             in: 'query',
-            description: 'week, month',
+            description: 'twoDays, week, month',
             type: 'string'
      }
-     * #swagger.parameters['course'] = [{
+     * #swagger.parameters['courseId'] = [{
             in: 'query',
             description: 'course_id',
             type: 'string'
+     }
+     * #swagger.parameters['page'] = [{
+            in: 'query',
+            description: 'page',
+            type: 'number'
      }
      * #swagger.responses[200] = { 
          schema: { $ref: "#/components/schemas/GetReservesResponseModel"}
@@ -58,6 +63,21 @@ const TeacherReserveComment = {
      * #swagger.tags = ['TeacherReserve']
      * #swagger.summary = '取得逾期預約課程清單'
      * #swagger.security = [{"bearerAuth": []}]
+     * #swagger.parameters['studentId'] = [{
+            in: 'query',
+            description: 'student_id',
+            type: 'string'
+     }
+     * #swagger.parameters['courseId'] = [{
+            in: 'query',
+            description: 'course_id',
+            type: 'string'
+     }
+     * #swagger.parameters['page'] = [{
+            in: 'query',
+            description: 'page',
+            type: 'number'
+     }
      * #swagger.responses[200] = { 
          schema: { $ref: "#/components/schemas/GetExpiredReservesResponseModel"}
     }
@@ -184,6 +204,21 @@ const TeacherReserveComment = {
      * #swagger.tags = ['TeacherReserve']
      * #swagger.summary = '取得已預約課程清單（列表）'
      * #swagger.security = [{"bearerAuth": []}]
+     * #swagger.parameters['studentId'] = [{
+            in: 'query',
+            description: 'student_id',
+            type: 'string'
+     }
+     * #swagger.parameters['courseId'] = [{
+            in: 'query',
+            description: 'course_id',
+            type: 'string'
+     }
+     * #swagger.parameters['page'] = [{
+            in: 'query',
+            description: 'page',
+            type: 'number'
+     }
      * #swagger.responses[200] = { 
          schema: { $ref: "#/components/schemas/GetAllReservesResponseModel"}
     }

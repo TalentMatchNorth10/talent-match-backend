@@ -589,6 +589,77 @@
         ]
       }
     },
+    "/api/student/calendar": {
+      "get": {
+        "tags": [
+          "Student"
+        ],
+        "summary": "取得學生行事曆",
+        "description": "",
+        "parameters": [
+          {
+            "name": "date",
+            "in": "query",
+            "description": "YYYY-MM",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CalendarResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/CalendarResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
     "/api/student_info/basic_info": {
       "get": {
         "tags": [
@@ -2858,17 +2929,25 @@
           {
             "name": "range",
             "in": "query",
-            "description": "week, month",
+            "description": "twoDays, week, month",
             "schema": {
               "type": "string"
             }
           },
           {
-            "name": "course",
+            "name": "courseId",
             "in": "query",
             "description": "course_id",
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "page",
+            "schema": {
+              "type": "number"
             }
           }
         ],
@@ -3002,6 +3081,32 @@
         ],
         "summary": "取得逾期預約課程清單",
         "description": "",
+        "parameters": [
+          {
+            "name": "studentId",
+            "in": "query",
+            "description": "student_id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "courseId",
+            "in": "query",
+            "description": "course_id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "page",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -3193,6 +3298,32 @@
         ],
         "summary": "取得已預約課程清單（列表）",
         "description": "",
+        "parameters": [
+          {
+            "name": "studentId",
+            "in": "query",
+            "description": "student_id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "courseId",
+            "in": "query",
+            "description": "course_id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "page",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -7392,6 +7523,9 @@
                           },
                           "name": {
                             "type": "string"
+                          },
+                          "nick_name": {
+                            "type": "string"
                           }
                         }
                       }
@@ -7407,39 +7541,279 @@
           "data": {
             "courseList": [
               {
-                "_id": "66462077589368f14e1bf98e",
-                "name": "吉他基礎入門課程"
+                "_id": "6677a7cc2d17bab252d857c7",
+                "name": "水彩畫的夢幻世界",
+                "is_valid": false,
+                "id": "6677a7cc2d17bab252d857c7"
               },
               {
-                "_id": "664622f2589368f14e1d712d",
-                "name": "烹飪基礎技巧課程"
+                "_id": "6677a7cc2d17bab252d857c8",
+                "name": "油畫大師養成計劃",
+                "is_valid": false,
+                "id": "6677a7cc2d17bab252d857c8"
               },
               {
-                "_id": "664622f2589368f14e1d7129",
-                "name": "水彩畫入門課程"
+                "_id": "6677a7cc2d17bab252d857c9",
+                "name": "素描藝術：從線條到作品",
+                "is_valid": false,
+                "id": "6677a7cc2d17bab252d857c9"
               },
               {
-                "_id": "664622f2589368f14e1d712a",
-                "name": "基本法語會話課程"
+                "_id": "6677a7cc2d17bab252d857cb",
+                "name": "漫畫創作大冒險",
+                "is_valid": false,
+                "id": "6677a7cc2d17bab252d857cb"
               },
               {
-                "_id": "664622f2589368f14e1d712b",
-                "name": "瑜伽基礎訓練課程"
+                "_id": "6677a7cc2d17bab252d857cc",
+                "name": "插畫魔法：創作你的夢想世界",
+                "is_valid": false,
+                "id": "6677a7cc2d17bab252d857cc"
               },
               {
-                "_id": "664622f2589368f14e1d712c",
-                "name": "基礎程式設計入門課程"
+                "_id": "6677a7cc2d17bab252d857cd",
+                "name": "數位繪畫的奇幻旅程",
+                "is_valid": false,
+                "id": "6677a7cc2d17bab252d857cd"
+              },
+              {
+                "_id": "6677a7cc2d17bab252d857ce",
+                "name": "塗鴉藝術：街頭創作的魅力",
+                "is_valid": false,
+                "id": "6677a7cc2d17bab252d857ce"
+              },
+              {
+                "_id": "6677a7cc2d17bab252d857cf",
+                "name": "水墨畫的傳統與創新",
+                "is_valid": false,
+                "id": "6677a7cc2d17bab252d857cf"
+              },
+              {
+                "_id": "6677a7cc2d17bab252d857d0",
+                "name": "粉彩畫的柔和與夢幻",
+                "is_valid": false,
+                "id": "6677a7cc2d17bab252d857d0"
+              },
+              {
+                "_id": "6677a7cc2d17bab252d857d1",
+                "name": "芭蕾舞的優雅之旅",
+                "is_valid": false,
+                "id": "6677a7cc2d17bab252d857d1"
+              },
+              {
+                "_id": "6677a7cc2d17bab252d857d2",
+                "name": "現代舞的自由探索",
+                "is_valid": false,
+                "id": "6677a7cc2d17bab252d857d2"
+              },
+              {
+                "_id": "6677a7cc2d17bab252d857d3",
+                "name": "爵士舞的活力節拍",
+                "is_valid": false,
+                "id": "6677a7cc2d17bab252d857d3"
+              },
+              {
+                "_id": "6677a7cc2d17bab252d857d4",
+                "name": "嘻哈舞的街頭魅力",
+                "is_valid": false,
+                "id": "6677a7cc2d17bab252d857d4"
+              },
+              {
+                "_id": "6677a7cc2d17bab252d857d5",
+                "name": "探戈的浪漫步伐",
+                "is_valid": false,
+                "id": "6677a7cc2d17bab252d857d5"
+              },
+              {
+                "_id": "6677a7cc2d17bab252d857d6",
+                "name": "莎莎舞的熱情旋律",
+                "is_valid": false,
+                "id": "6677a7cc2d17bab252d857d6"
+              },
+              {
+                "_id": "6677a7cc2d17bab252d857d7",
+                "name": "街舞的酷炫風格",
+                "is_valid": false,
+                "id": "6677a7cc2d17bab252d857d7"
+              },
+              {
+                "_id": "6677a7cc2d17bab252d857d8",
+                "name": "踢踏舞的節奏狂歡",
+                "is_valid": false,
+                "id": "6677a7cc2d17bab252d857d8"
+              },
+              {
+                "_id": "6677a7cc2d17bab252d857d9",
+                "name": "肚皮舞的異國風情",
+                "is_valid": false,
+                "id": "6677a7cc2d17bab252d857d9"
+              },
+              {
+                "_id": "6677a7cc2d17bab252d857da",
+                "name": "拉丁舞的激情旋律",
+                "is_valid": false,
+                "id": "6677a7cc2d17bab252d857da"
+              },
+              {
+                "_id": "6677a7cc2d17bab252d857db",
+                "name": "編織藝術的溫暖創作",
+                "is_valid": false,
+                "id": "6677a7cc2d17bab252d857db"
+              },
+              {
+                "_id": "6677a7cc2d17bab252d857dc",
+                "name": "刺繡的精細藝術",
+                "is_valid": false,
+                "id": "6677a7cc2d17bab252d857dc"
+              },
+              {
+                "_id": "6677a7cc2d17bab252d857dd",
+                "name": "陶藝創作的泥土魔法",
+                "is_valid": false,
+                "id": "6677a7cc2d17bab252d857dd"
+              },
+              {
+                "_id": "6677a7cc2d17bab252d857de",
+                "name": "木工技藝：從基礎到精湛",
+                "is_valid": false,
+                "id": "6677a7cc2d17bab252d857de"
+              },
+              {
+                "_id": "6677a7cc2d17bab252d857df",
+                "name": "紙藝的創意世界",
+                "is_valid": false,
+                "id": "6677a7cc2d17bab252d857df"
+              },
+              {
+                "_id": "6677a7cc2d17bab252d857e0",
+                "name": "蠟藝的色彩與香氛",
+                "is_valid": false,
+                "id": "6677a7cc2d17bab252d857e0"
+              },
+              {
+                "_id": "6677a7cc2d17bab252d857e1",
+                "name": "金工藝術的精湛技藝",
+                "is_valid": false,
+                "id": "6677a7cc2d17bab252d857e1"
+              },
+              {
+                "_id": "6677a7cc2d17bab252d857e2",
+                "name": "中式料理的傳統與創新",
+                "is_valid": false,
+                "id": "6677a7cc2d17bab252d857e2"
+              },
+              {
+                "_id": "6677a7cc2d17bab252d857e3",
+                "name": "西式料理的精緻之道",
+                "is_valid": false,
+                "id": "6677a7cc2d17bab252d857e3"
+              },
+              {
+                "_id": "6677a7cc2d17bab252d857e4",
+                "name": "烘焙的甜蜜藝術",
+                "is_valid": false,
+                "id": "6677a7cc2d17bab252d857e4"
+              },
+              {
+                "_id": "6677a7cc2d17bab252d857e5",
+                "name": "甜點製作的夢幻之旅",
+                "is_valid": false,
+                "id": "6677a7cc2d17bab252d857e5"
+              },
+              {
+                "_id": "6677a7cc2d17bab252d857e6",
+                "name": "飲料調製的創意天地",
+                "is_valid": false,
+                "id": "6677a7cc2d17bab252d857e6"
+              },
+              {
+                "_id": "6677a7cc2d17bab252d857e7",
+                "name": "股票投資的入門指南",
+                "is_valid": false,
+                "id": "6677a7cc2d17bab252d857e7"
+              },
+              {
+                "_id": "6677a7cc2d17bab252d857e8",
+                "name": "債券投資的穩健之道",
+                "is_valid": false,
+                "id": "6677a7cc2d17bab252d857e8"
+              },
+              {
+                "_id": "6677a7cc2d17bab252d857e9",
+                "name": "基金投資的策略與技巧",
+                "is_valid": false,
+                "id": "6677a7cc2d17bab252d857e9"
+              },
+              {
+                "_id": "6677a7cc2d17bab252d857ea",
+                "name": "房地產投資的實戰指南",
+                "is_valid": false,
+                "id": "6677a7cc2d17bab252d857ea"
+              },
+              {
+                "_id": "6677a7cc2d17bab252d857eb",
+                "name": "期貨投資的高階技巧",
+                "is_valid": false,
+                "id": "6677a7cc2d17bab252d857eb"
+              },
+              {
+                "_id": "6677a7cc2d17bab252d857ec",
+                "name": "外匯投資的全球視野",
+                "is_valid": false,
+                "id": "6677a7cc2d17bab252d857ec"
+              },
+              {
+                "_id": "66782afa55efdfa2860fc1ef",
+                "name": "熱帶天堂果汁",
+                "is_valid": false,
+                "id": "66782afa55efdfa2860fc1ef"
               }
             ],
             "studentList": [
               {
-                "course_id": "66462077589368f14e1bf98e",
                 "students": [
                   {
-                    "_id": "6649a044284874f28d8fa9be",
-                    "name": "shiba測試用"
+                    "_id": "6679024a1d00d594b00ca32e",
+                    "name": "Coach123123",
+                    "nick_name": "測試用帳號42141"
                   }
-                ]
+                ],
+                "course_id": "6677a7cc2d17bab252d857cd"
+              },
+              {
+                "students": [
+                  {
+                    "_id": "6677bb4ec6b570d8da219bd5",
+                    "name": "",
+                    "nick_name": "shiba"
+                  },
+                  {
+                    "_id": "66780abe07d8244ae10da6cd",
+                    "name": "talentmatch",
+                    "nick_name": "talent match (才藝連連)"
+                  }
+                ],
+                "course_id": "6677a7cc2d17bab252d857c7"
+              },
+              {
+                "students": [
+                  {
+                    "_id": "6679024a1d00d594b00ca32e",
+                    "name": "Coach123123",
+                    "nick_name": "測試用帳號42141"
+                  }
+                ],
+                "course_id": "6677a7cc2d17bab252d857dd"
+              },
+              {
+                "students": [
+                  {
+                    "_id": "6679024a1d00d594b00ca32e",
+                    "name": "Coach123123",
+                    "nick_name": "測試用帳號42141"
+                  }
+                ],
+                "course_id": "6677a7cc2d17bab252d857c8"
               }
             ]
           }
@@ -7453,82 +7827,97 @@
             "description": "狀態"
           },
           "data": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "_id": {
-                  "type": "string"
-                },
-                "course": {
+            "type": "object",
+            "properties": {
+              "reserves": {
+                "type": "array",
+                "items": {
                   "type": "object",
                   "properties": {
-                    "name": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "student": {
-                  "type": "object",
-                  "properties": {
-                    "name": {
+                    "total": {
+                      "type": "number"
+                    },
+                    "reserved_amount": {
+                      "type": "number"
+                    },
+                    "_id": {
                       "type": "string"
                     },
-                    "email": {
+                    "course_name": {
+                      "type": "string"
+                    },
+                    "student": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "nick_name": {
+                          "type": "string"
+                        },
+                        "contact_phone": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "reserve_date": {
+                      "type": "string"
+                    },
+                    "reserve_time": {
+                      "type": "string"
+                    },
+                    "teacher_status": {
                       "type": "string"
                     }
                   }
-                },
-                "reserve_time": {
-                  "type": "string"
-                },
-                "teacher_status": {
-                  "type": "string"
                 }
+              },
+              "totalCount": {
+                "type": "number"
               }
             }
           }
         },
         "example": {
           "status": true,
-          "data": [
-            {
-              "_id": "664c5a960e656d5d5511fbf6",
-              "course": {
-                "name": "吉他基礎入門課程"
+          "data": {
+            "reserves": [
+              {
+                "total": 240,
+                "reserved_amount": 5,
+                "_id": "667eac3ee9d152836b4a8b32",
+                "course_name": "水彩畫的夢幻世界",
+                "student": {
+                  "name": "",
+                  "email": "shiba@gmail.com",
+                  "nick_name": "shiba",
+                  "contact_phone": ""
+                },
+                "reserve_date": "2024-06-29",
+                "reserve_time": "11:00",
+                "teacher_status": "reserved"
               },
-              "student": {
-                "name": "shiba測試用",
-                "email": ""
-              },
-              "reserve_time": "2024-05-29T00:00:00.000Z",
-              "teacher_status": "reserved"
-            },
-            {
-              "_id": "664f37a45555adceed97cac6",
-              "course": {
-                "name": "水彩畫入門課程"
-              },
-              "student": {
-                "name": "shiba測試用",
-                "email": ""
-              },
-              "reserve_time": "2024-05-29T00:00:00.000Z",
-              "teacher_status": "reserved"
-            },
-            {
-              "_id": "664c5a960e656d5d5511fbf7",
-              "course": {
-                "name": "吉他基礎入門課程"
-              },
-              "student": {
-                "name": "shiba測試用",
-                "email": ""
-              },
-              "reserve_time": "2024-05-31T23:00:00.000Z",
-              "teacher_status": "reserved"
-            }
-          ]
+              {
+                "total": 240,
+                "reserved_amount": 5,
+                "_id": "667eac39e9d152836b4a8b24",
+                "course_name": "水彩畫的夢幻世界",
+                "student": {
+                  "name": "",
+                  "email": "shiba@gmail.com",
+                  "nick_name": "shiba",
+                  "contact_phone": ""
+                },
+                "reserve_date": "2024-06-29",
+                "reserve_time": "14:00",
+                "teacher_status": "reserved"
+              }
+            ],
+            "totalCount": 2
+          }
         }
       },
       "GetExpiredReservesResponseModel": {
@@ -7539,62 +7928,166 @@
             "description": "狀態"
           },
           "data": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "_id": {
-                  "type": "string"
-                },
-                "course": {
+            "type": "object",
+            "properties": {
+              "expired_reserves": {
+                "type": "array",
+                "items": {
                   "type": "object",
                   "properties": {
-                    "name": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "student": {
-                  "type": "object",
-                  "properties": {
-                    "name": {
+                    "total": {
+                      "type": "number"
+                    },
+                    "reserved_amount": {
+                      "type": "number"
+                    },
+                    "_id": {
                       "type": "string"
                     },
-                    "email": {
+                    "course_name": {
+                      "type": "string"
+                    },
+                    "student": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "nick_name": {
+                          "type": "string"
+                        },
+                        "contact_phone": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "reserve_date": {
+                      "type": "string"
+                    },
+                    "reserve_time": {
+                      "type": "string"
+                    },
+                    "teacher_status": {
+                      "type": "string"
+                    },
+                    "student_status": {
                       "type": "string"
                     }
                   }
-                },
-                "reserve_time": {
-                  "type": "string"
-                },
-                "teacher_status": {
-                  "type": "string"
-                },
-                "student_status": {
-                  "type": "string"
                 }
+              },
+              "totalCount": {
+                "type": "number"
               }
             }
           }
         },
         "example": {
           "status": true,
-          "data": [
-            {
-              "_id": "664c5a960e656d5d5511fbf4",
-              "course": {
-                "name": "吉他基礎入門課程"
+          "data": {
+            "expired_reserves": [
+              {
+                "total": 240,
+                "reserved_amount": 11,
+                "_id": "667ecf8353891db31c6b7585",
+                "course_name": "水彩畫的夢幻世界",
+                "student": {
+                  "name": "",
+                  "email": "shiba@gmail.com",
+                  "nick_name": "shiba",
+                  "contact_phone": ""
+                },
+                "reserve_date": "2024-06-30",
+                "reserve_time": "10:00",
+                "teacher_status": "reserved",
+                "student_status": "reserved"
               },
-              "student": {
-                "name": "shiba測試用",
-                "email": ""
+              {
+                "total": 240,
+                "reserved_amount": 11,
+                "_id": "667ecf8953891db31c6b7593",
+                "course_name": "水彩畫的夢幻世界",
+                "student": {
+                  "name": "",
+                  "email": "shiba@gmail.com",
+                  "nick_name": "shiba",
+                  "contact_phone": ""
+                },
+                "reserve_date": "2024-06-30",
+                "reserve_time": "11:00",
+                "teacher_status": "reserved",
+                "student_status": "reserved"
               },
-              "reserve_time": "2024-05-23T00:00:00.000Z",
-              "teacher_status": "completed",
-              "student_status": "reserved"
-            }
-          ]
+              {
+                "total": 240,
+                "reserved_amount": 11,
+                "_id": "667eb320b921340d9e6f063c",
+                "course_name": "水彩畫的夢幻世界",
+                "student": {
+                  "name": "",
+                  "email": "shiba@gmail.com",
+                  "nick_name": "shiba",
+                  "contact_phone": ""
+                },
+                "reserve_date": "2024-07-01",
+                "reserve_time": "15:00",
+                "teacher_status": "reserved",
+                "student_status": "reserved"
+              },
+              {
+                "total": 240,
+                "reserved_amount": 11,
+                "_id": "667eb344b921340d9e6f0666",
+                "course_name": "水彩畫的夢幻世界",
+                "student": {
+                  "name": "",
+                  "email": "shiba@gmail.com",
+                  "nick_name": "shiba",
+                  "contact_phone": ""
+                },
+                "reserve_date": "2024-07-02",
+                "reserve_time": "13:00",
+                "teacher_status": "reserved",
+                "student_status": "reserved"
+              },
+              {
+                "total": 240,
+                "reserved_amount": 11,
+                "_id": "667eb34db921340d9e6f0674",
+                "course_name": "水彩畫的夢幻世界",
+                "student": {
+                  "name": "",
+                  "email": "shiba@gmail.com",
+                  "nick_name": "shiba",
+                  "contact_phone": ""
+                },
+                "reserve_date": "2024-07-04",
+                "reserve_time": "17:00",
+                "teacher_status": "reserved",
+                "student_status": "reserved"
+              },
+              {
+                "total": 1,
+                "reserved_amount": 1,
+                "_id": "66869f671dd19e042961b2dd",
+                "course_name": "水彩畫的夢幻世界",
+                "student": {
+                  "name": "talentmatch",
+                  "email": "talentmatch10@gmail.com",
+                  "nick_name": "talent match (才藝連連)",
+                  "contact_phone": ""
+                },
+                "reserve_date": "2024-07-05",
+                "reserve_time": "10:00",
+                "teacher_status": "reserved",
+                "student_status": "reserved"
+              }
+            ],
+            "totalCount": 12
+          }
         }
       },
       "UpdateReserveRequestModel": {
@@ -7603,15 +8096,10 @@
           "reserve_id": {
             "type": "string",
             "description": "預約ID"
-          },
-          "status": {
-            "type": "string",
-            "description": "狀態"
           }
         },
         "example": {
-          "reserve_id": "664c5a960e656d5d5511fbf6",
-          "status": "completed"
+          "reserve_id": "664c5a960e656d5d5511fbf6"
         }
       },
       "UpdateReserveResponseModel": {
@@ -8084,28 +8572,158 @@
                 "items": {
                   "type": "object",
                   "properties": {
+                    "total": {
+                      "type": "number"
+                    },
+                    "reserved_amount": {
+                      "type": "number"
+                    },
+                    "_id": {
+                      "type": "string"
+                    },
+                    "course_name": {
+                      "type": "string"
+                    },
+                    "student": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "nick_name": {
+                          "type": "string"
+                        },
+                        "contact_phone": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "reserve_date": {
+                      "type": "string"
+                    },
+                    "reserve_time": {
+                      "type": "string"
+                    },
                     "teacher_status": {
                       "type": "string"
                     },
                     "student_status": {
                       "type": "string"
-                    },
-                    "course": {
-                      "type": "string"
-                    },
-                    "student_name": {
-                      "type": "string"
-                    },
-                    "student_email": {
-                      "type": "string"
-                    },
-                    "reserve_time": {
-                      "type": "string"
                     }
                   }
                 }
+              },
+              "totalCount": {
+                "type": "number"
               }
             }
+          }
+        },
+        "example": {
+          "status": true,
+          "data": {
+            "reserves": [
+              {
+                "total": 240,
+                "reserved_amount": 10,
+                "_id": "667ecf6a53891db31c6b753e",
+                "course_name": "水彩畫的夢幻世界",
+                "student": {
+                  "name": "",
+                  "email": "shiba@gmail.com",
+                  "nick_name": "shiba",
+                  "contact_phone": ""
+                },
+                "reserve_date": "2024-06-29",
+                "reserve_time": "10:00",
+                "teacher_status": "completed",
+                "student_status": "reserved"
+              },
+              {
+                "total": 240,
+                "reserved_amount": 10,
+                "_id": "667ecf7053891db31c6b754c",
+                "course_name": "水彩畫的夢幻世界",
+                "student": {
+                  "name": "",
+                  "email": "shiba@gmail.com",
+                  "nick_name": "shiba",
+                  "contact_phone": ""
+                },
+                "reserve_date": "2024-06-29",
+                "reserve_time": "11:00",
+                "teacher_status": "completed",
+                "student_status": "reserved"
+              },
+              {
+                "total": 240,
+                "reserved_amount": 10,
+                "_id": "667ecf7553891db31c6b755a",
+                "course_name": "水彩畫的夢幻世界",
+                "student": {
+                  "name": "",
+                  "email": "shiba@gmail.com",
+                  "nick_name": "shiba",
+                  "contact_phone": ""
+                },
+                "reserve_date": "2024-06-29",
+                "reserve_time": "13:00",
+                "teacher_status": "reserved",
+                "student_status": "reserved"
+              },
+              {
+                "total": 240,
+                "reserved_amount": 10,
+                "_id": "667eac39e9d152836b4a8b24",
+                "course_name": "水彩畫的夢幻世界",
+                "student": {
+                  "name": "",
+                  "email": "shiba@gmail.com",
+                  "nick_name": "shiba",
+                  "contact_phone": ""
+                },
+                "reserve_date": "2024-06-29",
+                "reserve_time": "14:00",
+                "teacher_status": "reserved",
+                "student_status": "reserved"
+              },
+              {
+                "total": 240,
+                "reserved_amount": 10,
+                "_id": "667ecf7953891db31c6b7568",
+                "course_name": "水彩畫的夢幻世界",
+                "student": {
+                  "name": "",
+                  "email": "shiba@gmail.com",
+                  "nick_name": "shiba",
+                  "contact_phone": ""
+                },
+                "reserve_date": "2024-06-29",
+                "reserve_time": "15:00",
+                "teacher_status": "reserved",
+                "student_status": "reserved"
+              },
+              {
+                "total": 240,
+                "reserved_amount": 10,
+                "_id": "667ecf8353891db31c6b7585",
+                "course_name": "水彩畫的夢幻世界",
+                "student": {
+                  "name": "",
+                  "email": "shiba@gmail.com",
+                  "nick_name": "shiba",
+                  "contact_phone": ""
+                },
+                "reserve_date": "2024-06-30",
+                "reserve_time": "10:00",
+                "teacher_status": "reserved",
+                "student_status": "reserved"
+              }
+            ],
+            "totalCount": 21
           }
         }
       },
@@ -8539,6 +9157,83 @@
                     "review": "666622f2589368f14e1d712a"
                   }
                 ]
+              }
+            ]
+          }
+        }
+      },
+      "CalendarResponseModel": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "calendar": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "reserve_time": {
+                      "type": "string"
+                    },
+                    "course_name": {
+                      "type": "string"
+                    },
+                    "student_name": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "example": {
+          "status": true,
+          "data": {
+            "calendar": [
+              {
+                "reserve_time": "2024-06-29T14:00:00.000Z",
+                "course_name": "水彩畫的夢幻世界",
+                "student_name": "shiba"
+              },
+              {
+                "reserve_time": "2024-06-28T11:00:00.000Z",
+                "course_name": "水彩畫的夢幻世界",
+                "student_name": "shiba"
+              },
+              {
+                "reserve_time": "2024-06-29T10:00:00.000Z",
+                "course_name": "水彩畫的夢幻世界",
+                "student_name": "shiba"
+              },
+              {
+                "reserve_time": "2024-06-29T11:00:00.000Z",
+                "course_name": "水彩畫的夢幻世界",
+                "student_name": "shiba"
+              },
+              {
+                "reserve_time": "2024-06-29T13:00:00.000Z",
+                "course_name": "水彩畫的夢幻世界",
+                "student_name": "shiba"
+              },
+              {
+                "reserve_time": "2024-06-29T15:00:00.000Z",
+                "course_name": "水彩畫的夢幻世界",
+                "student_name": "shiba"
+              },
+              {
+                "reserve_time": "2024-06-30T10:00:00.000Z",
+                "course_name": "水彩畫的夢幻世界",
+                "student_name": "shiba"
+              },
+              {
+                "reserve_time": "2024-06-30T11:00:00.000Z",
+                "course_name": "水彩畫的夢幻世界",
+                "student_name": "shiba"
               }
             ]
           }

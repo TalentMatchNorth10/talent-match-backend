@@ -2,13 +2,16 @@ import { Request, Response, NextFunction } from 'express';
 import handleSuccess from '../services/handleSuccess';
 import handleErrorAsync from '../services/handleErrorAsync';
 import Order from '../models/orderModel';
+import { TAIWAN_CITIES } from '../utils/const';
+import Reservation from '../models/reservationModel';
+import { DateUtil } from '../utils/date-util';
 
 const StudentController = {
   getPurchasedCourses: handleErrorAsync(
     async (req: Request, res: Response, next: NextFunction) => {
       const { user } = req;
 
-      const purchased_courses = await Order.aggregate([
+      let purchased_courses = await Order.aggregate([
         { $match: { buyer_id: user?._id } },
         { $unwind: '$purchase_items' },
         {
@@ -152,12 +155,84 @@ const StudentController = {
           }
         },
         {
+          $addFields: {
+            reserved_course: {
+              $sortArray: {
+                input: '$reserved_course',
+                sortBy: { reserve_time: 1 }
+              }
+            }
+          }
+        },
+        {
           $sort: { course_id: 1 }
         }
       ]);
 
+      purchased_courses = purchased_courses.map((course: any) => {
+        const city_name = TAIWAN_CITIES.find(
+          (city) => city.city_id === course.city_id
+        )?.city;
+        return {
+          ...course,
+          city_id: city_name || ''
+        };
+      });
+
       handleSuccess(res, {
         purchased_courses
+      });
+    }
+  ),
+  getCalendar: handleErrorAsync(
+    async (req: Request, res: Response, next: NextFunction) => {
+      const { user } = req;
+      let { date } = req.query as { date: string };
+
+      date = date || DateUtil.getDateString(new Date());
+
+      const { startDate, endDate } = DateUtil.getMonthStartAndEnd(date);
+
+      const calendar = await Reservation.aggregate([
+        {
+          $match: {
+            student_id: user?._id,
+            reserve_time: {
+              $gte: startDate,
+              $lt: endDate
+            }
+          }
+        },
+        {
+          $lookup: {
+            from: 'courses',
+            localField: 'course_id',
+            foreignField: '_id',
+            as: 'course'
+          }
+        },
+        { $unwind: '$course' },
+        {
+          $lookup: {
+            from: 'users',
+            localField: 'student_id',
+            foreignField: '_id',
+            as: 'student'
+          }
+        },
+        { $unwind: '$student' },
+        {
+          $project: {
+            _id: 0,
+            reserve_time: 1,
+            course_name: '$course.name',
+            student_name: '$student.nick_name'
+          }
+        }
+      ]);
+
+      handleSuccess(res, {
+        calendar
       });
     }
   )
