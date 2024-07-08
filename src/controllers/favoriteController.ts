@@ -94,8 +94,6 @@ const FavoriteController = {
       }
     ]);
 
-    console.log(favorites);
-
     handleSuccess(res, { favorites });
   },
   addFavorite: async (req: Request, res: Response, next: NextFunction) => {

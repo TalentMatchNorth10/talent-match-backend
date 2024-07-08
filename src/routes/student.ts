@@ -11,4 +11,11 @@ router.get(
   StudentController.getPurchasedCourses
 );
 
+router.get(
+  '/calendar',
+  StudentComment.getCalendar,
+  isAuth,
+  StudentController.getCalendar
+);
+
 export default router;

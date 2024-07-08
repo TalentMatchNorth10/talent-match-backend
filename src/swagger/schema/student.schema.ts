@@ -111,6 +111,75 @@ const StudentSchema = {
         ]
       }
     }
+  },
+  CalendarResponseModel: {
+    type: 'object',
+    properties: {
+      status: { type: 'boolean' },
+      data: {
+        type: 'object',
+        properties: {
+          calendar: {
+            type: 'array',
+            items: {
+              type: 'object',
+              properties: {
+                reserve_time: { type: 'string' },
+                course_name: { type: 'string' },
+                student_name: { type: 'string' }
+              }
+            }
+          }
+        }
+      }
+    },
+    example: {
+      status: true,
+      data: {
+        calendar: [
+          {
+            reserve_time: '2024-06-29T14:00:00.000Z',
+            course_name: '水彩畫的夢幻世界',
+            student_name: 'shiba'
+          },
+          {
+            reserve_time: '2024-06-28T11:00:00.000Z',
+            course_name: '水彩畫的夢幻世界',
+            student_name: 'shiba'
+          },
+          {
+            reserve_time: '2024-06-29T10:00:00.000Z',
+            course_name: '水彩畫的夢幻世界',
+            student_name: 'shiba'
+          },
+          {
+            reserve_time: '2024-06-29T11:00:00.000Z',
+            course_name: '水彩畫的夢幻世界',
+            student_name: 'shiba'
+          },
+          {
+            reserve_time: '2024-06-29T13:00:00.000Z',
+            course_name: '水彩畫的夢幻世界',
+            student_name: 'shiba'
+          },
+          {
+            reserve_time: '2024-06-29T15:00:00.000Z',
+            course_name: '水彩畫的夢幻世界',
+            student_name: 'shiba'
+          },
+          {
+            reserve_time: '2024-06-30T10:00:00.000Z',
+            course_name: '水彩畫的夢幻世界',
+            student_name: 'shiba'
+          },
+          {
+            reserve_time: '2024-06-30T11:00:00.000Z',
+            course_name: '水彩畫的夢幻世界',
+            student_name: 'shiba'
+          }
+        ]
+      }
+    }
   }
 };
 

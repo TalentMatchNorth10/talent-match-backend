@@ -17,6 +17,28 @@ const StudentComment = {
     }
     */
     next();
+  },
+  getCalendar: (req: Request, res: Response, next: NextFunction) => {
+    /**
+     * #swagger.tags = ['Student']
+     * #swagger.summary = '取得學生行事曆'
+     * #swagger.security = [{"bearerAuth": []}]
+     #swagger.parameters['date'] = {
+            in: 'query',
+            description: 'YYYY-MM',
+            type: 'string'
+     }
+     * #swagger.responses[200] = { 
+        schema: { $ref: "#/components/schemas/CalendarResponseModel"}
+    }
+    * #swagger.responses[400] = { 
+        schema: { $ref: "#/components/schemas/Error400ResponseModel"}
+    }
+    * #swagger.responses[500] = { 
+        schema: { $ref: "#/components/schemas/Error500ResponseModel"}
+    }
+    */
+    next();
   }
 };
 
