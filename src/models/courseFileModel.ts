@@ -2,25 +2,22 @@ import mongoose, { Schema } from 'mongoose';
 
 const courseFileSchema = new Schema(
   {
-    _id: { type: Schema.Types.ObjectId, required: true },
-    name: { type: String, required: true },
-    file: {
-      type: Buffer,
-      contentType: String
-    },
-    url: { type: String }
+    name: { type: String, default: '' },
+    fileId: { type: mongoose.Types.ObjectId, default: null },
+    url: { type: String, default: null }
   },
   {
-    timestamps: true
+    timestamps: true,
+    collection: 'course_files'
   }
 );
 
 // 添加自定义验证器以确保file或url至少有一个存在
 courseFileSchema.pre('validate', function (next) {
-  if (!this.file && !this.url) {
+  if (!this.fileId && !this.url) {
     this.invalidate(
       'file',
-      'Either a file must be uploaded or a URL must be provided.'
+      'Either a fileId must be uploaded or a URL must be provided.'
     );
   }
   next();

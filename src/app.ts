@@ -26,6 +26,7 @@ import studentReservationRouter from './routes/studentReservation';
 import shopRouter from './routes/shop';
 import teacherReserveRouter from './routes/teacherReserve';
 import commonRouter from './routes/common';
+import fileRouter from './routes/file';
 
 const app = express();
 
@@ -80,6 +81,7 @@ app.use('/api/favorites', favoriteRouter);
 app.use('/api/upload', uploadRouter);
 app.use('/api/shop', shopRouter);
 app.use('/api/common', commonRouter);
+app.use('/api/file', fileRouter);
 
 // express 錯誤處理
 // 生產環境錯誤
