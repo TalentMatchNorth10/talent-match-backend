@@ -39,23 +39,24 @@ async function isAuth(req: CustomRequest, res: Response, next: NextFunction) {
   if (!currentUser) {
     return appError(401, '使用者不存在', next);
   }
+
   next();
 }
 
 async function isAuthRefresh(req: Request, res: Response, next: NextFunction) {
-  const { refreshToken } = req.body;
+  const { refresh_token } = req.body;
 
-  if (!refreshToken) {
+  if (!refresh_token) {
     return appError(401, 'Refresh Token 未提供', next);
   }
 
-  if (typeof refreshToken !== 'string') {
+  if (typeof refresh_token !== 'string') {
     return appError(401, 'Refresh Token 格式錯誤', next);
   }
 
   const decoded = await new Promise<any>((resolve, reject) => {
     jwt.verify(
-      refreshToken,
+      refresh_token,
       process.env.JWT_REFRESH_SECRET as string,
       (err, payload) => {
         if (err) {
