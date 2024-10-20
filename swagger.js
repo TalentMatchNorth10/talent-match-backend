@@ -20,6 +20,9 @@ const {
   StudentReservationSchema
 } = require('./swagger/schema/studentReservation.schema');
 const {
+  StudentPreferenceSchema
+} = require('./swagger/schema/studentPreference.schema');
+const {
   TeacherCourseSchema
 } = require('./swagger/schema/teacherCourse.schema');
 const {
@@ -59,6 +62,7 @@ const doc = {
       ...TeacherInfoSchema,
       ...FavoritesSchema,
       ...StudentInfoSchema,
+      ...StudentPreferenceSchema,
       ...FavoritesSchema,
       ...TeacherReserveSchema,
       ...UploadSchema,
