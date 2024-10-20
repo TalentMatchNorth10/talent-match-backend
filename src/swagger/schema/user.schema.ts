@@ -6,7 +6,7 @@ const UserSchema = {
       status: { type: 'boolean' },
       data: {
         type: 'object',
-        required: ['nick_name', 'avator_image', 'cart'],
+        required: ['nick_name', 'avator_image', 'is_teacher'],
         properties: {
           nick_name: {
             type: 'string',
@@ -16,23 +16,9 @@ const UserSchema = {
             type: 'string',
             description: '使用者頭像'
           },
-          cart: {
-            type: 'array',
-            description: '購物車項目集合',
-            items: {
-              type: 'object',
-              description: '購物車項目',
-              properties: {
-                course_id: {
-                  type: 'string',
-                  description: '課程ID'
-                },
-                purchase_item_id: {
-                  type: 'string',
-                  description: '購買項目ID'
-                }
-              }
-            }
+          is_teacher: {
+            type: 'string',
+            description: '使用者是否為老師'
           }
         }
       }
@@ -42,12 +28,7 @@ const UserSchema = {
       data: {
         nick_name: 'string',
         avator_image: 'string',
-        cart: [
-          {
-            course_id: 'string',
-            purchase_item_id: 'string'
-          }
-        ]
+        is_teacher: true
       }
     }
   }
