@@ -1072,6 +1072,136 @@
         }
       }
     },
+    "/api/student_preference": {
+      "get": {
+        "tags": [
+          "Student_Preference"
+        ],
+        "summary": "取得學生偏好",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudentPreferencesResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudentPreferencesResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Student_Preference"
+        ],
+        "summary": "更新學生偏好",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateStudentPreferencesResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateStudentPreferencesResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateStudentPreferencesRequestModel"
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/teacher_info/": {
       "get": {
         "tags": [
@@ -4883,7 +5013,16 @@
             "type": "array",
             "items": {
               "type": "object",
+              "required": [
+                "_id",
+                "icon_url",
+                "main_category",
+                "sub_category"
+              ],
               "properties": {
+                "_id": {
+                  "type": "string"
+                },
                 "icon_url": {
                   "type": "string"
                 },
@@ -4904,6 +5043,7 @@
           "status": true,
           "data": [
             {
+              "_id": "string",
               "icon_url": "string",
               "main_category": "音樂",
               "sub_category": [
@@ -4912,6 +5052,7 @@
               ]
             },
             {
+              "_id": "string",
               "icon_url": "string",
               "main_category": "廚藝",
               "sub_category": [
@@ -4920,6 +5061,7 @@
               ]
             },
             {
+              "_id": "string",
               "icon_url": "string",
               "main_category": "美術",
               "sub_category": [
@@ -7665,6 +7807,95 @@
           "status": true,
           "data": {
             "message": "更新學生基本資訊成功"
+          }
+        }
+      },
+      "StudentPreferencesResponseModel": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "preference_id": {
+                  "type": "string"
+                },
+                "preference_tags": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "example": {
+          "status": true,
+          "data": [
+            {
+              "preference_id": "60d2b0f0d4b4f8001f5f4e4a",
+              "preference_tags": [
+                "水彩畫",
+                "畫畫"
+              ]
+            }
+          ]
+        }
+      },
+      "UpdateStudentPreferencesRequestModel": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "preference_id",
+            "preference_tags"
+          ],
+          "properties": {
+            "preference_id": {
+              "type": "string"
+            },
+            "preference_tags": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "example": [
+          {
+            "preference_id": "60d2b0f0d4b4f8001f5f4e4a",
+            "preference_tags": [
+              "水彩畫",
+              "畫畫"
+            ]
+          }
+        ]
+      },
+      "UpdateStudentPreferencesResponseModel": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "example": {
+          "status": true,
+          "data": {
+            "message": "更新學生偏好成功"
           }
         }
       },

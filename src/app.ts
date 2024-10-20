@@ -12,6 +12,7 @@ import userRouter from './routes/user';
 import authRouter from './routes/auth';
 import studentRouter from './routes/student';
 import studentInfoRouter from './routes/studentInfo';
+import studentPreference from './routes/studentPreference';
 
 import teacherInfoRouter from './routes/teacherInfo';
 import teacherCourseRouter from './routes/teacherCourse';
@@ -69,6 +70,7 @@ app.use('/api/auth', authRouter);
 app.use('/api/student', studentRouter);
 app.use('/api/student_info', studentInfoRouter);
 app.use('/api/student_reservation', studentReservationRouter);
+app.use('/api/student_preference', studentPreference);
 
 app.use('/api/teacher_info', teacherInfoRouter);
 app.use('/api/teacher_course', teacherCourseRouter);

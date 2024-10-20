@@ -11,7 +11,9 @@ const CommonSchema = {
                 type: 'array',
                 items: {
                     type: 'object',
+                    required: ['_id', 'icon_url', 'main_category', 'sub_category'],
                     properties: {
+                        _id: { type: 'string' },
                         icon_url: { type: 'string' },
                         main_category: { type: 'string' },
                         sub_category: {
@@ -28,16 +30,19 @@ const CommonSchema = {
             status: true,
             data: [
                 {
+                    _id: 'string', // 標籤Id
                     icon_url: 'string', // 圖示網址
                     main_category: '音樂', // 課程主類別
                     sub_category: ['長笛', '吉他'] // 課程次類別
                 },
                 {
+                    _id: 'string', // 標籤Id
                     icon_url: 'string', // 圖示網址
                     main_category: '廚藝', // 課程主類別
                     sub_category: ['蛋糕裝飾', '中餐基礎'] // 課程次類別
                 },
                 {
+                    _id: 'string', // 標籤Id
                     icon_url: 'string', // 圖示網址
                     main_category: '美術', // 課程主類別
                     sub_category: ['油畫', '水彩'] // 課程次類別
