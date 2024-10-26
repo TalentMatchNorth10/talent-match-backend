@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.HomeSchema = void 0;
 const HomeSchema = {
     CourseVideoResponseModel: {
         type: 'object',
@@ -154,4 +155,4 @@ const HomeSchema = {
         }
     }
 };
-exports.default = HomeSchema;
+exports.HomeSchema = HomeSchema;

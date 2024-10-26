@@ -157,4 +157,4 @@ const HomeSchema = {
   }
 };
 
-export default HomeSchema;
+export { HomeSchema };
