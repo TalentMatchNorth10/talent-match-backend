@@ -18,4 +18,11 @@ router.get(
   StudentController.getCalendar
 );
 
+router.get(
+  '/orders',
+  StudentComment.getOrders,
+  isAuth,
+  StudentController.getOrders
+);
+
 export default router;
