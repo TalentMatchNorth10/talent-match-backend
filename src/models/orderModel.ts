@@ -1,5 +1,12 @@
 import mongoose, { Schema } from 'mongoose';
-import { Order, PurchaseItem } from './types/order.interface';
+import {
+  Invoice,
+  InvoiceWay,
+  Order,
+  PurchaseItem,
+  PurchaseWay,
+  Status
+} from './types/order.interface';
 
 const purchaseItemSchema = new Schema<PurchaseItem>({
   course_id: {
@@ -14,7 +21,7 @@ const orderSchema = new Schema<Order>(
     status: {
       type: Number,
       required: [true, '訂單狀態為必填項'],
-      enum: [1, 2, 3]
+      enum: [Status.PENDING, Status.SUCCESS, Status.FAIL]
     },
     create_date: { type: Date, required: [true, '訂單創建日期為必填項'] },
     purchase_items: {
@@ -24,52 +31,57 @@ const orderSchema = new Schema<Order>(
     purchase_way: {
       type: Number,
       required: [true, '購買方式為必填項'],
-      enum: [1, 2]
+      enum: [PurchaseWay.LINE_PAY, PurchaseWay.CREDIT]
     },
     invoice: {
       type: Number,
       required: [true, '發票選項為必填項'],
-      enum: [1, 2, 3]
+      enum: [Invoice.PERSONAL, Invoice.COMPANY, Invoice.TRANSFER]
     },
     invoice_way: {
       type: Number,
       required: function () {
-        return this.invoice === 1;
+        return this.invoice === Invoice.PERSONAL;
       },
-      enum: [1, 2, 3]
+      enum: [
+        InvoiceWay.EMAIL,
+        InvoiceWay.MOBILE_BARCODE,
+        InvoiceWay.NATURAL_CERTIFICATE
+      ]
     },
     invoice_code: {
       type: String,
       required: function () {
-        return this.invoice_way === 2;
+        return this.invoice_way === InvoiceWay.MOBILE_BARCODE;
       }
     },
     natural_certificate: {
       type: String,
       required: function () {
-        return this.invoice_way === 3;
+        return this.invoice_way === InvoiceWay.NATURAL_CERTIFICATE;
       }
     },
     tax_id: {
       type: String,
       required: function () {
-        return this.invoice === 2;
+        return this.invoice === Invoice.COMPANY;
       }
     },
     company_letterhead: {
       type: String,
       required: function () {
-        return this.invoice === 2;
+        return this.invoice === Invoice.COMPANY;
       }
     },
     donation_unit: {
       type: Number,
       required: function () {
-        return this.invoice === 3;
+        return this.invoice === Invoice.TRANSFER;
       }
     },
     buyer_id: {
       type: Schema.Types.ObjectId,
+      ref: 'User',
       required: [true, '買方ID為必填項']
     },
     buyer_name: { type: String, required: [true, '買方姓名為必填項'] },

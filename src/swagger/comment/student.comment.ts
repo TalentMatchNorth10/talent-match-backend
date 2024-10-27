@@ -39,6 +39,23 @@ const StudentComment = {
     }
     */
     next();
+  },
+  getOrders: (req: Request, res: Response, next: NextFunction) => {
+    /**
+     * #swagger.tags = ['Student']
+     * #swagger.summary = '取得學生訂單'
+     * #swagger.security = [{"bearerAuth": []}]
+     * #swagger.responses[200] = { 
+        schema: { $ref: "#/components/schemas/OrdersResponseModel"}
+    }
+    * #swagger.responses[400] = { 
+        schema: { $ref: "#/components/schemas/Error400ResponseModel"}
+    }
+    * #swagger.responses[500] = { 
+        schema: { $ref: "#/components/schemas/Error500ResponseModel"}
+    }
+    */
+    next();
   }
 };
 

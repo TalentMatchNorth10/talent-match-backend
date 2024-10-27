@@ -180,6 +180,62 @@ const StudentSchema = {
         ]
       }
     }
+  },
+  OrdersResponseModel: {
+    type: 'object',
+    properties: {
+      status: { type: 'boolean' },
+      data: {
+        type: 'array',
+        items: {
+          type: 'object',
+          properties: {
+            order_id: { type: 'string' },
+            order_time: { type: 'string' },
+            status: { type: 'string' },
+            purchase_way: { type: 'string' },
+            purchase_items: {
+              type: 'array',
+              items: {
+                type: 'object',
+                properties: {
+                  name: { type: 'string' },
+                  main_image: { type: 'string' },
+                  main_category: { type: 'string' },
+                  sub_category: { type: 'string' },
+                  content: { type: 'string' },
+                  price: { type: 'number' },
+                  quantity: { type: 'number' }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    example: {
+      status: true,
+      data: [
+        {
+          order_id: '671cd7fa7214933c02264b9d',
+          order_time: '2024-10-26',
+          status: '已完成',
+          purchase_way: '信用卡',
+          purchase_items: [
+            {
+              name: '水彩畫的夢幻世界',
+              main_image:
+                'https://example.com/images/watercolor_dream_world.jpg',
+              main_category: '藝術創作',
+              sub_category: '水彩畫',
+              content: '文章內文...',
+              price: 200,
+              quantity: 1
+            }
+          ]
+        }
+      ]
+    }
   }
 };
 
