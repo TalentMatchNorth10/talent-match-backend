@@ -3,21 +3,21 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const CommonComment = {
     getTags: (req, res, next) => {
         /**
-              * #swagger.tags = ['Common']
-              * #swagger.summary = '取得分類'
-              * #swagger.responses[200] = {
-                  schema: { $ref: "#/components/schemas/TagsResponseModel" }
-              }
-              * #swagger.responses[403] = {
-                  schema: { $ref: "#/components/schemas/Error403ResponseModel" }
-              }
-              * #swagger.responses[404] = {
-                  schema: { $ref: "#/components/schemas/Error404ResponseModel" }
-              }
-              * #swagger.responses[500] = {
-                  schema: { $ref: "#/components/schemas/Error500ResponseModel" }
-              }
-            */
+             * #swagger.tags = ['Common']
+             * #swagger.summary = '取得分類'
+             * #swagger.responses[200] = {
+                 schema: { $ref: "#/components/schemas/TagsResponseModel" }
+            }
+            * #swagger.responses[403] = {
+                schema: { $ref: "#/components/schemas/Error403ResponseModel" }
+            }
+            * #swagger.responses[404] = {
+                schema: { $ref: "#/components/schemas/Error404ResponseModel" }
+            }
+            * #swagger.responses[500] = {
+                schema: { $ref: "#/components/schemas/Error500ResponseModel" }
+            }
+        */
         next();
     },
     search: (req, res, next) => {
@@ -211,6 +211,69 @@ const CommonComment = {
             }
             * #swagger.responses[200] = {
                 schema: { $ref: "#/components/schemas/DistrictResponseModel"}
+            }
+            * #swagger.responses[400] = {
+                schema: {
+                $ref: "#/components/schemas/Error400ResponseModel"
+                }
+            }
+            * #swagger.responses[500] = {
+                schema: {
+                    $ref: "#/components/schemas/Error500ResponseModel"
+                }
+            }
+        */
+        next();
+    },
+    jobCategoryOption: (req, res, next) => {
+        /**
+             * #swagger.tags = ['Common']
+             * #swagger.summary = '取得職業類別選項'
+             * #swagger.security = [{"bearerAuth": []}]
+            * #swagger.responses[200] = {
+                schema: { $ref: "#/components/schemas/CommonOptionResponseModel"}
+            }
+            * #swagger.responses[400] = {
+                schema: {
+                $ref: "#/components/schemas/Error400ResponseModel"
+                }
+            }
+            * #swagger.responses[500] = {
+                schema: {
+                    $ref: "#/components/schemas/Error500ResponseModel"
+                }
+            }
+        */
+        next();
+    },
+    nationOption: (req, res, next) => {
+        /**
+             * #swagger.tags = ['Common']
+             * #swagger.summary = '取得國家選項'
+             * #swagger.security = [{"bearerAuth": []}]
+            * #swagger.responses[200] = {
+                schema: { $ref: "#/components/schemas/CommonOptionResponseModel"}
+            }
+            * #swagger.responses[400] = {
+                schema: {
+                $ref: "#/components/schemas/Error400ResponseModel"
+                }
+            }
+            * #swagger.responses[500] = {
+                schema: {
+                    $ref: "#/components/schemas/Error500ResponseModel"
+                }
+            }
+        */
+        next();
+    },
+    degreeOption: (req, res, next) => {
+        /**
+             * #swagger.tags = ['Common']
+             * #swagger.summary = '取得學歷選項'
+             * #swagger.security = [{"bearerAuth": []}]
+            * #swagger.responses[200] = {
+                schema: { $ref: "#/components/schemas/CommonOptionResponseModel"}
             }
             * #swagger.responses[400] = {
                 schema: {

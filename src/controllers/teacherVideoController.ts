@@ -1,12 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
-import mongoose, { Types } from 'mongoose';
+import { Types } from 'mongoose';
 import TeacherModel from '../models/teacherModel';
-import UserModel from '../models/userModel';
 import appError from '../services/appError';
 import handleErrorAsync from '../services/handleErrorAsync';
 import handleSuccess from '../services/handleSuccess';
 import CourseModel from '../models/courseModel';
-import { CourseStatus, ICourse } from '../models/types/course.interface';
 import VideoModel from '../models/videoModel';
 import { IVideo } from '../models/types/video.interface';
 
@@ -25,7 +23,7 @@ const teacherVideoController = {
   /** 建立/更新影片 */
   postTeacherVideo: handleErrorAsync(
     async (req: Request, res: Response, next: NextFunction) => {
-      const body = req.body;
+      const updateData = req.body;
       const user = req.user;
       const videoId = req.params.video_id;
 
@@ -37,16 +35,10 @@ const teacherVideoController = {
         return appError(400, `使用者非老師`, next);
       }
 
-      const updateData = req.body;
+      updateData.teacher_id = updateData.teacher_id ?? teacher._id;
 
       // 確認必填欄位存在
-      const requiredFields = [
-        'name',
-        'category',
-        'intro',
-        'video_type',
-        'teacher_id'
-      ];
+      const requiredFields = ['name', 'category', 'intro', 'video_type'];
       for (const field of requiredFields) {
         if (!updateData[field]) {
           return appError(400, `請填寫必填欄位`, next);
@@ -63,11 +55,9 @@ const teacherVideoController = {
           checkVideoAuth(user?.teacher_id, oldVideo, next);
 
           // 更新 video 資料
-          const updatedVideo = await VideoModel.findByIdAndUpdate(
-            videoId,
-            updateData,
-            { new: true }
-          );
+          await VideoModel.findByIdAndUpdate(videoId, updateData, {
+            new: true
+          });
 
           // 處理 course_id 更新
           if (updateData.course_id !== undefined) {

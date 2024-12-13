@@ -462,6 +462,148 @@ const commonController = {
       }));
       handleSuccess(res, options);
     }
+  ),
+  jobCategoryOption: handleErrorAsync(
+    async (req: Request, res: Response, next: NextFunction) => {
+      handleSuccess(res, [
+        {
+          label: '資訊科技與軟體開發',
+          value: 'IT'
+        },
+        {
+          label: '資料與人工智慧',
+          value: 'DA'
+        },
+        {
+          label: '設計與多媒體',
+          value: 'DM'
+        },
+        {
+          label: '行銷與公共關係',
+          value: 'MP'
+        },
+        {
+          label: '業務與銷售',
+          value: 'BD'
+        },
+        {
+          label: '產品與專案管理',
+          value: 'PM'
+        },
+        {
+          label: '財務與會計',
+          value: 'FA'
+        },
+        {
+          label: '人力資源與行政',
+          value: 'HR'
+        },
+        {
+          label: '製造與工程技術',
+          value: 'ME'
+        },
+        {
+          label: '醫療與健康照護',
+          value: 'HC'
+        },
+        {
+          label: '教育與訓練',
+          value: 'ED'
+        },
+        {
+          label: '零售與服務業',
+          value: 'RS'
+        },
+        {
+          label: '物流與供應鏈',
+          value: 'LS'
+        },
+        {
+          label: '法務與合規',
+          value: 'LC'
+        },
+        {
+          label: '建築與房地產',
+          value: 'AR'
+        },
+        {
+          label: '藝術與創意產業',
+          value: 'AC'
+        },
+        {
+          label: '能源與環境工程',
+          value: 'EE'
+        },
+        {
+          label: '公務與政府機構',
+          value: 'PG'
+        },
+        {
+          label: '科研與學術',
+          value: 'RA'
+        },
+        {
+          label: '旅遊與款待業',
+          value: 'TH'
+        }
+      ]);
+    }
+  ),
+  nationOption: handleErrorAsync(
+    async (req: Request, res: Response, next: NextFunction) => {
+      handleSuccess(res, [
+        {
+          label: '台灣',
+          value: 'TW'
+        },
+        {
+          label: '日本',
+          value: 'JP'
+        },
+        {
+          label: '韓國',
+          value: 'KR'
+        },
+        {
+          label: '香港',
+          value: 'HK'
+        }
+      ]);
+    }
+  ),
+  degreeOption: handleErrorAsync(
+    async (req: Request, res: Response, next: NextFunction) => {
+      handleSuccess(res, [
+        {
+          label: '博士',
+          value: '博士'
+        },
+        {
+          label: '碩士',
+          value: '碩士'
+        },
+        {
+          label: '學士',
+          value: '學士'
+        },
+        {
+          label: '專科',
+          value: '專科'
+        },
+        {
+          label: '高中',
+          value: '高中'
+        },
+        {
+          label: '國中',
+          value: '國中'
+        },
+        {
+          label: '國小',
+          value: '國小'
+        }
+      ]);
+    }
   )
 };
 

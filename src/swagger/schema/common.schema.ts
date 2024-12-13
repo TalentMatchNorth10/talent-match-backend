@@ -267,6 +267,33 @@ const CommonSchema = {
       ]
     }
   },
+  CommonOptionResponseModel: {
+    type: 'object',
+    required: ['status', 'data'],
+    properties: {
+      status: { type: 'boolean' },
+      data: {
+        type: 'array',
+        items: {
+          type: 'object',
+          required: ['label', 'value'],
+          properties: {
+            label: { type: 'string' },
+            value: { type: 'string' }
+          }
+        }
+      }
+    },
+    example: {
+      status: true,
+      data: [
+        {
+          label: 'string',
+          value: 'string'
+        }
+      ]
+    }
+  },
   StringValueModel: {
     type: 'string',
     example: 'string'

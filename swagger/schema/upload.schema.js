@@ -36,6 +36,41 @@ const UploadSchema = {
         example: {
             fileUrl: 'string'
         }
+    },
+    DeleteRequestModel: {
+        type: 'object',
+        required: ['fileUrl'],
+        properties: {
+            fileUrl: {
+                type: 'string',
+                description: '檔案的網址'
+            }
+        },
+        example: {
+            fileUrl: 'string'
+        }
+    },
+    DeleteResponseModel: {
+        type: 'object',
+        properties: {
+            status: {
+                type: 'boolean'
+            },
+            data: {
+                type: 'object',
+                properties: {
+                    message: {
+                        type: 'string'
+                    }
+                }
+            }
+        },
+        example: {
+            status: true,
+            data: {
+                message: '刪除檔案完成'
+            }
+        }
     }
 };
 exports.UploadSchema = UploadSchema;

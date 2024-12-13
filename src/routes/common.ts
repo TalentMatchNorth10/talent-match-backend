@@ -48,4 +48,22 @@ router.post(
   commonController.distOption
 );
 
+router.get(
+  '/options/job-category',
+  CommonComment.jobCategoryOption,
+  commonController.jobCategoryOption
+);
+
+router.get(
+  '/options/nation',
+  CommonComment.nationOption,
+  commonController.nationOption
+);
+
+router.get(
+  '/options/degree',
+  CommonComment.degreeOption,
+  commonController.degreeOption
+);
+
 export default router;

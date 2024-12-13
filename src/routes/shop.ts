@@ -29,7 +29,14 @@ router.post(
   ShopComment.paymentCreate,
   shopController.paymentCreate
 );
-router.post('/payment_return', shopController.paymentReturn);
+router.post(
+  '/payment_return',
+  (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    // #swagger.ignore = true
+    next();
+  },
+  shopController.paymentReturn
+);
 router.get(
   '/order/:id',
   isAuth,
