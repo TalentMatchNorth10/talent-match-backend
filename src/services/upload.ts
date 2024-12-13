@@ -5,7 +5,8 @@ import { UploadRequestModel } from '../routes/upload';
 
 const allowedExtensions = {
   image: ['.jpg', '.jpeg', '.png'],
-  video: ['.mp4', '.avi', '.mov']
+  video: ['.mp4', '.avi', '.mov'],
+  file: ['.pdf', '.doc', '.docx', '.ppt', '.pptx']
 };
 
 const upload = multer({
@@ -23,7 +24,18 @@ const upload = multer({
     if (!allowedExtensions[fileType]?.includes(ext)) {
       const allowedExts =
         allowedExtensions[fileType]?.join('、') || '不支援的格式';
-      cb(new Error(`檔案格式錯誤，僅限上傳 ${allowedExts} 格式。`));
+      class CustomError extends Error {
+        statusCode: number;
+        constructor(message: string, statusCode: number) {
+          super(message);
+          this.statusCode = statusCode;
+        }
+      }
+      const err = new CustomError(
+        `檔案格式錯誤，僅限上傳 ${allowedExts} 格式。`,
+        400
+      );
+      cb(err);
     } else {
       cb(null, true);
     }

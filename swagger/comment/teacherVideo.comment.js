@@ -3,44 +3,44 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const TeacherVideoComment = {
     getTeacherVideoList: (req, res, next) => {
         /**
-                   * #swagger.tags = ['Teacher_video']
-                   * #swagger.summary = '取得所有影片'
-                   * #swagger.security = [{"bearerAuth": []}]
-                    * #swagger.responses[200] = {
-                        schema: { $ref: "#/components/schemas/GetTeacherVideoListResponseModel" }
-                    }
-                    * #swagger.responses[400] = {
-                        schema: {
-                          $ref: "#/components/schemas/Error400ResponseModel"
-                        }
-                    }
-                    * #swagger.responses[500] = {
-                        schema: {
-                            $ref: "#/components/schemas/Error500ResponseModel"
-                        }
-                    }
-                */
+             * #swagger.tags = ['Teacher_video']
+             * #swagger.summary = '取得所有影片'
+             * #swagger.security = [{"bearerAuth": []}]
+            * #swagger.responses[200] = {
+                schema: { $ref: "#/components/schemas/GetTeacherVideoListResponseModel" }
+            }
+            * #swagger.responses[400] = {
+                schema: {
+                    $ref: "#/components/schemas/Error400ResponseModel"
+                }
+            }
+            * #swagger.responses[500] = {
+                schema: {
+                    $ref: "#/components/schemas/Error500ResponseModel"
+                }
+            }
+        */
         next();
     },
     getTeacherCourse: (req, res, next) => {
         /**
-                   * #swagger.tags = ['Teacher_video']
-                   * #swagger.summary = '取得單一影片'
-                   * #swagger.security = [{"bearerAuth": []}]
-                    * #swagger.responses[200] = {
-                        schema: { $ref: "#/components/schemas/GetTeacherVideoResponseModel" }
-                    }
-                    * #swagger.responses[400] = {
-                        schema: {
-                          $ref: "#/components/schemas/Error400ResponseModel"
-                        }
-                    }
-                    * #swagger.responses[500] = {
-                        schema: {
-                            $ref: "#/components/schemas/Error500ResponseModel"
-                        }
-                    }
-                */
+             * #swagger.tags = ['Teacher_video']
+             * #swagger.summary = '取得單一影片'
+             * #swagger.security = [{"bearerAuth": []}]
+            * #swagger.responses[200] = {
+                schema: { $ref: "#/components/schemas/GetTeacherVideoResponseModel" }
+            }
+            * #swagger.responses[400] = {
+                schema: {
+                    $ref: "#/components/schemas/Error400ResponseModel"
+                }
+            }
+            * #swagger.responses[500] = {
+                schema: {
+                    $ref: "#/components/schemas/Error500ResponseModel"
+                }
+            }
+        */
         next();
     },
     addTeacherVideo: (req, res, next) => {

@@ -1,13 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
 import handleSuccess from '../services/handleSuccess';
 import handleErrorAsync from '../services/handleErrorAsync';
-import Teacher, { teachingCertificateSchema } from '../models/teacherModel';
+import Teacher from '../models/teacherModel';
 import appError from '../services/appError';
 import { User as UserInterface } from '../models/types/user.interface';
 import User from '../models/userModel';
 import mongoose from 'mongoose';
 import { Teacher as TeacherInterface } from './../models/types/teacher.interface';
-import Video from '../models/videoModel';
 
 const teacherController = {
   /** 申請老師 */
@@ -23,8 +22,7 @@ const teacherController = {
 
       const teacherData = {
         ...body,
-        user_id: user?.id,
-        application_status: 1
+        user_id: user?.id
       };
 
       try {
@@ -32,7 +30,8 @@ const teacherController = {
         const teacher = await Teacher.create(teacherData);
         /* 修改 user 有老師id */
         await User.findByIdAndUpdate(teacherData.user_id, {
-          teacher_id: teacher._id
+          teacher_id: teacher._id,
+          is_teacher: true
         });
         handleSuccess(res, {
           message: '申請成功'

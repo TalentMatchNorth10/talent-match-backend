@@ -3850,8 +3850,50 @@
         "summary": "上傳檔案",
         "description": "",
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UploadResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UploadResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -3865,6 +3907,75 @@
             "multipart/form-data": {
               "schema": {
                 "$ref": "#/components/schemas/UploadRequestModel"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Upload"
+        ],
+        "summary": "刪除檔案",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteRequestModel"
               }
             }
           }
@@ -4139,16 +4250,6 @@
                 "$ref": "#/components/schemas/PaymentCreateRequestModel"
               }
             }
-          }
-        }
-      }
-    },
-    "/api/shop/payment_return": {
-      "post": {
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
           }
         }
       }
@@ -4844,6 +4945,189 @@
         }
       }
     },
+    "/api/common/options/job-category": {
+      "get": {
+        "tags": [
+          "Common"
+        ],
+        "summary": "取得職業類別選項",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonOptionResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonOptionResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/common/options/nation": {
+      "get": {
+        "tags": [
+          "Common"
+        ],
+        "summary": "取得國家選項",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonOptionResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonOptionResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/common/options/degree": {
+      "get": {
+        "tags": [
+          "Common"
+        ],
+        "summary": "取得學歷選項",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonOptionResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonOptionResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
     "/api/file/": {
       "post": {
         "tags": [
@@ -5404,6 +5688,45 @@
         }
       },
       "DistrictResponseModel": {
+        "type": "object",
+        "required": [
+          "status",
+          "data"
+        ],
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "label",
+                "value"
+              ],
+              "properties": {
+                "label": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "example": {
+          "status": true,
+          "data": [
+            {
+              "label": "string",
+              "value": "string"
+            }
+          ]
+        }
+      },
+      "CommonOptionResponseModel": {
         "type": "object",
         "required": [
           "status",
@@ -6433,39 +6756,30 @@
       "PostTeacherInfoRequestModel": {
         "type": "object",
         "required": [
-          "user_id",
-          "main_categorys",
-          "sub_categorys",
-          "application_status",
+          "categories",
           "work_experiences",
           "learning_experience"
         ],
         "properties": {
-          "user_id": {
-            "type": "string",
-            "description": "用戶的ID"
-          },
-          "avator_image": {
-            "type": "string",
-            "description": "用戶的頭像圖片URL"
-          },
-          "main_categorys": {
+          "categories": {
             "type": "array",
             "items": {
-              "type": "string"
+              "type": "object",
+              "properties": {
+                "category_id": {
+                  "type": "string",
+                  "description": "科目(主類別)"
+                },
+                "sub_categories": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "專長(子類別)"
+                }
+              }
             },
-            "description": "教授科目"
-          },
-          "sub_categorys": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "description": "教授專長"
-          },
-          "application_status": {
-            "type": "number",
-            "description": "申請狀態"
+            "description": "老師專業"
           },
           "nationality": {
             "type": "string",
@@ -6484,13 +6798,21 @@
                   "type": "boolean",
                   "description": "是否在職中"
                 },
+                "company_name": {
+                  "type": "string",
+                  "description": "公司名稱"
+                },
                 "workplace": {
                   "type": "string",
-                  "description": "單位名稱"
+                  "description": "工作地點"
                 },
                 "job_category": {
                   "type": "string",
                   "description": "職務類別"
+                },
+                "job_title": {
+                  "type": "string",
+                  "description": "職務名稱"
                 },
                 "start_year": {
                   "type": "number",
@@ -6507,14 +6829,6 @@
                 "end_month": {
                   "type": "number",
                   "description": "結束月份"
-                },
-                "position": {
-                  "type": "string",
-                  "description": "職務名稱"
-                },
-                "place": {
-                  "type": "string",
-                  "description": "地點"
                 }
               }
             },
@@ -6555,8 +6869,8 @@
                 "type": "string",
                 "description": "學校名稱"
               },
-              "place": {
-                "type": "string",
+              "region": {
+                "type": "boolean",
                 "description": "地點"
               },
               "file": {
@@ -6566,7 +6880,7 @@
             },
             "description": "學習經歷"
           },
-          "teaching_certificate": {
+          "teaching_certificates": {
             "type": "array",
             "items": {
               "type": "object",
@@ -6591,9 +6905,9 @@
                   "type": "string",
                   "description": "文件路徑或參考"
                 },
-                "category": {
+                "category_id": {
                   "type": "string",
-                  "description": "類別"
+                  "description": "類別id"
                 },
                 "subject": {
                   "type": "string",
@@ -6602,86 +6916,29 @@
               }
             },
             "description": "教學證書"
-          },
-          "courses": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "description": "教授的課程"
-          },
-          "can_reserve_week": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "mon": {
-                  "type": "array",
-                  "items": {
-                    "type": "number"
-                  }
-                },
-                "tue": {
-                  "type": "array",
-                  "items": {
-                    "type": "number"
-                  }
-                },
-                "wed": {
-                  "type": "array",
-                  "items": {
-                    "type": "number"
-                  }
-                },
-                "thu": {
-                  "type": "array",
-                  "items": {
-                    "type": "number"
-                  }
-                },
-                "fri": {
-                  "type": "array",
-                  "items": {
-                    "type": "number"
-                  }
-                },
-                "sat": {
-                  "type": "array",
-                  "items": {
-                    "type": "number"
-                  }
-                },
-                "sun": {
-                  "type": "array",
-                  "items": {
-                    "type": "number"
-                  }
-                }
-              }
-            },
-            "description": "每週可預約的時段"
           }
         },
         "example": {
-          "avator_image": "string",
-          "main_categorys": [
-            "string"
-          ],
-          "sub_categorys": [
-            "string"
+          "categories": [
+            {
+              "category_id": "string",
+              "sub_categories": [
+                "string"
+              ]
+            }
           ],
           "nationality": "string",
           "work_experiences": [
             {
               "is_working": false,
+              "company_name": "string",
               "workplace": "string",
               "job_category": "string",
+              "job_title": "string",
               "start_year": 2020,
               "start_month": 1,
               "end_year": 2021,
-              "end_month": 12,
-              "position": "string",
-              "place": "string"
+              "end_month": 12
             }
           ],
           "learning_experience": {
@@ -6693,17 +6950,17 @@
             "end_year": 2020,
             "end_month": 6,
             "name": "string",
-            "place": "string",
+            "region": "boolean",
             "file": "string"
           },
-          "teaching_certificate": [
+          "teaching_certificates": [
             {
               "verifying_institution": "string",
               "license_name": "string",
               "name": "string",
               "license_number": "string",
               "file": "string",
-              "category": "string",
+              "category_id": "string",
               "subject": "string"
             }
           ]
@@ -6758,7 +7015,7 @@
               "introduction",
               "work_experiences",
               "learning_experience",
-              "teaching_certificate",
+              "teaching_certificates",
               "intro_video"
             ],
             "properties": {
@@ -6840,7 +7097,7 @@
                   "end_year",
                   "end_month",
                   "name",
-                  "place",
+                  "region",
                   "file"
                 ],
                 "properties": {
@@ -6868,15 +7125,15 @@
                   "name": {
                     "type": "string"
                   },
-                  "place": {
-                    "type": "string"
+                  "region": {
+                    "type": "boolean"
                   },
                   "file": {
                     "type": "string"
                   }
                 }
               },
-              "teaching_certificate": {
+              "teaching_certificates": {
                 "type": "array",
                 "items": {
                   "type": "object",
@@ -6905,7 +7162,7 @@
                     "file": {
                       "type": "string"
                     },
-                    "category": {
+                    "category_id": {
                       "type": "string"
                     },
                     "subject": {
@@ -6969,17 +7226,17 @@
               "end_year": 2022,
               "end_month": 6,
               "name": "string",
-              "place": "string",
+              "region": "string",
               "file": "string"
             },
-            "teaching_certificate": [
+            "teaching_certificates": [
               {
                 "verifying_institution": "string",
                 "license_name": "string",
                 "name": "string",
                 "license_number": "string",
                 "file": "string",
-                "category": "string",
+                "category_id": "string",
                 "subject": "string"
               }
             ],
@@ -7389,7 +7646,7 @@
             "name",
             "license_number",
             "file",
-            "category",
+            "category_id",
             "subject"
           ],
           "properties": {
@@ -7413,9 +7670,9 @@
               "type": "string",
               "description": "文件路徑或參考"
             },
-            "category": {
+            "category_id": {
               "type": "string",
-              "description": "證書類別"
+              "description": "證書類別id"
             },
             "subject": {
               "type": "string",
@@ -7430,7 +7687,7 @@
             "name": "string",
             "license_number": "string",
             "file": "string",
-            "category": "string",
+            "category_id": "string",
             "subject": "string"
           }
         ]
@@ -9251,6 +9508,43 @@
           "fileUrl": "string"
         }
       },
+      "DeleteRequestModel": {
+        "type": "object",
+        "required": [
+          "fileUrl"
+        ],
+        "properties": {
+          "fileUrl": {
+            "type": "string",
+            "description": "檔案的網址"
+          }
+        },
+        "example": {
+          "fileUrl": "string"
+        }
+      },
+      "DeleteResponseModel": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "example": {
+          "status": true,
+          "data": {
+            "message": "刪除檔案完成"
+          }
+        }
+      },
       "ReserveCourseRequestModel": {
         "type": "object",
         "required": [
@@ -10803,7 +11097,6 @@
           "category",
           "intro",
           "video_type",
-          "teacher_id",
           "url"
         ],
         "properties": {

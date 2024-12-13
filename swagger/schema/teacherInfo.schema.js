@@ -4,40 +4,27 @@ exports.TeacherInfoSchema = void 0;
 const TeacherInfoSchema = {
     PostTeacherInfoRequestModel: {
         type: 'object',
-        required: [
-            'user_id',
-            'main_categorys',
-            'sub_categorys',
-            'application_status',
-            'work_experiences',
-            'learning_experience'
-        ],
+        required: ['categories', 'work_experiences', 'learning_experience'],
         properties: {
-            user_id: {
-                type: 'string',
-                description: '用戶的ID'
-            },
-            avator_image: {
-                type: 'string',
-                description: '用戶的頭像圖片URL'
-            },
-            main_categorys: {
+            categories: {
                 type: 'array',
                 items: {
-                    type: 'string'
+                    type: 'object',
+                    properties: {
+                        category_id: {
+                            type: 'string',
+                            description: '科目(主類別)'
+                        },
+                        sub_categories: {
+                            type: 'array',
+                            items: {
+                                type: 'string'
+                            },
+                            description: '專長(子類別)'
+                        }
+                    }
                 },
-                description: '教授科目'
-            },
-            sub_categorys: {
-                type: 'array',
-                items: {
-                    type: 'string'
-                },
-                description: '教授專長'
-            },
-            application_status: {
-                type: 'number',
-                description: '申請狀態'
+                description: '老師專業'
             },
             nationality: {
                 type: 'string',
@@ -56,13 +43,21 @@ const TeacherInfoSchema = {
                             type: 'boolean',
                             description: '是否在職中'
                         },
+                        company_name: {
+                            type: 'string',
+                            description: '公司名稱'
+                        },
                         workplace: {
                             type: 'string',
-                            description: '單位名稱'
+                            description: '工作地點'
                         },
                         job_category: {
                             type: 'string',
                             description: '職務類別'
+                        },
+                        job_title: {
+                            type: 'string',
+                            description: '職務名稱'
                         },
                         start_year: {
                             type: 'number',
@@ -79,14 +74,6 @@ const TeacherInfoSchema = {
                         end_month: {
                             type: 'number',
                             description: '結束月份'
-                        },
-                        position: {
-                            type: 'string',
-                            description: '職務名稱'
-                        },
-                        place: {
-                            type: 'string',
-                            description: '地點'
                         }
                     }
                 },
@@ -127,8 +114,8 @@ const TeacherInfoSchema = {
                         type: 'string',
                         description: '學校名稱'
                     },
-                    place: {
-                        type: 'string',
+                    region: {
+                        type: 'boolean',
                         description: '地點'
                     },
                     file: {
@@ -138,7 +125,7 @@ const TeacherInfoSchema = {
                 },
                 description: '學習經歷'
             },
-            teaching_certificate: {
+            teaching_certificates: {
                 type: 'array',
                 items: {
                     type: 'object',
@@ -163,9 +150,9 @@ const TeacherInfoSchema = {
                             type: 'string',
                             description: '文件路徑或參考'
                         },
-                        category: {
+                        category_id: {
                             type: 'string',
-                            description: '類別'
+                            description: '類別id'
                         },
                         subject: {
                             type: 'string',
@@ -174,82 +161,27 @@ const TeacherInfoSchema = {
                     }
                 },
                 description: '教學證書'
-            },
-            courses: {
-                type: 'array',
-                items: {
-                    type: 'string'
-                },
-                description: '教授的課程'
-            },
-            can_reserve_week: {
-                type: 'array',
-                items: {
-                    type: 'object',
-                    properties: {
-                        mon: {
-                            type: 'array',
-                            items: {
-                                type: 'number'
-                            }
-                        },
-                        tue: {
-                            type: 'array',
-                            items: {
-                                type: 'number'
-                            }
-                        },
-                        wed: {
-                            type: 'array',
-                            items: {
-                                type: 'number'
-                            }
-                        },
-                        thu: {
-                            type: 'array',
-                            items: {
-                                type: 'number'
-                            }
-                        },
-                        fri: {
-                            type: 'array',
-                            items: {
-                                type: 'number'
-                            }
-                        },
-                        sat: {
-                            type: 'array',
-                            items: {
-                                type: 'number'
-                            }
-                        },
-                        sun: {
-                            type: 'array',
-                            items: {
-                                type: 'number'
-                            }
-                        }
-                    }
-                },
-                description: '每週可預約的時段'
             }
         },
         example: {
-            avator_image: 'string',
-            main_categorys: ['string'],
-            sub_categorys: ['string'],
+            categories: [
+                {
+                    category_id: 'string',
+                    sub_categories: ['string']
+                }
+            ],
             nationality: 'string',
             work_experiences: [
                 {
                     is_working: false,
+                    company_name: 'string',
                     workplace: 'string',
                     job_category: 'string',
+                    job_title: 'string',
                     start_year: 2020,
                     start_month: 1,
                     end_year: 2021,
-                    end_month: 12,
-                    position: 'string',
-                    place: 'string'
+                    end_month: 12
                 }
             ],
             learning_experience: {
@@ -261,17 +193,17 @@ const TeacherInfoSchema = {
                 end_year: 2020,
                 end_month: 6,
                 name: 'string',
-                place: 'string',
+                region: 'boolean',
                 file: 'string'
             },
-            teaching_certificate: [
+            teaching_certificates: [
                 {
                     verifying_institution: 'string',
                     license_name: 'string',
                     name: 'string',
                     license_number: 'string',
                     file: 'string',
-                    category: 'string',
+                    category_id: 'string',
                     subject: 'string'
                 }
             ]
@@ -312,7 +244,7 @@ const TeacherInfoSchema = {
                     'introduction',
                     'work_experiences',
                     'learning_experience',
-                    'teaching_certificate',
+                    'teaching_certificates',
                     'intro_video'
                 ],
                 properties: {
@@ -366,7 +298,7 @@ const TeacherInfoSchema = {
                             'end_year',
                             'end_month',
                             'name',
-                            'place',
+                            'region',
                             'file'
                         ],
                         properties: {
@@ -378,11 +310,11 @@ const TeacherInfoSchema = {
                             end_year: { type: 'number' },
                             end_month: { type: 'number' },
                             name: { type: 'string' },
-                            place: { type: 'string' },
+                            region: { type: 'boolean' },
                             file: { type: 'string' }
                         }
                     },
-                    teaching_certificate: {
+                    teaching_certificates: {
                         type: 'array',
                         items: {
                             type: 'object',
@@ -401,7 +333,7 @@ const TeacherInfoSchema = {
                                 name: { type: 'string' },
                                 license_number: { type: 'string' },
                                 file: { type: 'string' },
-                                category: { type: 'string' },
+                                category_id: { type: 'string' },
                                 subject: { type: 'string' }
                             }
                         }
@@ -450,17 +382,17 @@ const TeacherInfoSchema = {
                     end_year: 2022,
                     end_month: 6,
                     name: 'string',
-                    place: 'string',
+                    region: 'string',
                     file: 'string'
                 },
-                teaching_certificate: [
+                teaching_certificates: [
                     {
                         verifying_institution: 'string',
                         license_name: 'string',
                         name: 'string',
                         license_number: 'string',
                         file: 'string',
-                        category: 'string',
+                        category_id: 'string',
                         subject: 'string'
                     }
                 ],
@@ -825,7 +757,7 @@ const TeacherInfoSchema = {
                 'name',
                 'license_number',
                 'file',
-                'category',
+                'category_id',
                 'subject'
             ],
             properties: {
@@ -849,9 +781,9 @@ const TeacherInfoSchema = {
                     type: 'string',
                     description: '文件路徑或參考'
                 },
-                category: {
+                category_id: {
                     type: 'string',
-                    description: '證書類別'
+                    description: '證書類別id'
                 },
                 subject: {
                     type: 'string',
@@ -866,7 +798,7 @@ const TeacherInfoSchema = {
                 name: 'string',
                 license_number: 'string',
                 file: 'string',
-                category: 'string',
+                category_id: 'string',
                 subject: 'string'
             }
         ]

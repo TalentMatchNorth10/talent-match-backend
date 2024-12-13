@@ -9,13 +9,19 @@ const router = express.Router();
 import firebase from '../services/firebase';
 import { GetSignedUrlConfig } from '@google-cloud/storage';
 import UploadComment from '../swagger/comment/upload.comment';
+import handleSuccess from '../services/handleSuccess';
 
 const bucket = firebase.storage().bucket();
 
-export interface UploadRequestModel {
-  fileType: 'image' | 'video';
-  path: 'user' | 'course';
-}
+export type UploadRequestModel =
+  | {
+      fileType: 'image' | 'video';
+      path: 'user' | 'course';
+    }
+  | {
+      fileType: 'file';
+      path: 'degree' | 'certificate';
+    };
 
 router.post(
   '/file',
@@ -25,22 +31,19 @@ router.post(
   handleErrorAsync(
     async (req: Request<any, any, UploadRequestModel>, res, next) => {
       if (!req.body.fileType) {
-        return next(appError(400, '請選擇上傳檔案類型', next));
+        return appError(400, '請選擇上傳檔案類型', next);
       }
 
       if (!req.body.path) {
-        return next(appError(400, '請選擇上傳路徑', next));
+        return appError(400, '請選擇上傳路徑', next);
       }
 
       if (!req.files || req.files.length === 0) {
-        return next(appError(400, '尚未上傳檔案', next));
+        return appError(400, '尚未上傳檔案', next);
       }
 
       const files = (req.files as Express.Multer.File[])[0];
-
-      // console.log(req.body);
       const blob = createBlob(req, files);
-
       const blobStream = blob!.createWriteStream();
 
       // 監聽上傳狀態，當上傳完成時，會觸發 finish 事件
@@ -69,6 +72,37 @@ router.post(
   )
 );
 
+router.delete(
+  '/file',
+  UploadComment.delete,
+  isAuth,
+  handleErrorAsync(async (req, res, next) => {
+    const { fileUrl } = req.body;
+
+    if (!fileUrl) {
+      return appError(400, '請提供檔案網址', next);
+    }
+
+    const bucketDomain = `/talent-match-fd353.appspot.com/`;
+    const extractPath = (url: string) => {
+      const urlObj = new URL(url);
+      const pathname = urlObj.pathname;
+      return pathname.replace(bucketDomain, '');
+    };
+
+    const filePath = extractPath(fileUrl);
+    const blob = bucket.file(`${filePath}`);
+    blob
+      .delete()
+      .then(() => {
+        handleSuccess(res, '刪除檔案完成');
+      })
+      .catch((err) => {
+        appError(500, '刪除檔案失敗', next);
+      });
+  })
+);
+
 function createBlob(
   req: Request<any, any, UploadRequestModel>,
   file: Express.Multer.File
@@ -90,6 +124,13 @@ function createBlob(
     }
     if (path === 'course') {
       return bucket.file(`videos/courses/${fileName}`);
+    }
+  } else if (fileType === 'file') {
+    if (path === 'degree') {
+      return bucket.file(`file/degree/${fileName}`);
+    }
+    if (path === 'certificate') {
+      return bucket.file(`file/certificate/${fileName}`);
     }
   }
   return bucket.file(`files/${fileName}`);
