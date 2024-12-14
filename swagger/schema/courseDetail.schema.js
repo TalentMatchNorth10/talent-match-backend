@@ -78,30 +78,171 @@ const courseDetailSchema = {
                                 type: 'array',
                                 items: {
                                     type: 'object',
+                                    required: [
+                                        'is_working',
+                                        'company_name',
+                                        'workplace',
+                                        'job_category',
+                                        'job_title',
+                                        'start_year',
+                                        'start_month'
+                                    ],
                                     properties: {
-                                        company: { type: 'string' },
-                                        position: { type: 'string' },
-                                        duration: { type: 'string' },
-                                        description: { type: 'string' }
+                                        _id: {
+                                            type: 'string',
+                                            description: '工作經驗ID'
+                                        },
+                                        is_working: {
+                                            type: 'boolean',
+                                            description: '是否在職中'
+                                        },
+                                        company_name: {
+                                            type: 'string',
+                                            description: '公司名稱'
+                                        },
+                                        workplace: {
+                                            type: 'string',
+                                            description: '工作地點'
+                                        },
+                                        job_category: {
+                                            type: 'string',
+                                            description: '工作類別'
+                                        },
+                                        job_title: {
+                                            type: 'string',
+                                            description: '職稱'
+                                        },
+                                        start_year: {
+                                            type: 'number',
+                                            description: '開始年份'
+                                        },
+                                        start_month: {
+                                            type: 'number',
+                                            description: '開始月份'
+                                        },
+                                        end_year: {
+                                            type: 'number',
+                                            description: '結束年份'
+                                        },
+                                        end_month: {
+                                            type: 'number',
+                                            description: '結束月份'
+                                        }
                                     }
-                                }
+                                },
+                                description: '工作經歷'
                             },
                             learning_experience: {
                                 type: 'object',
+                                required: [
+                                    '_id',
+                                    'is_in_school',
+                                    'degree',
+                                    'department',
+                                    'start_year',
+                                    'start_month',
+                                    'name',
+                                    'region',
+                                    'file'
+                                ],
                                 properties: {
-                                    institution: { type: 'string' },
-                                    degree: { type: 'string' },
-                                    years: { type: 'string' },
-                                    description: { type: 'string' }
-                                }
+                                    _id: {
+                                        type: 'string',
+                                        description: '學習經歷ID'
+                                    },
+                                    is_in_school: {
+                                        type: 'boolean',
+                                        description: '是否在學中'
+                                    },
+                                    degree: {
+                                        type: 'string',
+                                        description: '學位'
+                                    },
+                                    department: {
+                                        type: 'string',
+                                        description: '科系'
+                                    },
+                                    start_year: {
+                                        type: 'number',
+                                        description: '開始年份'
+                                    },
+                                    start_month: {
+                                        type: 'number',
+                                        description: '開始月份'
+                                    },
+                                    end_year: {
+                                        type: 'number',
+                                        description: '結束年份'
+                                    },
+                                    end_month: {
+                                        type: 'number',
+                                        description: '結束月份'
+                                    },
+                                    name: {
+                                        type: 'string',
+                                        description: '學校名稱'
+                                    },
+                                    region: {
+                                        type: 'boolean',
+                                        description: '是否國立'
+                                    },
+                                    file: {
+                                        type: 'string',
+                                        description: '學位證明檔案'
+                                    }
+                                },
+                                description: '學習經歷'
                             },
-                            teaching_certificate: {
-                                type: 'object',
-                                properties: {
-                                    certificate_name: { type: 'string' },
-                                    issued_by: { type: 'string' },
-                                    issue_date: { type: 'string' }
-                                }
+                            teaching_certificates: {
+                                type: 'array',
+                                items: {
+                                    type: 'object',
+                                    required: [
+                                        '_id',
+                                        'verifying_institution',
+                                        'license_name',
+                                        'name',
+                                        'license_number',
+                                        'file',
+                                        'category',
+                                        'subject'
+                                    ],
+                                    properties: {
+                                        _id: {
+                                            type: 'string',
+                                            description: '教學證書ID'
+                                        },
+                                        verifying_institution: {
+                                            type: 'string',
+                                            description: '發證機構'
+                                        },
+                                        license_name: {
+                                            type: 'string',
+                                            description: '證書名稱'
+                                        },
+                                        name: {
+                                            type: 'string',
+                                            description: '持有人姓名'
+                                        },
+                                        license_number: {
+                                            type: 'string',
+                                            description: '證書號碼'
+                                        },
+                                        file: {
+                                            type: 'string',
+                                            description: '證書檔案'
+                                        },
+                                        category: {
+                                            type: 'string',
+                                            description: '證書類別'
+                                        },
+                                        subject: {
+                                            type: 'string',
+                                            description: '證書科目'
+                                        }
+                                    }
+                                },
+                                description: '教學證書'
                             },
                             intro_video: { type: 'string' },
                             can_reserve_week: {
@@ -149,10 +290,6 @@ const courseDetailSchema = {
                     videos: {
                         type: 'array',
                         items: { type: 'object' }
-                    },
-                    video_urls: {
-                        type: 'array',
-                        items: { type: 'string' }
                     },
                     city_name: { type: 'string' },
                     dist_name: { type: 'string' },
