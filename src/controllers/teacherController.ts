@@ -68,11 +68,7 @@ const teacherController = {
     try {
       const teacherId = (req.user as UserInterface).teacher_id;
 
-      // 投影欄位
-      const projection =
-        'avator_image main_categorys sub_categorys nationality introduction work_experiences learning_experience teaching_certificate intro_video';
-
-      const teacher = await Teacher.findById(teacherId, projection).lean();
+      const teacher = await Teacher.findById(teacherId).lean();
 
       if (!teacher) {
         return appError(404, '找不到該老師的資料', next);

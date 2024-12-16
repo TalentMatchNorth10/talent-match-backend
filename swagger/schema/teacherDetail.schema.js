@@ -17,7 +17,7 @@ const TeacherDetailSchema = {
                     'courses',
                     'work_experiences',
                     'learning_experience',
-                    'teaching_certificates'
+                    'teaching_certificate'
                 ],
                 properties: {
                     _id: {
@@ -139,53 +139,31 @@ const TeacherDetailSchema = {
                             type: 'object',
                             required: [
                                 'is_working',
-                                'company_name',
-                                'workplace',
-                                'job_category',
-                                'job_title',
-                                'start_year',
-                                'start_month'
+                                'company',
+                                'position',
+                                'duration',
+                                'description'
                             ],
                             properties: {
-                                _id: {
-                                    type: 'string',
-                                    description: '工作經驗ID'
-                                },
                                 is_working: {
                                     type: 'boolean',
                                     description: '是否在職中'
                                 },
-                                company_name: {
+                                company: {
                                     type: 'string',
                                     description: '公司名稱'
                                 },
-                                workplace: {
+                                position: {
                                     type: 'string',
-                                    description: '工作地點'
+                                    description: '職位'
                                 },
-                                job_category: {
+                                duration: {
                                     type: 'string',
-                                    description: '工作類別'
+                                    description: '任職期間'
                                 },
-                                job_title: {
+                                description: {
                                     type: 'string',
-                                    description: '職稱'
-                                },
-                                start_year: {
-                                    type: 'number',
-                                    description: '開始年份'
-                                },
-                                start_month: {
-                                    type: 'number',
-                                    description: '開始月份'
-                                },
-                                end_year: {
-                                    type: 'number',
-                                    description: '結束年份'
-                                },
-                                end_month: {
-                                    type: 'number',
-                                    description: '結束月份'
+                                    description: '工作描述'
                                 }
                             }
                         },
@@ -193,111 +171,48 @@ const TeacherDetailSchema = {
                     },
                     learning_experience: {
                         type: 'object',
-                        required: [
-                            '_id',
-                            'is_in_school',
-                            'degree',
-                            'department',
-                            'start_year',
-                            'start_month',
-                            'name',
-                            'region',
-                            'file'
-                        ],
+                        required: ['institution', 'degree', 'years', 'description'],
                         properties: {
-                            _id: {
+                            institution: {
                                 type: 'string',
-                                description: '學習經歷ID'
+                                description: '學校名稱'
+                            },
+                            degree: {
+                                type: 'string',
+                                description: '學歷'
+                            },
+                            years: {
+                                type: 'string',
+                                description: '就讀年份'
+                            },
+                            description: {
+                                type: 'string',
+                                description: '學習描述'
                             },
                             is_in_school: {
                                 type: 'boolean',
                                 description: '是否在學中'
-                            },
-                            degree: {
-                                type: 'string',
-                                description: '學位'
-                            },
-                            department: {
-                                type: 'string',
-                                description: '科系'
-                            },
-                            start_year: {
-                                type: 'number',
-                                description: '開始年份'
-                            },
-                            start_month: {
-                                type: 'number',
-                                description: '開始月份'
-                            },
-                            end_year: {
-                                type: 'number',
-                                description: '結束年份'
-                            },
-                            end_month: {
-                                type: 'number',
-                                description: '結束月份'
-                            },
-                            name: {
-                                type: 'string',
-                                description: '學校名稱'
-                            },
-                            region: {
-                                type: 'boolean',
-                                description: '是否國立'
-                            },
-                            file: {
-                                type: 'string',
-                                description: '學位證明檔案'
                             }
                         },
                         description: '學習經歷'
                     },
-                    teaching_certificates: {
+                    teaching_certificate: {
                         type: 'array',
                         items: {
                             type: 'object',
-                            required: [
-                                '_id',
-                                'verifying_institution',
-                                'license_name',
-                                'name',
-                                'license_number',
-                                'file',
-                                'category',
-                                'subject'
-                            ],
+                            required: ['certificate_name', 'issued_by', 'issue_date'],
                             properties: {
-                                _id: {
-                                    type: 'string',
-                                    description: '教學證書ID'
-                                },
-                                verifying_institution: {
-                                    type: 'string',
-                                    description: '發證機構'
-                                },
-                                license_name: {
+                                certificate_name: {
                                     type: 'string',
                                     description: '證書名稱'
                                 },
-                                name: {
+                                issued_by: {
                                     type: 'string',
-                                    description: '持有人姓名'
+                                    description: '頒發機構'
                                 },
-                                license_number: {
+                                issue_date: {
                                     type: 'string',
-                                    description: '證書號碼'
-                                },
-                                file: {
-                                    type: 'string',
-                                    description: '證書檔案'
-                                },
-                                category: {
-                                    type: 'string',
-                                    description: '證書類別'
-                                },
-                                subject: {
-                                    type: 'string',
-                                    description: '證書科目'
+                                    description: '頒發日期'
                                 }
                             }
                         },
@@ -323,6 +238,7 @@ const TeacherDetailSchema = {
                     course_id: '665ae4ba971e705a4aa6a94a',
                     teacher_id: '665ae4ba971e705a4aa6a94a'
                 },
+                intro_video_url: 'https://example.com/videos/intro_video.mp4',
                 courses: [
                     {
                         _id: '665bdfe65b0ab5aecfe5fdda',
@@ -359,45 +275,6 @@ const TeacherDetailSchema = {
                                 quantity: 25
                             }
                         ]
-                    }
-                ],
-                work_experiences: [
-                    {
-                        is_working: true,
-                        company_name: '台北藝術大學',
-                        workplace: '台北北投區',
-                        job_category: 'ED',
-                        job_title: '教授',
-                        start_year: 2010,
-                        start_month: 9,
-                        end_year: null,
-                        end_month: null,
-                        _id: '66dd825bc60asd22bc05d'
-                    }
-                ],
-                learning_experience: {
-                    is_in_school: false,
-                    degree: '碩士',
-                    department: '美術系',
-                    start_year: 2005,
-                    start_month: 9,
-                    end_year: 2010,
-                    end_month: 6,
-                    name: '台北藝術大學',
-                    region: true,
-                    file: 'path/to/degree_certificate.pdf',
-                    _id: '66dd825bcasd213dd6dbc062'
-                },
-                teaching_certificates: [
-                    {
-                        verifying_institution: '教育部',
-                        license_name: '教師證書',
-                        name: 'Jane Doe',
-                        license_number: '987654321',
-                        file: 'path/to/license.pdf',
-                        category: '藝術教育',
-                        subject: '畫畫',
-                        _id: '66dd825bc603ad0dd6dbc063'
                     }
                 ]
             }

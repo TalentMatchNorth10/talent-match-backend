@@ -7008,36 +7008,53 @@
           "data": {
             "type": "object",
             "required": [
-              "avator_image",
-              "main_categorys",
-              "sub_categorys",
-              "nationality",
               "introduction",
+              "categories",
+              "nationality",
               "work_experiences",
               "learning_experience",
-              "teaching_certificates",
-              "intro_video"
+              "teaching_certificates"
             ],
             "properties": {
-              "avator_image": {
+              "introduction": {
                 "type": "string"
               },
-              "main_categorys": {
+              "intro_video": {
                 "type": "array",
                 "items": {
-                  "type": "string"
+                  "type": "object",
+                  "required": [
+                    "video_id",
+                    "title"
+                  ],
+                  "properties": {
+                    "video_id": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    }
+                  }
                 }
               },
-              "sub_categorys": {
+              "categories": {
                 "type": "array",
                 "items": {
-                  "type": "string"
+                  "type": "object",
+                  "properties": {
+                    "category": {
+                      "type": "string"
+                    },
+                    "sub_categories": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
                 }
               },
               "nationality": {
-                "type": "string"
-              },
-              "introduction": {
                 "type": "string"
               },
               "work_experiences": {
@@ -7046,23 +7063,29 @@
                   "type": "object",
                   "required": [
                     "is_working",
+                    "company_name",
                     "workplace",
                     "job_category",
+                    "job_title",
                     "start_year",
                     "start_month",
                     "end_year",
-                    "end_month",
-                    "position",
-                    "place"
+                    "end_month"
                   ],
                   "properties": {
                     "is_working": {
                       "type": "boolean"
                     },
+                    "company_name": {
+                      "type": "string"
+                    },
                     "workplace": {
                       "type": "string"
                     },
                     "job_category": {
+                      "type": "string"
+                    },
+                    "job_title": {
                       "type": "string"
                     },
                     "start_year": {
@@ -7076,12 +7099,6 @@
                     },
                     "end_month": {
                       "type": "number"
-                    },
-                    "position": {
-                      "type": "string"
-                    },
-                    "place": {
-                      "type": "string"
                     }
                   }
                 }
@@ -7143,7 +7160,7 @@
                     "name",
                     "license_number",
                     "file",
-                    "category",
+                    "category_id",
                     "subject"
                   ],
                   "properties": {
@@ -7170,80 +7187,59 @@
                     }
                   }
                 }
-              },
-              "intro_video": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "required": [
-                    "video_id",
-                    "title"
-                  ],
-                  "properties": {
-                    "video_id": {
-                      "type": "string"
-                    },
-                    "title": {
-                      "type": "string"
-                    }
-                  }
-                }
               }
             }
           }
         },
         "example": {
-          "status": true,
-          "data": {
-            "avator_image": "string",
-            "main_categorys": [
-              "string"
-            ],
-            "sub_categorys": [
-              "string"
-            ],
-            "nationality": "string",
-            "introduction": "string",
-            "work_experiences": [
+          "categories": [
+            {
+              "category_id": "123",
+              "sub_categories": [
+                "英文會話",
+                "多益"
+              ]
+            }
+          ],
+          "nationality": "台灣",
+          "introduction": "我是一位充滿熱忱的英語教師",
+          "work_experiences": [
+            {
+              "is_working": true,
+              "company_name": "快樂英語補習班",
+              "workplace": "台北市",
+              "job_category": "教育產業",
+              "job_title": "英語教師",
+              "start_year": 2020,
+              "start_month": 3,
+              "end_year": 2024,
+              "end_month": 3
+            }
+          ],
+          "learning_experience": {
+            "education": [
               {
-                "is_working": true,
-                "workplace": "string",
-                "job_category": "string",
-                "start_year": 2020,
-                "start_month": 1,
-                "end_year": 2021,
-                "end_month": 12,
-                "position": "string",
-                "place": "string"
+                "is_in_school": false,
+                "degree": "學士",
+                "department": "英語教學系",
+                "start_year": 2016,
+                "start_month": 9,
+                "end_year": 2020,
+                "end_month": 6,
+                "name": "國立台灣師範大學",
+                "region": true,
+                "file": "https://example.com/diploma.pdf"
               }
             ],
-            "learning_experience": {
-              "is_in_school": true,
-              "degree": "string",
-              "department": "string",
-              "start_year": 2018,
-              "start_month": 9,
-              "end_year": 2022,
-              "end_month": 6,
-              "name": "string",
-              "region": "string",
-              "file": "string"
-            },
             "teaching_certificates": [
               {
-                "verifying_institution": "string",
-                "license_name": "string",
-                "name": "string",
-                "license_number": "string",
-                "file": "string",
-                "category_id": "string",
-                "subject": "string"
-              }
-            ],
-            "intro_video": [
-              {
-                "video_id": "string",
-                "title": "string"
+                "verifying_institution": "教育部",
+                "license_name": "教師證",
+                "name": "中等學校英語科教師證書",
+                "license_number": "T123456789",
+                "file": "https://example.com/certificate.pdf",
+                "category_id": "英語教學",
+                "subject": "英文"
               }
             ]
           }
@@ -7656,7 +7652,7 @@
             },
             "license_name": {
               "type": "string",
-              "description": "證書名稱"
+              "description": "證書���稱"
             },
             "name": {
               "type": "string",
@@ -10671,7 +10667,7 @@
               "courses",
               "work_experiences",
               "learning_experience",
-              "teaching_certificates"
+              "teaching_certificate"
             ],
             "properties": {
               "_id": {
@@ -10817,53 +10813,31 @@
                   "type": "object",
                   "required": [
                     "is_working",
-                    "company_name",
-                    "workplace",
-                    "job_category",
-                    "job_title",
-                    "start_year",
-                    "start_month"
+                    "company",
+                    "position",
+                    "duration",
+                    "description"
                   ],
                   "properties": {
-                    "_id": {
-                      "type": "string",
-                      "description": "工作經驗ID"
-                    },
                     "is_working": {
                       "type": "boolean",
                       "description": "是否在職中"
                     },
-                    "company_name": {
+                    "company": {
                       "type": "string",
                       "description": "公司名稱"
                     },
-                    "workplace": {
+                    "position": {
                       "type": "string",
-                      "description": "工作地點"
+                      "description": "職位"
                     },
-                    "job_category": {
+                    "duration": {
                       "type": "string",
-                      "description": "工作類別"
+                      "description": "任職期間"
                     },
-                    "job_title": {
+                    "description": {
                       "type": "string",
-                      "description": "職稱"
-                    },
-                    "start_year": {
-                      "type": "number",
-                      "description": "開始年份"
-                    },
-                    "start_month": {
-                      "type": "number",
-                      "description": "開始月份"
-                    },
-                    "end_year": {
-                      "type": "number",
-                      "description": "結束年份"
-                    },
-                    "end_month": {
-                      "type": "number",
-                      "description": "結束月份"
+                      "description": "工作描述"
                     }
                   }
                 },
@@ -10872,110 +10846,56 @@
               "learning_experience": {
                 "type": "object",
                 "required": [
-                  "_id",
-                  "is_in_school",
+                  "institution",
                   "degree",
-                  "department",
-                  "start_year",
-                  "start_month",
-                  "name",
-                  "region",
-                  "file"
+                  "years",
+                  "description"
                 ],
                 "properties": {
-                  "_id": {
+                  "institution": {
                     "type": "string",
-                    "description": "學習經歷ID"
+                    "description": "學校名稱"
+                  },
+                  "degree": {
+                    "type": "string",
+                    "description": "學歷"
+                  },
+                  "years": {
+                    "type": "string",
+                    "description": "就讀年份"
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "學習描述"
                   },
                   "is_in_school": {
                     "type": "boolean",
                     "description": "是否在學中"
-                  },
-                  "degree": {
-                    "type": "string",
-                    "description": "學位"
-                  },
-                  "department": {
-                    "type": "string",
-                    "description": "科系"
-                  },
-                  "start_year": {
-                    "type": "number",
-                    "description": "開始年份"
-                  },
-                  "start_month": {
-                    "type": "number",
-                    "description": "開始月份"
-                  },
-                  "end_year": {
-                    "type": "number",
-                    "description": "結束年份"
-                  },
-                  "end_month": {
-                    "type": "number",
-                    "description": "結束月份"
-                  },
-                  "name": {
-                    "type": "string",
-                    "description": "學校名稱"
-                  },
-                  "region": {
-                    "type": "boolean",
-                    "description": "是否國立"
-                  },
-                  "file": {
-                    "type": "string",
-                    "description": "學位證明檔案"
                   }
                 },
                 "description": "學習經歷"
               },
-              "teaching_certificates": {
+              "teaching_certificate": {
                 "type": "array",
                 "items": {
                   "type": "object",
                   "required": [
-                    "_id",
-                    "verifying_institution",
-                    "license_name",
-                    "name",
-                    "license_number",
-                    "file",
-                    "category",
-                    "subject"
+                    "certificate_name",
+                    "issued_by",
+                    "issue_date"
                   ],
                   "properties": {
-                    "_id": {
-                      "type": "string",
-                      "description": "教學證書ID"
-                    },
-                    "verifying_institution": {
-                      "type": "string",
-                      "description": "發證機構"
-                    },
-                    "license_name": {
+                    "certificate_name": {
                       "type": "string",
                       "description": "證書名稱"
                     },
-                    "name": {
+                    "issued_by": {
                       "type": "string",
-                      "description": "持有人姓名"
+                      "description": "頒發機構"
                     },
-                    "license_number": {
+                    "issue_date": {
                       "type": "string",
-                      "description": "證書號碼"
-                    },
-                    "file": {
-                      "type": "string",
-                      "description": "證書檔案"
-                    },
-                    "category": {
-                      "type": "string",
-                      "description": "證書類別"
-                    },
-                    "subject": {
-                      "type": "string",
-                      "description": "證書科目"
+                      "description": "頒發日期"
                     }
                   }
                 },
@@ -11001,6 +10921,7 @@
               "course_id": "665ae4ba971e705a4aa6a94a",
               "teacher_id": "665ae4ba971e705a4aa6a94a"
             },
+            "intro_video_url": "https://example.com/videos/intro_video.mp4",
             "courses": [
               {
                 "_id": "665bdfe65b0ab5aecfe5fdda",
@@ -11037,45 +10958,6 @@
                     "quantity": 25
                   }
                 ]
-              }
-            ],
-            "work_experiences": [
-              {
-                "is_working": true,
-                "company_name": "台北藝術大學",
-                "workplace": "台北北投區",
-                "job_category": "ED",
-                "job_title": "教授",
-                "start_year": 2010,
-                "start_month": 9,
-                "end_year": null,
-                "end_month": null,
-                "_id": "66dd825bc60asd22bc05d"
-              }
-            ],
-            "learning_experience": {
-              "is_in_school": false,
-              "degree": "碩士",
-              "department": "美術系",
-              "start_year": 2005,
-              "start_month": 9,
-              "end_year": 2010,
-              "end_month": 6,
-              "name": "台北藝術大學",
-              "region": true,
-              "file": "path/to/degree_certificate.pdf",
-              "_id": "66dd825bcasd213dd6dbc062"
-            },
-            "teaching_certificates": [
-              {
-                "verifying_institution": "教育部",
-                "license_name": "教師證書",
-                "name": "Jane Doe",
-                "license_number": "987654321",
-                "file": "path/to/license.pdf",
-                "category": "藝術教育",
-                "subject": "畫畫",
-                "_id": "66dd825bc603ad0dd6dbc063"
               }
             ]
           }
@@ -11503,171 +11385,52 @@
                     "type": "array",
                     "items": {
                       "type": "object",
-                      "required": [
-                        "is_working",
-                        "company_name",
-                        "workplace",
-                        "job_category",
-                        "job_title",
-                        "start_year",
-                        "start_month"
-                      ],
                       "properties": {
-                        "_id": {
-                          "type": "string",
-                          "description": "工作經驗ID"
+                        "company": {
+                          "type": "string"
                         },
-                        "is_working": {
-                          "type": "boolean",
-                          "description": "是否在職中"
+                        "position": {
+                          "type": "string"
                         },
-                        "company_name": {
-                          "type": "string",
-                          "description": "公司名稱"
+                        "duration": {
+                          "type": "string"
                         },
-                        "workplace": {
-                          "type": "string",
-                          "description": "工作地點"
-                        },
-                        "job_category": {
-                          "type": "string",
-                          "description": "工作類別"
-                        },
-                        "job_title": {
-                          "type": "string",
-                          "description": "職稱"
-                        },
-                        "start_year": {
-                          "type": "number",
-                          "description": "開始年份"
-                        },
-                        "start_month": {
-                          "type": "number",
-                          "description": "開始月份"
-                        },
-                        "end_year": {
-                          "type": "number",
-                          "description": "結束年份"
-                        },
-                        "end_month": {
-                          "type": "number",
-                          "description": "結束月份"
+                        "description": {
+                          "type": "string"
                         }
                       }
-                    },
-                    "description": "工作經歷"
+                    }
                   },
                   "learning_experience": {
                     "type": "object",
-                    "required": [
-                      "_id",
-                      "is_in_school",
-                      "degree",
-                      "department",
-                      "start_year",
-                      "start_month",
-                      "name",
-                      "region",
-                      "file"
-                    ],
                     "properties": {
-                      "_id": {
-                        "type": "string",
-                        "description": "學習經歷ID"
-                      },
-                      "is_in_school": {
-                        "type": "boolean",
-                        "description": "是否在學中"
+                      "institution": {
+                        "type": "string"
                       },
                       "degree": {
-                        "type": "string",
-                        "description": "學位"
+                        "type": "string"
                       },
-                      "department": {
-                        "type": "string",
-                        "description": "科系"
+                      "years": {
+                        "type": "string"
                       },
-                      "start_year": {
-                        "type": "number",
-                        "description": "開始年份"
-                      },
-                      "start_month": {
-                        "type": "number",
-                        "description": "開始月份"
-                      },
-                      "end_year": {
-                        "type": "number",
-                        "description": "結束年份"
-                      },
-                      "end_month": {
-                        "type": "number",
-                        "description": "結束月份"
-                      },
-                      "name": {
-                        "type": "string",
-                        "description": "學校名稱"
-                      },
-                      "region": {
-                        "type": "boolean",
-                        "description": "是否國立"
-                      },
-                      "file": {
-                        "type": "string",
-                        "description": "學位證明檔案"
+                      "description": {
+                        "type": "string"
                       }
-                    },
-                    "description": "學習經歷"
+                    }
                   },
-                  "teaching_certificates": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "required": [
-                        "_id",
-                        "verifying_institution",
-                        "license_name",
-                        "name",
-                        "license_number",
-                        "file",
-                        "category",
-                        "subject"
-                      ],
-                      "properties": {
-                        "_id": {
-                          "type": "string",
-                          "description": "教學證書ID"
-                        },
-                        "verifying_institution": {
-                          "type": "string",
-                          "description": "發證機構"
-                        },
-                        "license_name": {
-                          "type": "string",
-                          "description": "證書名稱"
-                        },
-                        "name": {
-                          "type": "string",
-                          "description": "持有人姓名"
-                        },
-                        "license_number": {
-                          "type": "string",
-                          "description": "證書號碼"
-                        },
-                        "file": {
-                          "type": "string",
-                          "description": "證書檔案"
-                        },
-                        "category": {
-                          "type": "string",
-                          "description": "證書類別"
-                        },
-                        "subject": {
-                          "type": "string",
-                          "description": "證書科目"
-                        }
+                  "teaching_certificate": {
+                    "type": "object",
+                    "properties": {
+                      "certificate_name": {
+                        "type": "string"
+                      },
+                      "issued_by": {
+                        "type": "string"
+                      },
+                      "issue_date": {
+                        "type": "string"
                       }
-                    },
-                    "description": "教學證書"
+                    }
                   },
                   "intro_video": {
                     "type": "string"
@@ -11740,6 +11503,12 @@
                 "type": "array",
                 "items": {
                   "type": "object"
+                }
+              },
+              "video_urls": {
+                "type": "array",
+                "items": {
+                  "type": "string"
                 }
               },
               "city_name": {
