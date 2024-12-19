@@ -109,64 +109,6 @@ const TeacherInfoComment = {
       */
     next();
   },
-  postTeacherInfoWork: (req: Request, res: Response, next: NextFunction) => {
-    /**
-         * #swagger.tags = ['Teacher_info']
-         * #swagger.summary = '新增老師履歷'
-         * #swagger.security = [{"bearerAuth": []}]
-         * #swagger.requestBody = {
-                required: true,
-                content: {
-                    "application/json": {
-                        schema: { $ref: "#/components/schemas/PostTeacherInfoWorkRequestModel" }
-                    }
-                }
-            }
-          * #swagger.responses[200] = { 
-              schema: { $ref: "#/components/schemas/PostTeacherInfoWorkResponseModel" }
-          }
-          * #swagger.responses[400] = { 
-              schema: {
-                $ref: "#/components/schemas/Error400ResponseModel"
-              }
-          }
-          * #swagger.responses[500] = { 
-              schema: {
-                  $ref: "#/components/schemas/Error500ResponseModel"
-              }
-          }
-      */
-    next();
-  },
-  deleteTeacherInfoWork: (req: Request, res: Response, next: NextFunction) => {
-    /**
-         * #swagger.tags = ['Teacher_info']
-         * #swagger.summary = '刪除老師履歷'
-         * #swagger.security = [{"bearerAuth": []}]
-         * #swagger.requestBody = {
-                required: true,
-                content: {
-                    "application/json": {
-                        schema: { $ref: "#/components/schemas/DeleteTeacherInfoWorkRequestModel" }
-                    }
-                }
-            }
-          * #swagger.responses[200] = { 
-              schema: { $ref: "#/components/schemas/DeleteTeacherInfoWorkResponseModel" }
-          }
-          * #swagger.responses[400] = { 
-              schema: {
-                $ref: "#/components/schemas/Error400ResponseModel"
-              }
-          }
-          * #swagger.responses[500] = { 
-              schema: {
-                  $ref: "#/components/schemas/Error500ResponseModel"
-              }
-          }
-      */
-    next();
-  },
   patchTeacherInfoEducation: (
     req: Request,
     res: Response,
