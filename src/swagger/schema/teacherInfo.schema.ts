@@ -259,7 +259,7 @@ const TeacherInfoSchema = {
             items: {
               type: 'object',
               properties: {
-                category: { type: 'string' },
+                category_id: { type: 'string' },
                 sub_categories: {
                   type: 'array',
                   items: { type: 'string' }
@@ -470,32 +470,34 @@ const TeacherInfoSchema = {
   PatchTeacherInfoBasicRequestModel: {
     type: 'object',
     required: [
-      'avator_image',
       'main_categorys',
       'sub_categorys',
       'nationality',
       'introduction'
     ],
     properties: {
-      avator_image: {
-        type: 'string',
-        description: '老師的頭像圖片'
-      },
-      main_categorys: {
+      categories: {
         type: 'array',
         items: {
-          type: 'string'
+          type: 'object',
+          required: ['category_id', 'sub_categories'],
+          properties: {
+            category_id: {
+              type: 'string',
+              description: '科目分類ID'
+            },
+            sub_categories: {
+              type: 'array',
+              items: {
+                type: 'string'
+              },
+              description: '子分類列表'
+            }
+          }
         },
-        description: '主要教授科目',
-        minItems: 1
-      },
-      sub_categorys: {
-        type: 'array',
-        items: {
-          type: 'string'
-        },
-        description: '教授專長',
-        minItems: 1
+        description: '教授科目分類',
+        minItems: 1,
+        maxItems: 2
       },
       nationality: {
         type: 'string',
@@ -507,7 +509,6 @@ const TeacherInfoSchema = {
       }
     },
     example: {
-      avator_image: 'string',
       main_categorys: ['string'],
       sub_categorys: ['string'],
       nationality: 'string',
