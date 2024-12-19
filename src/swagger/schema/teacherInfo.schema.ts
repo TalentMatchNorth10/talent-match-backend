@@ -234,71 +234,71 @@ const TeacherInfoSchema = {
       data: {
         type: 'object',
         required: [
-          'introduction',
           'categories',
           'nationality',
+          'introduction',
           'work_experiences',
           'learning_experience',
-          'teaching_certificates'
+          'teaching_certificates',
+          'intro_video'
         ],
         properties: {
-          introduction: { type: 'string' },
-          intro_video: {
-            type: 'array',
-            items: {
-              type: 'object',
-              required: ['video_id', 'title'],
-              properties: {
-                video_id: { type: 'string' },
-                title: { type: 'string' }
-              }
-            }
-          },
           categories: {
             type: 'array',
             items: {
               type: 'object',
               properties: {
-                category_id: { type: 'string' },
+                category_id: {
+                  type: 'string',
+                  description: '科目(主類別)'
+                },
                 sub_categories: {
                   type: 'array',
-                  items: { type: 'string' }
+                  items: {
+                    type: 'string'
+                  },
+                  description: '專長(子類別)'
                 }
               }
-            }
+            },
+            description: '老師專業'
           },
           nationality: { type: 'string' },
+          introduction: { type: 'string' },
           work_experiences: {
             type: 'array',
             items: {
               type: 'object',
               required: [
+                '_id',
                 'is_working',
-                'company_name',
                 'workplace',
                 'job_category',
-                'job_title',
                 'start_year',
                 'start_month',
                 'end_year',
-                'end_month'
+                'end_month',
+                'position',
+                'place'
               ],
               properties: {
+                _id: { type: 'string' },
                 is_working: { type: 'boolean' },
-                company_name: { type: 'string' },
                 workplace: { type: 'string' },
                 job_category: { type: 'string' },
-                job_title: { type: 'string' },
                 start_year: { type: 'number' },
                 start_month: { type: 'number' },
                 end_year: { type: 'number' },
-                end_month: { type: 'number' }
+                end_month: { type: 'number' },
+                position: { type: 'string' },
+                place: { type: 'string' }
               }
             }
           },
           learning_experience: {
             type: 'object',
             required: [
+              '_id',
               'is_in_school',
               'degree',
               'department',
@@ -311,6 +311,7 @@ const TeacherInfoSchema = {
               'file'
             ],
             properties: {
+              _id: { type: 'string' },
               is_in_school: { type: 'boolean' },
               degree: { type: 'string' },
               department: { type: 'string' },
@@ -328,15 +329,17 @@ const TeacherInfoSchema = {
             items: {
               type: 'object',
               required: [
+                '_id',
                 'verifying_institution',
                 'license_name',
                 'name',
                 'license_number',
                 'file',
-                'category_id',
+                'category',
                 'subject'
               ],
               properties: {
+                _id: { type: 'string' },
                 verifying_institution: { type: 'string' },
                 license_name: { type: 'string' },
                 name: { type: 'string' },
@@ -346,158 +349,95 @@ const TeacherInfoSchema = {
                 subject: { type: 'string' }
               }
             }
+          },
+          intro_video: {
+            type: 'array',
+            items: {
+              type: 'object',
+              required: ['video_id', 'title'],
+              properties: {
+                video_id: { type: 'string' },
+                title: { type: 'string' }
+              }
+            }
           }
-        }
-      }
-    },
-    example: {
-      categories: [
-        {
-          category_id: '123',
-          sub_categories: ['英文會話', '多益']
-        }
-      ],
-      nationality: '台灣',
-      introduction: '我是一位充滿熱忱的英語教師',
-      work_experiences: [
-        {
-          is_working: true,
-          company_name: '快樂英語補習班',
-          workplace: '台北市',
-          job_category: '教育產業',
-          job_title: '英語教師',
-          start_year: 2020,
-          start_month: 3,
-          end_year: 2024,
-          end_month: 3
-        }
-      ],
-      learning_experience: {
-        education: [
-          {
-            is_in_school: false,
-            degree: '學士',
-            department: '英語教學系',
-            start_year: 2016,
-            start_month: 9,
-            end_year: 2020,
-            end_month: 6,
-            name: '國立台灣師範大學',
-            region: true,
-            file: 'https://example.com/diploma.pdf'
-          }
-        ],
-        teaching_certificates: [
-          {
-            verifying_institution: '教育部',
-            license_name: '教師證',
-            name: '中等學校英語科教師證書',
-            license_number: 'T123456789',
-            file: 'https://example.com/certificate.pdf',
-            category_id: '英語教學',
-            subject: '英文'
-          }
-        ]
-      }
-    }
-  },
-  PostTeacherInfoWorkRequestModel: {
-    type: 'object',
-    properties: {
-      _id: {
-        type: 'string',
-        description: '履歷id'
-      },
-      is_working: {
-        type: 'boolean',
-        description: '是否在職中'
-      },
-      workplace: {
-        type: 'string',
-        description: '單位名稱'
-      },
-      job_category: {
-        type: 'string',
-        description: '職務類別'
-      },
-      start_year: {
-        type: 'number',
-        description: '開始年份'
-      },
-      start_month: {
-        type: 'number',
-        description: '開始月份'
-      },
-      end_year: {
-        type: 'number',
-        description: '結束年份'
-      },
-      end_month: {
-        type: 'number',
-        description: '結束月份'
-      },
-      position: {
-        type: 'string',
-        description: '職務名稱'
-      },
-      place: {
-        type: 'string',
-        description: '地點'
-      }
-    },
-    description: '工作經歷'
-  },
-  PostTeacherInfoWorkResponseModel: {
-    type: 'object',
-    required: ['status', 'data'],
-    properties: {
-      status: { type: 'boolean' },
-      data: {
-        type: 'object',
-        required: ['message'],
-        properties: {
-          message: { type: 'string' }
         }
       }
     },
     example: {
       status: true,
       data: {
-        message: '更新成功'
+        categories: [
+          {
+            category_id: 'string',
+            sub_categories: ['string']
+          }
+        ],
+        nationality: 'string',
+        introduction: 'string',
+        work_experiences: [
+          {
+            is_working: true,
+            workplace: 'string',
+            job_category: 'string',
+            start_year: 2020,
+            start_month: 1,
+            end_year: 2021,
+            end_month: 12,
+            position: 'string',
+            place: 'string'
+          }
+        ],
+        learning_experience: {
+          is_in_school: true,
+          degree: 'string',
+          department: 'string',
+          start_year: 2018,
+          start_month: 9,
+          end_year: 2022,
+          end_month: 6,
+          name: 'string',
+          region: 'string',
+          file: 'string'
+        },
+        teaching_certificates: [
+          {
+            verifying_institution: 'string',
+            license_name: 'string',
+            name: 'string',
+            license_number: 'string',
+            file: 'string',
+            category_id: 'string',
+            subject: 'string'
+          }
+        ],
+        intro_video: [{ video_id: 'string', title: 'string' }]
       }
     }
   },
   PatchTeacherInfoBasicRequestModel: {
     type: 'object',
-    required: [
-      'main_categorys',
-      'sub_categorys',
-      'nationality',
-      'introduction'
-    ],
+    required: ['nationality', 'categories', 'introduction'],
     properties: {
       categories: {
         type: 'array',
         items: {
           type: 'object',
-          required: ['category_id', 'sub_categories'],
           properties: {
             category_id: {
               type: 'string',
-              description: '科目分類ID'
+              description: '科目(主類別)'
             },
             sub_categories: {
               type: 'array',
               items: {
                 type: 'string'
               },
-              description: '子分類列表'
+              description: '專長(子類別)'
             }
           }
         },
-        description: '教授科目分類',
-        minItems: 1,
-        maxItems: 2
+        description: '老師專業'
       },
       nationality: {
         type: 'string',
@@ -509,9 +449,13 @@ const TeacherInfoSchema = {
       }
     },
     example: {
-      main_categorys: ['string'],
-      sub_categorys: ['string'],
       nationality: 'string',
+      categories: [
+        {
+          category_id: 'string',
+          sub_categories: ['string']
+        }
+      ],
       introduction: 'string'
     }
   },
@@ -540,17 +484,30 @@ const TeacherInfoSchema = {
     items: {
       type: 'object',
       properties: {
+        _id: {
+          type: 'string',
+          description: '工作經歷id',
+          nullable: true
+        },
         is_working: {
           type: 'boolean',
           description: '是否在職中'
         },
+        company_name: {
+          type: 'string',
+          description: '公司名稱'
+        },
         workplace: {
           type: 'string',
-          description: '單位名稱'
+          description: '工作地點'
         },
         job_category: {
           type: 'string',
           description: '職務類別'
+        },
+        job_title: {
+          type: 'string',
+          description: '職務名稱'
         },
         start_year: {
           type: 'number',
@@ -567,14 +524,6 @@ const TeacherInfoSchema = {
         end_month: {
           type: 'number',
           description: '結束月份'
-        },
-        position: {
-          type: 'string',
-          description: '職務名稱'
-        },
-        place: {
-          type: 'string',
-          description: '地點'
         }
       }
     },
@@ -600,36 +549,6 @@ const TeacherInfoSchema = {
       }
     }
   },
-  DeleteTeacherInfoWorkRequestModel: {
-    type: 'object',
-    properties: {
-      id: {
-        type: 'string',
-        description: '履歷 id'
-      }
-    },
-    description: '履歷 id'
-  },
-  DeleteTeacherInfoWorkResponseModel: {
-    type: 'object',
-    required: ['status', 'data'],
-    properties: {
-      status: { type: 'boolean' },
-      data: {
-        type: 'object',
-        required: ['message'],
-        properties: {
-          message: { type: 'string' }
-        }
-      }
-    },
-    example: {
-      status: true,
-      data: {
-        message: '刪除成功'
-      }
-    }
-  },
   PatchTeacherInfoEducationRequestModel: {
     type: 'object',
     required: [
@@ -640,7 +559,7 @@ const TeacherInfoSchema = {
       'end_year',
       'end_month',
       'name',
-      'place',
+      'region',
       'file'
     ],
     properties: {
@@ -666,18 +585,20 @@ const TeacherInfoSchema = {
       },
       end_year: {
         type: 'number',
+        nullable: true,
         description: '結束年份'
       },
       end_month: {
         type: 'number',
+        nullable: true,
         description: '結束月份'
       },
       name: {
         type: 'string',
         description: '學校名稱'
       },
-      place: {
-        type: 'string',
+      region: {
+        type: 'boolean',
         description: '地點'
       },
       file: {
@@ -694,7 +615,7 @@ const TeacherInfoSchema = {
       end_year: 2024,
       end_month: 6,
       name: 'string',
-      place: 'string',
+      region: true,
       file: 'string'
     }
   },
@@ -763,13 +684,18 @@ const TeacherInfoSchema = {
         'subject'
       ],
       properties: {
+        _id: {
+          type: 'string',
+          description: '證書id',
+          nullable: true
+        },
         verifying_institution: {
           type: 'string',
           description: '證書驗證機構'
         },
         license_name: {
           type: 'string',
-          description: '證書���稱'
+          description: '證書名稱'
         },
         name: {
           type: 'string',
@@ -795,6 +721,7 @@ const TeacherInfoSchema = {
     },
     example: [
       {
+        _id: 'string',
         verifying_institution: 'string',
         license_name: 'string',
         name: 'string',

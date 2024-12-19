@@ -7,6 +7,7 @@ import { User as UserInterface } from '../models/types/user.interface';
 import User from '../models/userModel';
 import mongoose from 'mongoose';
 import { Teacher as TeacherInterface } from './../models/types/teacher.interface';
+import { deleteFile } from '../routes/upload';
 
 const teacherController = {
   /** 申請老師 */
@@ -70,7 +71,7 @@ const teacherController = {
 
       // 投影欄位
       const projection =
-        'avator_image categories nationality introduction work_experiences learning_experience teaching_certificates intro_video';
+        'categories nationality introduction work_experiences learning_experience teaching_certificates intro_video';
 
       const teacher = await Teacher.findById(teacherId, projection).lean();
 
@@ -89,8 +90,8 @@ const teacherController = {
     const body = req.body;
 
     const allowedUpdates: string[] = [
-      'categories',
       'nationality',
+      'categories',
       'introduction'
     ];
     const validUpdates: Partial<TeacherInterface> = {}; // 更新物件的型別改為 Partial<ITeacher>
@@ -123,84 +124,72 @@ const teacherController = {
       }
     }
   }),
-  /** 新增老師履歷 */
-  postTeacherInfoWork: handleErrorAsync(
-    async (req: Request, res: Response, next: NextFunction) => {
-      const teacherId = (req.user as UserInterface).teacher_id;
-      const workExperience = req.body; // 從請求中獲取工作經驗
-
-      // 驗證工作經驗資料
-      if (
-        !workExperience ||
-        !workExperience.workplace ||
-        !workExperience.job_category ||
-        !workExperience.start_year ||
-        !workExperience.start_month ||
-        !workExperience.end_year ||
-        !workExperience.end_month ||
-        !workExperience.position ||
-        !workExperience.place
-      ) {
-        return appError(400, '請提供完整的工作經驗資料', next);
-      }
-
-      try {
-        // 查找並更新教師資料
-        const updatedTeacher = await Teacher.findByIdAndUpdate(
-          { _id: teacherId },
-          { $push: { work_experiences: workExperience } },
-          { new: true, runValidators: true }
-        );
-
-        if (!updatedTeacher) {
-          return appError(404, '教師資料未找到', next);
-        }
-
-        handleSuccess(res, {
-          message: '新增完成',
-          data: updatedTeacher
-        });
-      } catch (error) {
-        return appError(500, '伺服器錯誤', next);
-      }
-    }
-  ),
   /** 更新老師履歷 */
   patchTeacherInfoWork: handleErrorAsync(
     async (req: Request, res: Response, next: NextFunction) => {
       const teacherId = (req.user as UserInterface).teacher_id;
-      const workExperienceData = req.body;
+      const workExperiences = req.body;
 
       // 驗證每筆工作經歷的欄位
-      const isValidExperiences =
-        workExperienceData.workplace &&
-        workExperienceData.job_category &&
-        workExperienceData.start_year &&
-        workExperienceData.start_month &&
-        workExperienceData.end_year &&
-        workExperienceData.end_month &&
-        workExperienceData.position &&
-        workExperienceData.place;
+      const isValidExperience = (workExperience: any) => {
+        return (
+          typeof workExperience.is_working === 'boolean' &&
+          workExperience.company_name &&
+          workExperience.workplace &&
+          workExperience.job_category &&
+          workExperience.job_title &&
+          workExperience.start_year &&
+          workExperience.start_month &&
+          (workExperience.is_working ? true : workExperience.end_year) &&
+          (workExperience.is_working ? true : workExperience.end_month)
+        );
+      };
 
-      if (!isValidExperiences) {
+      if (!workExperiences.every(isValidExperience)) {
         return appError(400, '請提供完整的工作經歷資料', next);
       }
 
-      const updateQuery = {
-        $set: {
-          'work_experiences.$': workExperienceData
-        }
-      };
-
       try {
-        const updatedTeacher = await Teacher.findOneAndUpdate(
-          { _id: teacherId, 'work_experiences._id': workExperienceData._id },
-          updateQuery,
-          { new: true, runValidators: true }
+        const teacherDoc = await Teacher.findById(teacherId);
+        const oldWorkExperiences = teacherDoc?.work_experiences || [];
+
+        const toRemove = oldWorkExperiences.filter(
+          (oldExp) =>
+            !workExperiences.some(
+              (newExp: any) => newExp._id === oldExp._id.toString()
+            )
+        );
+        const toAdd = workExperiences.filter(
+          (newExp: any) =>
+            !oldWorkExperiences.some(
+              (oldExp) => oldExp._id.toString() === newExp._id
+            )
+        );
+        const toUpdate = workExperiences.filter((newExp: any) =>
+          oldWorkExperiences.some(
+            (oldExp) => oldExp._id.toString() === newExp._id
+          )
         );
 
-        if (!updatedTeacher) {
-          return appError(404, '找不到該老師或工作經驗', next);
+        for (const exp of toRemove) {
+          await Teacher.findByIdAndUpdate(teacherId, {
+            $pull: { work_experiences: { _id: exp._id } }
+          });
+        }
+
+        for (const exp of toAdd) {
+          const newExp = { ...exp, _id: new mongoose.Types.ObjectId() };
+          await Teacher.findByIdAndUpdate(teacherId, {
+            $push: { work_experiences: newExp }
+          });
+        }
+
+        for (const exp of toUpdate) {
+          await Teacher.findOneAndUpdate(
+            { _id: teacherId, 'work_experiences._id': exp._id },
+            { $set: { 'work_experiences.$': exp } },
+            { new: true, runValidators: true }
+          );
         }
 
         handleSuccess(res, {
@@ -211,38 +200,7 @@ const teacherController = {
       }
     }
   ),
-  /** 刪除老師履歷 */
-  deleteTeacherInfoWork: handleErrorAsync(
-    async (req: Request, res: Response, next: NextFunction) => {
-      const teacherId = (req.user as UserInterface).teacher_id;
-      const workExperienceId = req.body.id;
-
-      if (!workExperienceId) {
-        return appError(400, '缺少必要的參數', next);
-      }
-
-      // 驗證用戶是否存在並且是否是老師
-      const teacher = await Teacher.findOne({ _id: teacherId });
-      if (!teacher) {
-        return appError(404, '找不到該老師', next);
-      }
-
-      // 使用$pull從work_experiences中刪除指定項目
-      const result = await Teacher.updateOne(
-        { _id: teacherId },
-        { $pull: { work_experiences: { _id: workExperienceId } } }
-      );
-
-      if (result.modifiedCount === 0) {
-        return appError(404, '找不到要刪除的工作經歷', next);
-      }
-
-      return handleSuccess(res, {
-        message: '工作經歷刪除成功'
-      });
-    }
-  ),
-  /** 修改老師學歷 */
+  /** 更新老師學歷 */
   patchTeacherInfoEducation: handleErrorAsync(async (req, res, next) => {
     const teacherId = (req.user as UserInterface).teacher_id;
     const learning_experience = req.body;
@@ -269,7 +227,7 @@ const teacherController = {
           ['learning_experience.end_year', '結束年份'],
           ['learning_experience.end_month', '結束月份'],
           ['learning_experience.name', '學校名稱'],
-          ['learning_experience.place', '地點'],
+          ['learning_experience.region', '地點'],
           ['learning_experience.file', '學位證書']
         ]);
         const errorKey = Array.from(
@@ -298,57 +256,86 @@ const teacherController = {
       return appError(500, '伺服器錯誤', next);
     }
   }),
-  /** 修改老師教學證照 */
+  /** 更新老師教學證照 */
   patchTeacherCertificate: handleErrorAsync(async (req, res, next) => {
     const teacherId = (req.user as UserInterface).teacher_id;
-    const certificateData = req.body;
+    const certificates = req.body;
 
-    if (!Array.isArray(certificateData)) {
-      return res.status(400).json({ error: '教學證照必須是數組' });
+    if (!Array.isArray(certificates)) {
+      return appError(400, '資料格式錯誤', next);
     }
-    const validationErrors: string[] = [];
 
-    certificateData.forEach((certificate, index) => {
-      // 驗證工作經驗資料
-      if (
-        !certificate ||
-        !certificate.verifying_institution ||
-        !certificate.license_name ||
-        !certificate.name ||
-        !certificate.license_number ||
-        !certificate.file ||
-        !certificate.category ||
-        !certificate.subject
-      ) {
-        return appError(400, '請填寫所有欄位', next);
-      }
-    });
+    const isValidCertificate = (certificate: any) => {
+      return (
+        certificate &&
+        certificate.verifying_institution &&
+        certificate.license_name &&
+        certificate.name &&
+        certificate.license_number &&
+        certificate.file &&
+        certificate.category_id &&
+        certificate.subject
+      );
+    };
 
-    if (validationErrors.length > 0) {
-      return res
-        .status(400)
-        .json({ error: `驗證失敗：${validationErrors.join('，')}` });
+    if (!certificates.every(isValidCertificate)) {
+      return appError(400, '請提供完整的教學證照資料', next);
     }
 
     try {
-      const updatedTeacher = await Teacher.findByIdAndUpdate(
-        teacherId,
-        { teaching_certificate: certificateData },
-        { new: true }
+      const teacher = await Teacher.findById(teacherId);
+      const oldCertificates = teacher?.teaching_certificates || [];
+
+      const toRemove = oldCertificates.filter(
+        (oldCert) =>
+          !certificates.some(
+            (newCert: any) => newCert._id === oldCert._id.toString()
+          )
       );
 
-      if (!updatedTeacher) {
-        return appError(404, '找不到對應的教師', next);
+      const toAdd = certificates.filter(
+        (newCert: any) =>
+          !oldCertificates.some(
+            (oldCert) => oldCert._id.toString() === newCert._id
+          )
+      );
+
+      const toUpdate = certificates.filter((newCert: any) =>
+        oldCertificates.some(
+          (oldCert) => oldCert._id.toString() === newCert._id
+        )
+      );
+
+      for (const cert of toRemove) {
+        await deleteFile(cert.file);
+        await Teacher.findByIdAndUpdate(teacherId, {
+          $pull: { teaching_certificates: { _id: cert._id } }
+        });
+      }
+
+      for (const cert of toAdd) {
+        const newCert = { ...cert, _id: new mongoose.Types.ObjectId() };
+        await Teacher.findByIdAndUpdate(teacherId, {
+          $push: { teaching_certificates: newCert }
+        });
+      }
+
+      for (const cert of toUpdate) {
+        await Teacher.findOneAndUpdate(
+          { _id: teacherId, 'teaching_certificates._id': cert._id },
+          { $set: { 'teaching_certificates.$': cert } },
+          { new: true, runValidators: true }
+        );
       }
 
       handleSuccess(res, {
         message: '更新完成'
       });
     } catch (error) {
-      return appError(500, '伺服器錯誤', next);
+      return appError(400, '更新教師證照資料失敗', next);
     }
   }),
-  /** 修改老師自我介紹影片 */
+  /** 更新老師自我介紹影片 */
   patchTeacherVideo: handleErrorAsync(async (req, res, next) => {
     const teacherId = (req.user as UserInterface).teacher_id;
     const intro_video = req.body;

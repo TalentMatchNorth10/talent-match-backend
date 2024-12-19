@@ -1,6 +1,6 @@
 import express, { Request } from 'express';
 import { isAuth } from '../services/auth';
-import upload from '../services/upload';
+import { uploadHandler } from '../services/upload';
 import handleErrorAsync from '../services/handleErrorAsync';
 import appError from '../services/appError';
 import { v4 as uuidv4 } from 'uuid';
@@ -27,7 +27,7 @@ router.post(
   '/file',
   UploadComment.upload,
   isAuth,
-  upload,
+  uploadHandler,
   handleErrorAsync(
     async (req: Request<any, any, UploadRequestModel>, res, next) => {
       if (!req.body.fileType) {
@@ -63,7 +63,7 @@ router.post(
 
       // 如果上傳過程中發生錯誤，會觸發 error 事件
       blobStream.on('error', (err) => {
-        res.status(500).send('上傳失敗');
+        res.status(400).send('上傳失敗');
       });
 
       // 將檔案的 buffer 寫入 blobStream
@@ -83,22 +83,12 @@ router.delete(
       return appError(400, '請提供檔案網址', next);
     }
 
-    const bucketDomain = `/talent-match-fd353.appspot.com/`;
-    const extractPath = (url: string) => {
-      const urlObj = new URL(url);
-      const pathname = urlObj.pathname;
-      return pathname.replace(bucketDomain, '');
-    };
-
-    const filePath = extractPath(fileUrl);
-    const blob = bucket.file(`${filePath}`);
-    blob
-      .delete()
+    deleteFile(fileUrl)
       .then(() => {
         handleSuccess(res, '刪除檔案完成');
       })
       .catch((err) => {
-        appError(500, '刪除檔案失敗', next);
+        appError(400, '刪除檔案失敗', next);
       });
   })
 );
@@ -134,6 +124,19 @@ function createBlob(
     }
   }
   return bucket.file(`files/${fileName}`);
+}
+
+export function deleteFile(fileUrl: string) {
+  const bucketDomain = `/talent-match-fd353.appspot.com/`;
+  const extractPath = (url: string) => {
+    const urlObj = new URL(url);
+    const pathname = urlObj.pathname;
+    return pathname.replace(bucketDomain, '');
+  };
+
+  const filePath = extractPath(fileUrl);
+  const blob = bucket.file(`${filePath}`);
+  return blob.delete();
 }
 
 export default router;

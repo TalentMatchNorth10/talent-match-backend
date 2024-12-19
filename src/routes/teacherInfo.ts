@@ -16,23 +16,11 @@ router.patch(
   TeacherInfoComment.patchTeacherInfoBasic,
   teacherController.patchTeacherInfoBasic
 );
-router.post(
-  '/work',
-  isAuth,
-  TeacherInfoComment.postTeacherInfoWork,
-  teacherController.postTeacherInfoWork
-);
 router.patch(
   '/work',
   isAuth,
   TeacherInfoComment.patchTeacherInfoWork,
   teacherController.patchTeacherInfoWork
-);
-router.delete(
-  '/work',
-  isAuth,
-  TeacherInfoComment.deleteTeacherInfoWork,
-  teacherController.deleteTeacherInfoWork
 );
 router.patch(
   '/education',

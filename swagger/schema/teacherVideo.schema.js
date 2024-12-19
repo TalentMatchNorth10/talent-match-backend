@@ -117,7 +117,7 @@ const TeacherVideoSchema = {
     },
     UpdateTeacherVideoRequestModel: {
         type: 'object',
-        required: ['name', 'category', 'intro', 'video_type', 'teacher_id', 'url'],
+        required: ['name', 'category', 'intro', 'video_type', 'url'],
         properties: {
             name: { type: 'string' },
             category: { type: 'string' },

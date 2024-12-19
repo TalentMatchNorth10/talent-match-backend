@@ -1,4 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
+import { ReservationStatus } from './types/reservation.interface';
 
 const reservationSchema = new Schema(
   {
@@ -21,14 +22,22 @@ const reservationSchema = new Schema(
     teacher_status: {
       type: String,
       required: [true, '教師狀態為必填項'],
-      enum: ['reserved', 'completed', 'cancelled'],
-      default: 'reserved'
+      enum: [
+        ReservationStatus.Reserved,
+        ReservationStatus.Completed,
+        ReservationStatus.Cancelled
+      ],
+      default: ReservationStatus.Reserved
     },
     student_status: {
       type: String,
       required: [true, '學生狀態為必填項'],
-      enum: ['reserved', 'completed', 'cancelled'],
-      default: 'reserved'
+      enum: [
+        ReservationStatus.Reserved,
+        ReservationStatus.Completed,
+        ReservationStatus.Cancelled
+      ],
+      default: ReservationStatus.Reserved
     },
     review: {
       type: Schema.Types.ObjectId,
