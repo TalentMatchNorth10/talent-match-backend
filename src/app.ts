@@ -28,6 +28,9 @@ import shopRouter from './routes/shop';
 import teacherReserveRouter from './routes/teacherReserve';
 import commonRouter from './routes/common';
 import fileRouter from './routes/file';
+import chatRouter from './routes/chat';
+import announcementRouter from './routes/announcement';
+import messageRouter from './routes/message';
 
 const app = express();
 
@@ -84,6 +87,9 @@ app.use('/api/upload', uploadRouter);
 app.use('/api/shop', shopRouter);
 app.use('/api/common', commonRouter);
 app.use('/api/file', fileRouter);
+app.use('/api/chat', chatRouter);
+app.use('/api/announcement', announcementRouter);
+app.use('/api/message', messageRouter);
 
 // express 錯誤處理
 // 生產環境錯誤

@@ -7,6 +7,7 @@
 import app from '../app';
 import debug from 'debug';
 import http from 'http';
+import { initializeWebSocket } from '../websocket';
 /**
  * Get port from environment and store in Express.
  */
@@ -19,6 +20,11 @@ app.set('port', 'port');
  */
 
 const server = http.createServer(app);
+
+/**
+ * Initialize WebSocket
+ */
+initializeWebSocket(server);
 
 /**
  * Listen on provided port, on all network interfaces.

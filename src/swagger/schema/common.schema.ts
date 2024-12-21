@@ -267,6 +267,26 @@ const CommonSchema = {
       ]
     }
   },
+  CommonResponseModel: {
+    type: 'object',
+    required: ['status', 'data'],
+    properties: {
+      status: { type: 'boolean' },
+      data: {
+        type: 'object',
+        required: ['message'],
+        properties: {
+          message: { type: 'string' }
+        }
+      }
+    },
+    example: {
+      status: true,
+      data: {
+        message: '成功訊息'
+      }
+    }
+  },
   CommonOptionResponseModel: {
     type: 'object',
     required: ['status', 'data'],
