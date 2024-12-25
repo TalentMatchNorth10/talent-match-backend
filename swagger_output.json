@@ -3502,6 +3502,128 @@
         ]
       }
     },
+    "/api/teacher_trans_records/completed_monthly": {
+      "get": {
+        "tags": [
+          "TeacherTransRecord"
+        ],
+        "summary": "取得本月已完成課程",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCompletedMonthlyResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCompletedMonthlyResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/teacher_trans_records/uncompleted_monthly": {
+      "get": {
+        "tags": [
+          "TeacherTransRecord"
+        ],
+        "summary": "取得待完成課程",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetUncompletedMonthlyResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetUncompletedMonthlyResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
     "/api/favorites/": {
       "get": {
         "tags": [
@@ -13439,6 +13561,191 @@
           "text": {
             "type": "string",
             "description": "公告內容"
+          }
+        }
+      },
+      "GetCompletedMonthlyResponseModel": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean",
+            "description": "狀態"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "completed_reserves": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "total": {
+                      "type": "number",
+                      "description": "總堂數"
+                    },
+                    "price": {
+                      "type": "number",
+                      "description": "價格"
+                    },
+                    "reserved_amount": {
+                      "type": "number",
+                      "description": "預約堂數"
+                    },
+                    "_id": {
+                      "type": "string",
+                      "description": "預約ID"
+                    },
+                    "course_name": {
+                      "type": "string",
+                      "description": "課程名稱"
+                    },
+                    "email": {
+                      "type": "string",
+                      "description": "學生信箱"
+                    },
+                    "nick_name": {
+                      "type": "string",
+                      "description": "學生暱稱"
+                    },
+                    "reserve_date": {
+                      "type": "string",
+                      "description": "預約日期"
+                    },
+                    "reserve_time": {
+                      "type": "string",
+                      "description": "預約時間"
+                    },
+                    "teacher_status": {
+                      "type": "string",
+                      "description": "老師狀態"
+                    },
+                    "student_status": {
+                      "type": "string",
+                      "description": "學生狀態"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "example": {
+          "status": true,
+          "data": {
+            "completed_reserves": [
+              {
+                "total": 20,
+                "price": 5000,
+                "reserved_amount": 3,
+                "_id": "676ac26266b1cc46dae34b13",
+                "course_name": "油畫大師養成計劃123",
+                "email": "talentmatch10@gmail.com",
+                "nick_name": "talent match (才藝連連)",
+                "reserve_date": "2024-12-04",
+                "reserve_time": "10:00",
+                "teacher_status": "reserved",
+                "student_status": "reserved"
+              },
+              {
+                "total": 1,
+                "price": 200,
+                "reserved_amount": 1,
+                "_id": "6691254aeb842ac8a7c7bb14",
+                "course_name": "水彩畫的夢幻世界",
+                "email": "talentmatch10@gmail.com",
+                "nick_name": "talent match (才藝連連)",
+                "reserve_date": "2024-12-04",
+                "reserve_time": "13:49",
+                "teacher_status": "reserved",
+                "student_status": "reserved"
+              }
+            ]
+          }
+        }
+      },
+      "GetUncompletedMonthlyResponseModel": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean",
+            "description": "狀態"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "uncompleted_reserves": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string",
+                      "description": "預約ID"
+                    },
+                    "course_name": {
+                      "type": "string",
+                      "description": "課程名稱"
+                    },
+                    "nick_name": {
+                      "type": "string",
+                      "description": "學生暱稱"
+                    },
+                    "email": {
+                      "type": "string",
+                      "description": "學生信箱"
+                    },
+                    "total": {
+                      "type": "number",
+                      "description": "總堂數"
+                    },
+                    "price": {
+                      "type": "number",
+                      "description": "價格"
+                    },
+                    "reserved_amount": {
+                      "type": "number",
+                      "description": "已預約堂數"
+                    },
+                    "reserve_date": {
+                      "type": "string",
+                      "description": "預約日期"
+                    },
+                    "reserve_time": {
+                      "type": "string",
+                      "description": "預約時間"
+                    },
+                    "teacher_status": {
+                      "type": "string",
+                      "description": "老師狀態"
+                    },
+                    "sn": {
+                      "type": "string",
+                      "description": "序號"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "example": {
+          "status": true,
+          "data": {
+            "uncompleted_reserves": [
+              {
+                "_id": "676ac26266b1cc46dae34b13",
+                "course_name": "油畫大師養成計劃123",
+                "nick_name": "talent match (才藝連連)",
+                "email": "talentmatch10@gmail.com",
+                "total": 20,
+                "price": 5000,
+                "reserved_amount": 3,
+                "reserve_date": "2024-12-04",
+                "reserve_time": "10:00",
+                "teacher_status": "reserved",
+                "sn": "1"
+              }
+            ]
           }
         }
       }
