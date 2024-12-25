@@ -156,18 +156,18 @@ const teacherController = {
         const toRemove = oldWorkExperiences.filter(
           (oldExp) =>
             !workExperiences.some(
-              (newExp: any) => newExp._id === oldExp._id.toString()
+              (newExp: any) => newExp._id === oldExp._id?.toString()
             )
         );
         const toAdd = workExperiences.filter(
           (newExp: any) =>
             !oldWorkExperiences.some(
-              (oldExp) => oldExp._id.toString() === newExp._id
+              (oldExp) => oldExp._id?.toString() === newExp._id
             )
         );
         const toUpdate = workExperiences.filter((newExp: any) =>
           oldWorkExperiences.some(
-            (oldExp) => oldExp._id.toString() === newExp._id
+            (oldExp) => oldExp._id?.toString() === newExp._id
           )
         );
 
@@ -289,20 +289,20 @@ const teacherController = {
       const toRemove = oldCertificates.filter(
         (oldCert) =>
           !certificates.some(
-            (newCert: any) => newCert._id === oldCert._id.toString()
+            (newCert: any) => newCert._id === oldCert._id?.toString()
           )
       );
 
       const toAdd = certificates.filter(
         (newCert: any) =>
           !oldCertificates.some(
-            (oldCert) => oldCert._id.toString() === newCert._id
+            (oldCert) => oldCert._id?.toString() === newCert._id
           )
       );
 
       const toUpdate = certificates.filter((newCert: any) =>
         oldCertificates.some(
-          (oldCert) => oldCert._id.toString() === newCert._id
+          (oldCert) => oldCert._id?.toString() === newCert._id
         )
       );
 

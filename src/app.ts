@@ -31,7 +31,7 @@ import fileRouter from './routes/file';
 import chatRouter from './routes/chat';
 import announcementRouter from './routes/announcement';
 import messageRouter from './routes/message';
-
+import teacherTransRecordRouter from './routes/teacherTransRecord';
 const app = express();
 
 // 程式出現重大錯誤
@@ -82,6 +82,7 @@ app.use('/api/teacher_detail', teacherDetailRouter);
 app.use('/api/course_detail', courseDetailRouter);
 app.use('/api/home', homeRouter);
 app.use('/api/teacher_reserves', teacherReserveRouter);
+app.use('/api/teacher_trans_records', teacherTransRecordRouter);
 app.use('/api/favorites', favoriteRouter);
 app.use('/api/upload', uploadRouter);
 app.use('/api/shop', shopRouter);
