@@ -22,8 +22,15 @@ router.get(
   chatController.getChatMessages
 );
 
+router.post(
+  '/message',
+  isAuth,
+  ChatComment.sendMessage,
+  chatController.sendMessage
+);
+
 router.put(
-  '/:chatId/read',
+  '/:chatId/mark-as-read',
   isAuth,
   ChatComment.updateReadStatus,
   chatController.updateReadStatus

@@ -20,9 +20,41 @@ const AnnouncementComment = {
   getList: (req: Request, res: Response, next: NextFunction) => {
     /**
     * #swagger.tags = ['Announcement']
-    * #swagger.summary = '取得公告訊息列表'
+    * #swagger.summary = '取得老師公告訊息列表'
     * #swagger.responses[200] = {
         schema: { $ref: "#/components/schemas/AnnouncementListResponseModel" }
+    }
+    * #swagger.responses[400] = { 
+        schema: { $ref: "#/components/schemas/Error400ResponseModel" }
+    }
+    * #swagger.responses[500] = { 
+        schema: { $ref: "#/components/schemas/Error500ResponseModel" }
+    }
+    */
+    next();
+  },
+  getUserList: (req: Request, res: Response, next: NextFunction) => {
+    /**
+    * #swagger.tags = ['Announcement']
+    * #swagger.summary = '取得使用者公告訊息列表'
+    * #swagger.responses[200] = {
+        schema: { $ref: "#/components/schemas/AnnouncementUserListResponseModel" }
+    }
+    * #swagger.responses[400] = { 
+        schema: { $ref: "#/components/schemas/Error400ResponseModel" }
+    }
+    * #swagger.responses[500] = { 
+        schema: { $ref: "#/components/schemas/Error500ResponseModel" }
+    }
+    */
+    next();
+  },
+  getSystemList: (req: Request, res: Response, next: NextFunction) => {
+    /**
+    * #swagger.tags = ['Announcement']
+    * #swagger.summary = '取得系統公告訊息列表'
+    * #swagger.responses[200] = {
+        schema: { $ref: "#/components/schemas/AnnouncementSystemListResponseModel" }
     }
     * #swagger.responses[400] = { 
         schema: { $ref: "#/components/schemas/Error400ResponseModel" }
@@ -69,6 +101,42 @@ const AnnouncementComment = {
             }
         }
     }
+    * #swagger.responses[200] = { 
+        schema: { $ref: "#/components/schemas/CommonResponseModel" }
+    }
+    * #swagger.responses[400] = { 
+        schema: { $ref: "#/components/schemas/Error400ResponseModel" }
+    }
+    * #swagger.responses[500] = { 
+        schema: { $ref: "#/components/schemas/Error500ResponseModel" }
+    }
+    */
+    next();
+  },
+  updateAnnouncementReadStatus: (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    /**
+    * #swagger.tags = ['Announcement']
+    * #swagger.summary = '更新公告訊息已讀狀態'
+    * #swagger.responses[200] = { 
+        schema: { $ref: "#/components/schemas/CommonResponseModel" }
+    }
+    * #swagger.responses[400] = { 
+        schema: { $ref: "#/components/schemas/Error400ResponseModel" }
+    }
+    * #swagger.responses[500] = { 
+        schema: { $ref: "#/components/schemas/Error500ResponseModel" }
+    }
+    */
+    next();
+  },
+  updateSystemReadStatus: (req: Request, res: Response, next: NextFunction) => {
+    /**
+    * #swagger.tags = ['Announcement']
+    * #swagger.summary = '更新系統公告訊息已讀狀態'
     * #swagger.responses[200] = { 
         schema: { $ref: "#/components/schemas/CommonResponseModel" }
     }

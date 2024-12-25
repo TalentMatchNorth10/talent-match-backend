@@ -1,18 +1,63 @@
-import { Server } from 'http';
-import { Server as SocketIOServer } from 'socket.io';
-import { bindChatEvents } from './handlers/chatHandler';
-import { bindAnnouncementEvents } from './handlers/announcementHandler';
+import { Server as HttpServer } from 'http';
+import { Socket, Server as SocketIOServer } from 'socket.io';
+import { bindChatEvents } from './events/chat/handler';
+import { bindAnnouncementEvents } from './events/announcement/handler';
+import { isAuth } from './services/auth';
+import {
+  joinPersonalRoom,
+  joinRoom,
+  leavePersonalRoom,
+  leaveRoom,
+  ROOM_EVENTS
+} from './roomManager';
 
-export function initializeWebSocket(server: Server): SocketIOServer {
-  const io = new SocketIOServer(server, {
+let io: SocketIOServer; // 用於存儲 WebSocket 實例
+
+export function initializeWebSocket(server: HttpServer): SocketIOServer {
+  io = new SocketIOServer(server, {
     cors: { origin: '*' } // 根據需求設置 CORS
   });
 
-  // 綁定聊天相關事件
-  bindChatEvents(io);
+  io.use(isAuth);
 
-  // 綁定公告相關事件
-  bindAnnouncementEvents(io);
+  io.on('connection', (socket: Socket) => {
+    console.log(`User connected: ${socket.id}`);
 
+    socket.on(ROOM_EVENTS.JOIN_ROOM, (chatId: string) => {
+      joinRoom(socket, chatId);
+    });
+
+    socket.on(ROOM_EVENTS.JOIN_PERSONAL_ROOM, () => {
+      joinPersonalRoom(socket);
+    });
+
+    socket.on(ROOM_EVENTS.LEAVE_ROOM, (chatId: string) => {
+      leaveRoom(socket, chatId);
+    });
+
+    socket.on(ROOM_EVENTS.LEAVE_PERSONAL_ROOM, () => {
+      leavePersonalRoom(socket);
+    });
+
+    // 聊天室事件綁定
+    bindChatEvents(io);
+    // 公告事件綁定
+    bindAnnouncementEvents(io);
+
+    socket.on('disconnect', () => {
+      console.log(`User disconnected: ${socket.id}`);
+      leaveRoom(socket, socket.id);
+      leavePersonalRoom(socket);
+    });
+  });
+
+  return io;
+}
+
+// 獲取 WebSocket 實例
+export function getIO(): SocketIOServer {
+  if (!io) {
+    console.error('Socket.IO not initialized');
+  }
   return io;
 }

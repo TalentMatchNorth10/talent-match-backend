@@ -13,7 +13,16 @@ const chatSchema = new Schema<Chat>(
       text: { type: String, required: false },
       sentAt: { type: Date, required: false }
     },
-    unreadCounts: { type: Map, of: Number, default: {} }
+    unreadCounts: {
+      type: Map,
+      of: Number,
+      default: function (this: any) {
+        return (this.participantIds || []).reduce((acc: any, id: any) => {
+          acc[id.toString()] = 0;
+          return acc;
+        }, {});
+      }
+    }
   },
   { timestamps: true }
 );
