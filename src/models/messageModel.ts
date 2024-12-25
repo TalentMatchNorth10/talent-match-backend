@@ -24,6 +24,15 @@ const messageSchema = new Schema<Message>(
         return this.type === MessageType.ANNOUNCEMENT;
       }
     },
+    courses: {
+      type: [{ type: Schema.Types.ObjectId, ref: 'Course' }],
+      required: function (this: Message) {
+        return (
+          this.type === MessageType.ANNOUNCEMENT &&
+          this.target !== MessageTarget.ALL
+        );
+      }
+    },
     readBy: [{ type: Schema.Types.ObjectId, ref: 'User' }]
   },
   { timestamps: true }

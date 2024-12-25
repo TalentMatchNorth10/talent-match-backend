@@ -50,7 +50,7 @@ const ChatSchema = {
                 type: 'array',
                 items: {
                     type: 'object',
-                    required: ['id', 'user', 'latestMessage', 'unreadCount'],
+                    required: ['id', 'user', 'unreadCount'],
                     properties: {
                         id: {
                             type: 'string',
@@ -150,6 +150,29 @@ const ChatSchema = {
                         }
                     }
                 }
+            }
+        }
+    },
+    ChatSendMesssageRequestModel: {
+        type: 'object',
+        required: ['chatId', 'receiverId', 'text', 'type'],
+        properties: {
+            chatId: {
+                type: 'string',
+                description: '聊天室ID'
+            },
+            receiverId: {
+                type: 'string',
+                description: '接收者ID'
+            },
+            text: {
+                type: 'string',
+                description: '訊息內容'
+            },
+            type: {
+                type: 'string',
+                description: '訊息類型',
+                enum: ['general', 'announcement', 'system']
             }
         }
     },

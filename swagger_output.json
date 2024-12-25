@@ -5325,6 +5325,17 @@
         ],
         "summary": "取得使用者列表",
         "description": "",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "description": "用戶名稱",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -5562,7 +5573,73 @@
         }
       }
     },
-    "/api/chat/{chatId}/read": {
+    "/api/chat/message": {
+      "post": {
+        "tags": [
+          "Chat"
+        ],
+        "summary": "發送訊息",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChatSendMesssageRequestModel"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/chat/{chatId}/mark-as-read": {
       "put": {
         "tags": [
           "Chat"
@@ -5699,7 +5776,7 @@
         "tags": [
           "Announcement"
         ],
-        "summary": "取得公告訊息列表",
+        "summary": "取得老師公告訊息列表",
         "description": "",
         "responses": {
           "200": {
@@ -5713,6 +5790,118 @@
               "application/xml": {
                 "schema": {
                   "$ref": "#/components/schemas/AnnouncementListResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/announcement/user-list": {
+      "get": {
+        "tags": [
+          "Announcement"
+        ],
+        "summary": "取得使用者公告訊息列表",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnnouncementUserListResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnnouncementUserListResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/announcement/system-list": {
+      "get": {
+        "tags": [
+          "Announcement"
+        ],
+        "summary": "取得系統公告訊息列表",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnnouncementSystemListResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnnouncementSystemListResponseModel"
                 }
               }
             }
@@ -5882,12 +6071,12 @@
         }
       }
     },
-    "/api/message/": {
-      "post": {
+    "/api/announcement/mark-announcement-as-read": {
+      "put": {
         "tags": [
-          "Messages"
+          "Announcement"
         ],
-        "summary": "發送訊息",
+        "summary": "更新公告訊息已讀狀態",
         "description": "",
         "responses": {
           "200": {
@@ -5895,12 +6084,12 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/MessageSendResponseModel"
+                  "$ref": "#/components/schemas/CommonResponseModel"
                 }
               },
               "application/xml": {
                 "schema": {
-                  "$ref": "#/components/schemas/MessageSendResponseModel"
+                  "$ref": "#/components/schemas/CommonResponseModel"
                 }
               }
             }
@@ -5935,13 +6124,59 @@
               }
             }
           }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/MessageSendRequestModel"
+        }
+      }
+    },
+    "/api/announcement/mark-system-as-read": {
+      "put": {
+        "tags": [
+          "Announcement"
+        ],
+        "summary": "更新系統公告訊息已讀狀態",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400ResponseModel"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500ResponseModel"
+                }
               }
             }
           }
@@ -7017,11 +7252,16 @@
           "data": {
             "type": "object",
             "required": [
+              "id",
               "nick_name",
               "avator_image",
               "is_teacher"
             ],
             "properties": {
+              "id": {
+                "type": "string",
+                "description": "使用者ID"
+              },
               "nick_name": {
                 "type": "string",
                 "description": "使用者暱稱"
@@ -7040,6 +7280,7 @@
         "example": {
           "status": true,
           "data": {
+            "id": "string",
             "nick_name": "string",
             "avator_image": "string",
             "is_teacher": true
@@ -13158,7 +13399,6 @@
               "required": [
                 "id",
                 "user",
-                "latestMessage",
                 "unreadCount"
               ],
               "properties": {
@@ -13279,19 +13519,7 @@
           }
         }
       },
-      "ChatReadStatusRequestModel": {
-        "type": "object",
-        "required": [
-          "userId"
-        ],
-        "properties": {
-          "userId": {
-            "type": "string",
-            "description": "用戶ID"
-          }
-        }
-      },
-      "MessageSendRequestModel": {
+      "ChatSendMesssageRequestModel": {
         "type": "object",
         "required": [
           "chatId",
@@ -13323,70 +13551,15 @@
           }
         }
       },
-      "MessageSendResponseModel": {
+      "ChatReadStatusRequestModel": {
         "type": "object",
         "required": [
-          "status",
-          "data"
+          "userId"
         ],
         "properties": {
-          "status": {
-            "type": "boolean"
-          },
-          "data": {
-            "type": "object",
-            "required": [
-              "id",
-              "chatId",
-              "senderId",
-              "receiverId",
-              "text",
-              "type",
-              "createdAt",
-              "readBy"
-            ],
-            "properties": {
-              "id": {
-                "type": "string",
-                "description": "訊息ID"
-              },
-              "chatId": {
-                "type": "string",
-                "description": "聊天室ID"
-              },
-              "senderId": {
-                "type": "string",
-                "description": "發送者ID"
-              },
-              "receiverId": {
-                "type": "string",
-                "description": "接收者ID"
-              },
-              "text": {
-                "type": "string",
-                "description": "訊息內容"
-              },
-              "type": {
-                "type": "string",
-                "description": "訊息類型",
-                "enum": [
-                  "general",
-                  "announcement",
-                  "system"
-                ]
-              },
-              "createdAt": {
-                "type": "string",
-                "description": "訊息發送時間"
-              },
-              "readBy": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                },
-                "description": "已讀用戶ID"
-              }
-            }
+          "userId": {
+            "type": "string",
+            "description": "用戶ID"
           }
         }
       },
@@ -13505,6 +13678,114 @@
                     "type": "string"
                   },
                   "description": "已讀用戶ID"
+                }
+              }
+            }
+          }
+        }
+      },
+      "AnnouncementUserListResponseModel": {
+        "type": "object",
+        "required": [
+          "status",
+          "data"
+        ],
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "id",
+                "user",
+                "title",
+                "text",
+                "createdAt",
+                "readBy"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "公告ID"
+                },
+                "user": {
+                  "type": "object",
+                  "required": [
+                    "id",
+                    "name",
+                    "avatar"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "老師ID"
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "老師名稱"
+                    },
+                    "avatar": {
+                      "type": "string",
+                      "description": "老師頭像"
+                    }
+                  }
+                },
+                "title": {
+                  "type": "string",
+                  "description": "公告標題"
+                },
+                "text": {
+                  "type": "string",
+                  "description": "公告內容"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "description": "公告發送時間"
+                }
+              }
+            }
+          }
+        }
+      },
+      "AnnouncementSystemListResponseModel": {
+        "type": "object",
+        "required": [
+          "status",
+          "data"
+        ],
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "id",
+                "title",
+                "text",
+                "createdAt"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "系統公告ID"
+                },
+                "title": {
+                  "type": "string",
+                  "description": "系統公告標題"
+                },
+                "text": {
+                  "type": "string",
+                  "description": "系統公告內容"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "description": "系統公告發送時間"
                 }
               }
             }

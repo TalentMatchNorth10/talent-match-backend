@@ -5,6 +5,13 @@ const ChatComment = {
     /**
     * #swagger.tags = ['Chat']
     * #swagger.summary = '取得使用者列表'
+    * #swagger.parameters['parameterName'] = {
+        in: 'query',
+        name: 'name',
+        required: false,
+        description: '用戶名稱',
+        type: 'string'
+    } 
     * #swagger.responses[200] = { 
         schema: { $ref: "#/components/schemas/ChatUsersResponseModel" }
     }
@@ -63,6 +70,30 @@ const ChatComment = {
     * #swagger.summary = '取得指定聊天室訊息'
     * #swagger.responses[200] = { 
         schema: { $ref: "#/components/schemas/ChatMessagesResponseModel" }
+    }
+    * #swagger.responses[400] = { 
+        schema: { $ref: "#/components/schemas/Error400ResponseModel" }
+    }
+    * #swagger.responses[500] = { 
+        schema: { $ref: "#/components/schemas/Error500ResponseModel" }
+    }
+    */
+    next();
+  },
+  sendMessage: (req: Request, res: Response, next: NextFunction) => {
+    /**
+    * #swagger.tags = ['Chat']
+    * #swagger.summary = '發送訊息'
+    * #swagger.requestBody = {
+        required: true,
+        content: {
+            "application/json": {
+                schema: { $ref: "#/components/schemas/ChatSendMesssageRequestModel" }
+            }
+        }
+    }
+    * #swagger.responses[200] = { 
+        schema: { $ref: "#/components/schemas/CommonResponseModel" }
     }
     * #swagger.responses[400] = { 
         schema: { $ref: "#/components/schemas/Error400ResponseModel" }

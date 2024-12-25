@@ -21,6 +21,7 @@ export interface Message extends Document {
   type: MessageType;
   target?: MessageTarget; // 僅公告訊息使用
   readBy: Types.ObjectId[]; // 已讀用戶
+  courses: Types.ObjectId[]; // 課程IDs
   createdAt: Date;
   updatedAt: Date;
 }

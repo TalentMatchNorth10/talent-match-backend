@@ -8,6 +8,7 @@ const userController = {
       const user = (req as any).user;
       if (user) {
         handleSuccess(res, {
+          id: user.id,
           nick_name: user.nick_name,
           avator_image: user.avator_image || user.avator_google_url || '',
           is_teacher: user.is_teacher || false

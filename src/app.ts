@@ -30,8 +30,8 @@ import commonRouter from './routes/common';
 import fileRouter from './routes/file';
 import chatRouter from './routes/chat';
 import announcementRouter from './routes/announcement';
-import messageRouter from './routes/message';
 import teacherTransRecordRouter from './routes/teacherTransRecord';
+
 const app = express();
 
 // 程式出現重大錯誤
@@ -90,7 +90,6 @@ app.use('/api/common', commonRouter);
 app.use('/api/file', fileRouter);
 app.use('/api/chat', chatRouter);
 app.use('/api/announcement', announcementRouter);
-app.use('/api/message', messageRouter);
 
 // express 錯誤處理
 // 生產環境錯誤

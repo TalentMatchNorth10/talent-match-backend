@@ -93,6 +93,88 @@ const AnnouncementSchema = {
             }
         }
     },
+    AnnouncementUserListResponseModel: {
+        type: 'object',
+        required: ['status', 'data'],
+        properties: {
+            status: { type: 'boolean' },
+            data: {
+                type: 'array',
+                items: {
+                    type: 'object',
+                    required: ['id', 'user', 'title', 'text', 'createdAt', 'readBy'],
+                    properties: {
+                        id: {
+                            type: 'string',
+                            description: '公告ID'
+                        },
+                        user: {
+                            type: 'object',
+                            required: ['id', 'name', 'avatar'],
+                            properties: {
+                                id: {
+                                    type: 'string',
+                                    description: '老師ID'
+                                },
+                                name: {
+                                    type: 'string',
+                                    description: '老師名稱'
+                                },
+                                avatar: {
+                                    type: 'string',
+                                    description: '老師頭像'
+                                }
+                            }
+                        },
+                        title: {
+                            type: 'string',
+                            description: '公告標題'
+                        },
+                        text: {
+                            type: 'string',
+                            description: '公告內容'
+                        },
+                        createdAt: {
+                            type: 'string',
+                            description: '公告發送時間'
+                        }
+                    }
+                }
+            }
+        }
+    },
+    AnnouncementSystemListResponseModel: {
+        type: 'object',
+        required: ['status', 'data'],
+        properties: {
+            status: { type: 'boolean' },
+            data: {
+                type: 'array',
+                items: {
+                    type: 'object',
+                    required: ['id', 'title', 'text', 'createdAt'],
+                    properties: {
+                        id: {
+                            type: 'string',
+                            description: '系統公告ID'
+                        },
+                        title: {
+                            type: 'string',
+                            description: '系統公告標題'
+                        },
+                        text: {
+                            type: 'string',
+                            description: '系統公告內容'
+                        },
+                        createdAt: {
+                            type: 'string',
+                            description: '系統公告發送時間'
+                        }
+                    }
+                }
+            }
+        }
+    },
     SendAnnouncementRequestModel: {
         type: 'object',
         required: ['title', 'text', 'courseIds', 'target'],
