@@ -3,7 +3,13 @@ import handleSuccess from '../services/handleSuccess';
 import appError from '../services/appError';
 import CourseModel from '../models/courseModel';
 import MessageModel from '../models/messageModel';
+import UserModel from '../models/userModel';
 import { MessageTarget, MessageType } from '../models/types/message.interface';
+import { getIO } from '../websocket';
+import {
+  emitAnnouncementCreated,
+  emitSystemAnnouncement
+} from '../websocket/events/announcement/emitter';
 
 const announcementController = {
   init: async (req: Request, res: Response, next: NextFunction) => {
@@ -46,7 +52,7 @@ const announcementController = {
   },
   send: async (req: Request, res: Response, next: NextFunction) => {
     const { user } = req;
-    const { title, text, target, courseId } = req.body;
+    const { title, text, target, courseIds } = req.body;
 
     if (!user?.is_teacher) {
       appError(400, '請先成為老師', next);
@@ -56,7 +62,7 @@ const announcementController = {
       appError(400, '請填寫完整', next);
     }
 
-    if (target !== MessageTarget.ALL && !courseId.length) {
+    if (!courseIds.length) {
       appError(400, '需選擇發送課程', next);
     }
 
@@ -67,14 +73,57 @@ const announcementController = {
         announcementTitle: title,
         type: MessageType.ANNOUNCEMENT,
         target,
-        courses: courseId
+        courses: courseIds
       });
       await message.save();
+
+      const io = getIO();
+
+      let queryUserFilter = {};
+      switch (target) {
+        case MessageTarget.PURCHASERS:
+          queryUserFilter = {
+            course_purchases: { $elemMatch: { course_id: { $in: courseIds } } }
+          };
+          break;
+        case MessageTarget.SUBSCRIBERS:
+          queryUserFilter = {
+            favorites: { $in: courseIds }
+          };
+          break;
+        case MessageTarget.ALL:
+          queryUserFilter = {
+            $or: [
+              {
+                course_purchases: {
+                  $elemMatch: { course_id: { $in: courseIds } }
+                }
+              },
+              { favorites: { $in: courseIds } }
+            ]
+          };
+          break;
+      }
+
+      const users = await UserModel.find(queryUserFilter);
+      const userIds = users.map((user) => `user-${user._id.toString()}`);
+      const emitAnnouncement = {
+        id: message._id.toString(),
+        title: message.announcementTitle || '',
+        text: message.text,
+        createdAt: message.createdAt.toString(),
+        user: {
+          id: user!._id.toString(),
+          name: user!.name || '',
+          avatar: user!.avator_image || ''
+        }
+      };
+      emitAnnouncementCreated(io, userIds, emitAnnouncement);
+
+      handleSuccess(res, '發送公告成功');
     } catch (err) {
       appError(400, '發送公告失敗', next);
     }
-
-    handleSuccess(res, '');
   },
   getList: async (req: Request, res: Response, next: NextFunction) => {
     const { user } = req;
@@ -98,7 +147,7 @@ const announcementController = {
             title: '$announcementTitle',
             text: 1,
             target: 1,
-            created_at: 1,
+            createdAt: 1,
             readBy: 1
           }
         }
@@ -111,10 +160,9 @@ const announcementController = {
   getUserList: async (req: Request, res: Response, next: NextFunction) => {
     const { user } = req;
 
-    const favoriteCourseIds = user?.favorites;
-    const purchasedCourseIds = user?.course_purchases.map(
-      (course) => course.course_id
-    );
+    const favoriteCourseIds = user?.favorites || [];
+    const purchasedCourseIds =
+      user?.course_purchases.map((course) => course.course_id) || [];
 
     try {
       const announcementMessages = await MessageModel.aggregate([
@@ -123,7 +171,10 @@ const announcementController = {
             type: MessageType.ANNOUNCEMENT,
             $or: [
               {
-                target: MessageTarget.ALL
+                target: MessageTarget.ALL,
+                courses: {
+                  $in: [new Set([...purchasedCourseIds, ...favoriteCourseIds])]
+                }
               },
               {
                 target: MessageTarget.PURCHASERS,
@@ -155,7 +206,7 @@ const announcementController = {
                   _id: 0,
                   id: '$_id',
                   name: 1,
-                  avatar: 1
+                  avatar: '$avator_image'
                 }
               }
             ],
@@ -203,6 +254,38 @@ const announcementController = {
   },
   sendSystem: async (req: Request, res: Response, next: NextFunction) => {
     const { user } = req;
+    const { title, text } = req.body;
+
+    if (!user?.is_teacher) {
+      appError(400, '請先成為老師', next);
+    }
+
+    if (!title || !text) {
+      appError(400, '請填寫完整', next);
+    }
+
+    try {
+      const message = new MessageModel({
+        senderId: user!._id,
+        text,
+        announcementTitle: title,
+        type: MessageType.SYSTEM
+      });
+      await message.save();
+
+      const io = getIO();
+      const emitAnnouncement = {
+        id: message._id.toString(),
+        title: message.announcementTitle || '',
+        text: message.text,
+        createdAt: message.createdAt.toString()
+      };
+      emitSystemAnnouncement(io, emitAnnouncement);
+
+      handleSuccess(res, '發送系統公告成功');
+    } catch (err) {
+      appError(400, '發送系統公告失敗', next);
+    }
 
     handleSuccess(res, '');
   },

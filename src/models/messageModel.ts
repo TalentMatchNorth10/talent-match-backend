@@ -27,10 +27,7 @@ const messageSchema = new Schema<Message>(
     courses: {
       type: [{ type: Schema.Types.ObjectId, ref: 'Course' }],
       required: function (this: Message) {
-        return (
-          this.type === MessageType.ANNOUNCEMENT &&
-          this.target !== MessageTarget.ALL
-        );
+        return this.type === MessageType.ANNOUNCEMENT;
       }
     },
     readBy: [{ type: Schema.Types.ObjectId, ref: 'User' }]

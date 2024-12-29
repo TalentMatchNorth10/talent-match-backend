@@ -45,10 +45,6 @@ export function joinPersonalRoom(socket: Socket): void {
 
   const personalRoomId = `user-${user._id}`; // 動態生成個人房間名稱
   joinRoom(socket, personalRoomId); // 使用通用的加入房間邏輯
-  socket.emit('room-joined', {
-    roomId: personalRoomId,
-    message: `已成功加入個人房間 ${personalRoomId}`
-  });
 }
 
 // 離開個人房間
@@ -63,8 +59,4 @@ export function leavePersonalRoom(socket: Socket): void {
 
   const personalRoomId = `user-${user._id}`; // 動態生成個人房間名稱
   leaveRoom(socket, personalRoomId); // 使用通用的離開房間邏輯
-  socket.emit('room-left', {
-    roomId: personalRoomId,
-    message: `已成功離開個人房間 ${personalRoomId}`
-  });
 }

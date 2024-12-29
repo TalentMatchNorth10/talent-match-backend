@@ -16,8 +16,15 @@ export const emitNewMessage = (
 /**
  * 廣播已讀狀態更新
  */
-export const emitReadStatusUpdated = (io: Server, chatId: string) => {
-  io.to(chatId).emit(CHAT_EVENTS.READ_STATUS_UPDATED, '');
+export const emitReadStatusUpdated = (
+  io: Server,
+  chatId: string,
+  userId: string
+) => {
+  io.to(chatId).emit(CHAT_EVENTS.READ_STATUS_UPDATED, {
+    chatId,
+    userId
+  });
 };
 
 /**
