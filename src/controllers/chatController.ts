@@ -201,11 +201,16 @@ const chatController = {
             id: '$_id',
             senderId: 1,
             receiverId: {
-              $filter: {
-                input: chat!.participantIds,
-                as: 'participantId',
-                cond: { $ne: ['$$participantId', '$senderId'] }
-              }
+              $arrayElemAt: [
+                {
+                  $filter: {
+                    input: chat!.participantIds,
+                    as: 'participantId',
+                    cond: { $ne: ['$$participantId', '$senderId'] }
+                  }
+                },
+                0
+              ]
             },
             text: 1,
             type: 1,
@@ -361,26 +366,35 @@ const chatController = {
         }
       );
 
-      await ChatModel.updateOne(
-        {
-          _id: chatId,
-          unreadCounts: {
-            $elemMatch: {
-              $eq: user!._id
-            }
-          }
-        },
-        {
-          $set: {
-            [`unreadCounts.${user!._id}`]: 0
-          }
-        }
-      );
+      chat!.unreadCounts[user!._id.toString()] = 0;
+      await chat!.save();
 
       const io = getIO();
 
       // 通知此聊天室所有人已讀狀態需更新
-      emitReadStatusUpdated(io, chatId);
+      emitReadStatusUpdated(io, chatId, user!._id.toString());
+
+      // 通知更新已讀訊息的使用者其聊天室列表更新
+      const receiverId = chat!.participantIds.find(
+        (id) => id.toString() !== user!._id.toString()
+      );
+      const receiver = await UserModel.findById(receiverId);
+
+      emitChatListUpdated(io, user!._id.toString(), {
+        id: chatId,
+        latestMessage: {
+          text: chat!.latestMessage.text,
+          sentAt: chat!.latestMessage.sentAt.toString()
+        },
+        user: {
+          id: receiverId!.toString(),
+          name: receiver!.name || '',
+          avatar: receiver!.avator_image || ''
+        },
+        unreadCount: 0
+      });
+
+      handleSuccess(res, '更新聊天室已讀狀態成功');
     } catch (err) {
       appError(400, '更新聊天室已讀狀態失敗', next);
     }
