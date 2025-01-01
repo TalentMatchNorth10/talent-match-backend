@@ -14,9 +14,6 @@ const TeacherTransRecordController = {
         {
           $match: {
             teacher_id: teacherId,
-            reserve_time: {
-              $lt: DateUtil.formatLocalDate(new Date())
-            },
             teacher_status: {
               $in: ['reserved', 'completed']
             },
@@ -120,7 +117,6 @@ const TeacherTransRecordController = {
               reservation_id: '$_id',
               reserve_time: '$reserve_time',
               teacher_status: '$teacher_status',
-              student_status: '$student_status',
               course_name: '$course_id.name',
               student_name: '$student_id.name',
               student_nick_name: '$student_id.nick_name',
@@ -134,10 +130,7 @@ const TeacherTransRecordController = {
         {
           $lookup: {
             from: 'reservations',
-            let: {
-              student_id: '$_id.student_id',
-              course_id: '$_id.course_id'
-            },
+            let: { student_id: '$_id.student_id', course_id: '$_id.course_id' },
             pipeline: [
               {
                 $match: {
@@ -145,8 +138,7 @@ const TeacherTransRecordController = {
                     $and: [
                       { $eq: ['$student_id', '$$student_id'] },
                       { $eq: ['$course_id', '$$course_id'] },
-                      { $eq: ['$teacher_status', 'reserved'] },
-                      { $eq: ['$student_status', 'reserved'] }
+                      { $eq: ['$teacher_status', 'reserved'] }
                     ]
                   }
                 }
@@ -174,27 +166,111 @@ const TeacherTransRecordController = {
         },
         {
           $project: {
-            _id: '$_id.reservation_id',
-            course_name: '$_id.course_name',
-            email: '$_id.student_email',
-            nick_name: '$_id.student_nick_name',
+            _id: 1,
+            course_name: 1,
+            student: 1,
             total: 1,
             price: 1,
             reserved_amount: 1,
-            reserve_date: {
-              $dateToString: { format: '%Y-%m-%d', date: '$_id.reserve_time' }
+            reserve_date: 1,
+            reserve_time: 1,
+            teacher_status: 1,
+            sn: { $toString: '$sn' }
+          }
+        },
+        {
+          $sort: {
+            '_id.student_id': 1,
+            '_id.course_id': 1,
+            '_id.reserve_time': 1
+          }
+        },
+        {
+          $group: {
+            _id: {
+              student_id: '$_id.student_id',
+              course_id: '$_id.course_id'
             },
-            reserve_time: {
-              $dateToString: { format: '%H:%M', date: '$_id.reserve_time' }
-            },
-            teacher_status: '$_id.teacher_status',
-            student_status: '$_id.student_status'
+            records: {
+              $push: {
+                _id: '$_id.reservation_id',
+                course_name: '$_id.course_name',
+                nick_name: '$_id.student_nick_name',
+                email: '$_id.student_email',
+                total: '$total',
+                price: '$price',
+                reserved_amount: '$reserved_amount',
+                reserve_date: {
+                  $dateToString: {
+                    format: '%Y-%m-%d',
+                    date: '$_id.reserve_time'
+                  }
+                },
+                reserve_time: {
+                  $dateToString: { format: '%H:%M', date: '$_id.reserve_time' }
+                },
+                teacher_status: '$_id.teacher_status'
+              }
+            }
+          }
+        },
+        {
+          $unwind: {
+            path: '$records',
+            includeArrayIndex: 'index'
+          }
+        },
+
+        {
+          $project: {
+            _id: '$records._id',
+            course_name: '$records.course_name',
+            nick_name: '$records.nick_name',
+            email: '$records.email',
+            contact_phone: '$records.contact_phone',
+            total: '$records.total',
+            price: '$records.price',
+            reserved_amount: '$records.reserved_amount',
+            reserve_date: '$records.reserve_date',
+            reserve_time: '$records.reserve_time',
+            teacher_status: '$records.teacher_status',
+            sn: { $toString: { $add: ['$index', 1] } }
+          }
+        },
+        {
+          $match: {
+            $expr: {
+              $and: [
+                {
+                  $gte: [
+                    { $dateFromString: { dateString: '$reserve_date' } },
+                    {
+                      $dateFromString: {
+                        dateString: {
+                          $dateToString: {
+                            format: '%Y-%m-01',
+                            date: new Date()
+                          }
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  $lte: [
+                    { $dateFromString: { dateString: '$reserve_date' } },
+                    new Date()
+                  ]
+                }
+              ]
+            }
           }
         },
         {
           $sort: {
             reserve_date: 1,
-            reserve_time: 1
+            reserve_time: 1,
+            course_name: 1
           }
         }
       ]);
@@ -416,6 +492,7 @@ const TeacherTransRecordController = {
             includeArrayIndex: 'index'
           }
         },
+
         {
           $project: {
             _id: '$records._id',
@@ -430,6 +507,26 @@ const TeacherTransRecordController = {
             reserve_time: '$records.reserve_time',
             teacher_status: '$records.teacher_status',
             sn: { $toString: { $add: ['$index', 1] } }
+          }
+        },
+        {
+          $match: {
+            $expr: {
+              $and: [
+                {
+                  $gte: [
+                    { $dateFromString: { dateString: '$reserve_date' } },
+                    new Date(startDate)
+                  ]
+                },
+                {
+                  $lte: [
+                    { $dateFromString: { dateString: '$reserve_date' } },
+                    new Date(endDate)
+                  ]
+                }
+              ]
+            }
           }
         },
         {
