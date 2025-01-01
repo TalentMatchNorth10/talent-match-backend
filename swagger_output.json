@@ -13900,9 +13900,9 @@
                       "type": "string",
                       "description": "老師狀態"
                     },
-                    "student_status": {
+                    "sn": {
                       "type": "string",
-                      "description": "學生狀態"
+                      "description": "序號"
                     }
                   }
                 }
@@ -13925,7 +13925,7 @@
                 "reserve_date": "2024-12-04",
                 "reserve_time": "10:00",
                 "teacher_status": "reserved",
-                "student_status": "reserved"
+                "sn": "1"
               },
               {
                 "total": 1,
@@ -13938,7 +13938,20 @@
                 "reserve_date": "2024-12-04",
                 "reserve_time": "13:49",
                 "teacher_status": "reserved",
-                "student_status": "reserved"
+                "sn": "1"
+              },
+              {
+                "total": 20,
+                "price": 5000,
+                "reserved_amount": 3,
+                "_id": "676acc37938c426374b69c56",
+                "course_name": "油畫大師養成計劃123",
+                "email": "talentmatch10@gmail.com",
+                "nick_name": "talent match (才藝連連)",
+                "reserve_date": "2024-12-26",
+                "reserve_time": "15:00",
+                "teacher_status": "reserved",
+                "sn": "2"
               }
             ]
           }
@@ -14014,14 +14027,27 @@
           "data": {
             "uncompleted_reserves": [
               {
-                "_id": "676ac26266b1cc46dae34b13",
+                "_id": "676acd1a938c426374b69c61",
                 "course_name": "油畫大師養成計劃123",
                 "nick_name": "talent match (才藝連連)",
                 "email": "talentmatch10@gmail.com",
                 "total": 20,
                 "price": 5000,
                 "reserved_amount": 3,
-                "reserve_date": "2024-12-04",
+                "reserve_date": "2024-12-27",
+                "reserve_time": "10:00",
+                "teacher_status": "reserved",
+                "sn": "3"
+              },
+              {
+                "_id": "676ad9a6dc2171847c3bc1fd",
+                "course_name": "油畫大師養成計劃123",
+                "nick_name": "shiba",
+                "email": "shiba0926@gmail.com",
+                "total": 330,
+                "price": 1000,
+                "reserved_amount": 1,
+                "reserve_date": "2024-12-30",
                 "reserve_time": "10:00",
                 "teacher_status": "reserved",
                 "sn": "1"
