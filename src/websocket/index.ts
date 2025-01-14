@@ -10,6 +10,7 @@ import {
   leaveRoom,
   ROOM_EVENTS
 } from './roomManager';
+import { ANNOUNCEMENT_EVENTS } from './events/announcement/event';
 
 let io: SocketIOServer; // 用於存儲 WebSocket 實例
 
@@ -36,6 +37,14 @@ export function initializeWebSocket(server: HttpServer): SocketIOServer {
     });
 
     socket.on(ROOM_EVENTS.LEAVE_PERSONAL_ROOM, () => {
+      leavePersonalRoom(socket);
+    });
+
+    socket.on(ANNOUNCEMENT_EVENTS.JOIN_BULLETIN, () => {
+      joinPersonalRoom(socket);
+    });
+
+    socket.on(ANNOUNCEMENT_EVENTS.LEAVE_BULLETIN, () => {
       leavePersonalRoom(socket);
     });
 

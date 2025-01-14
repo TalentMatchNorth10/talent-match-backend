@@ -220,7 +220,7 @@ const announcementController = {
             user: { $arrayElemAt: ['$user', 0] },
             title: '$announcementTitle',
             text: 1,
-            created_at: 1
+            createdAt: 1
           }
         }
       ]);
